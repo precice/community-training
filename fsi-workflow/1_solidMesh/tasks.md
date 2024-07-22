@@ -62,10 +62,11 @@ This allows us to export all the groups together with the mesh.
  
  ![rename](./images/PD_rename.png)
  
- 
  - (drop down menu) Part design->create body (or press button)
 
  ![rename](./images/PD_new.png)
+ 
+ - You'll find a new **body** in the *combo view*
  
  ![rename](./images/PD_body.png)
  
@@ -136,6 +137,7 @@ Now we mesh the wing:
  - rename Label in Properties to **root**
 
 ![select](./images/Groups05.png)
+
  - repeat for other surfaces (they are **4**: upper, lower, tip and trailing. pay attention to trailing edge surface)
  - rename the group to **wetSurface**
 
