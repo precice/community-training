@@ -17,7 +17,7 @@ Tasks:
 
  ---
  
- # Step 1: Mesh of Fluid domain
+ # Step 1: Mesh of Solid domain
  
  In this section we'll generate the **Solid Mesh** using **FreeCAD** version *0.21.2*.
  
