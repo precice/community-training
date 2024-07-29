@@ -3471,78 +3471,27 @@
 Evolumes
 
 ** Group data
-** GroupID: 0 --> GroupName: root_Faces --> GroupElementType: Face
-*ELSET, ELSET=root_Faces
-797
-798
-799
-800
-801
-802
-803
-804
-805
-806
-807
-808
-809
-810
-811
-812
-813
+** GroupID: 0 --> GroupName: tip_Faces --> GroupElementType: Face
+*ELSET, ELSET=tip_Faces
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
 
-** GroupID: 1 --> GroupName: root_Nodes --> GroupElementType: Node
-*NSET, NSET=root_Nodes
-1
-4
-6
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-1619
-1620
-1621
-1622
-1623
-1624
-1625
-1626
-1627
-1628
-1629
-1630
-1631
-1632
-1633
-1634
-1635
-1636
-1637
-1638
-1639
-1640
-
-** GroupID: 2 --> GroupName: wetSurface_Faces --> GroupElementType: Face
+** GroupID: 1 --> GroupName: wetSurface_Faces --> GroupElementType: Face
 *ELSET, ELSET=wetSurface_Faces
 1
 2
@@ -4358,7 +4307,129 @@ Evolumes
 829
 830
 
-** GroupID: 3 --> GroupName: wetSurface_Nodes --> GroupElementType: Node
+** GroupID: 2 --> GroupName: tip_Nodes --> GroupElementType: Node
+*NSET, NSET=tip_Nodes
+2
+3
+5
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+117
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+1641
+1642
+1643
+1644
+1645
+1646
+1647
+1648
+1649
+1650
+1651
+1652
+1653
+1654
+1655
+1656
+1657
+1658
+1659
+1660
+1661
+1662
+
+** GroupID: 3 --> GroupName: root_Nodes --> GroupElementType: Node
+*NSET, NSET=root_Nodes
+1
+4
+6
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+1619
+1620
+1621
+1622
+1623
+1624
+1625
+1626
+1627
+1628
+1629
+1630
+1631
+1632
+1633
+1634
+1635
+1636
+1637
+1638
+1639
+1640
+
+** GroupID: 4 --> GroupName: root_Faces --> GroupElementType: Face
+*ELSET, ELSET=root_Faces
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+
+** GroupID: 5 --> GroupName: wetSurface_Nodes --> GroupElementType: Node
 *NSET, NSET=wetSurface_Nodes
 1
 2
