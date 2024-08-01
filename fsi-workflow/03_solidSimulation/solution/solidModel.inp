@@ -1,4 +1,4 @@
-*INCLUDE, INPUT=wing2312.msh
+*INCLUDE, INPUT=wing2312fine.inp
 *MATERIAL, Name=EL
 *ELASTIC
  400000, 0.3
@@ -13,7 +13,7 @@ root_Nodes, 1, 3
 *AMPLITUDE, Name=A1
 0.,1.,0.5,1.
 *CLOAD, OP=NEW, AMPLITUDE=A1, TIME DELAY=0. 
- tip_Nodes, 3, 500.
+ tip_Nodes, 2, 10.
 *NODE FILE
  U
 *EL FILE
