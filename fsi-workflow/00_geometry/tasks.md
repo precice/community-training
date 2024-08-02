@@ -1,53 +1,43 @@
-# FSI Workflow
+# Community course on preCICE: FSI Workflow
 
 A training module showcasing how to setup an FSI simulation from scratch.
 
+\vspace{2em}
 
----
+Claudio Caccia, Politecnico di Milano\newline `<claudiogiovanni.caccia@polimi.it>`
+Gerasimos Chourdakis, University of Stuttgart `<gerasimos.chourdakis@ipvs.uni-stuttgart.de>`
 
+## Dependencies
 
-Tasks:
+We will use the following software:
 
- - [x] **Geometry** preparation
- - [ ] Meshing of **Solid Domain**
- - [ ] Meshing of **Fluid Domain** 
- - [ ] etc. [TODO: update]
- 
- 
+- [FreeCAD](https://www.freecad.org/) (at least version 0.21)
+- [preCICE](https://precice.org/installation-overview.html) (at least version 3.1)
+- [CalculiX](http://calculix.de/) (tested with v2.20) and the [CalculiX adapter](https://precice.org/adapter-calculix-overview.html)
+- [OpenFOAM](https://www.openfoam.com/) (tested with v2406) and the [OpenFOAM adapter](https://precice.org/adapter-openfoam-overview.html)
 
- ---
- 
- # Step 0: Geometry preparation
- 
+## Task 0: Prepare the geometry
+
+We will simulate fluid-structure interaction of a very simple airfoil, in 3D. [NACA airfoils](https://en.wikipedia.org/wiki/NACA_airfoil) are standardized designs that are popular in designing aircraft wings.
 Our case involves a **NACA2312** profile wing with:
 
- - *chord* $c=100mm$
- - *span* $b=300mm$
- 
- In this folder you already find the model of the wing that you'll be using during the rest of the training. Our training starts with *meshing*, but in real life you'll need to generate your geometry.
- You'll notice that two different file formats are provided **stl** and **step**. Both are widely used for data exchange and nearly all CAD systems allow to *import/export* such formats.
- 
- We are considering an external flow, so we'll use the solid geometry to generate the **solid mesh** and we'll subtract it from a sufficiently large box to generate the **fluid mesh**.
- 
- 
- ---
- 
- ## Notes [TLDR]
- 
- 
- You might wonder: "Why two formats?": **stl** (which describes an unstructured triangulated surface) is required if you want to mesh using `snappyHexMesh` in OpenFOAM. As it describes a *surface*, sometimes some tools fail to recognize a *solid* from it.
- For this reason, we'll use the *step* format, which is quite robust and explicitly defines volumes.
- 
- Once you generate your model with your favorite CAD tool, you can export it in both formats and use them the way we'll use them in the following tasks.
- 
- Notice that sometimes some parameters need to be tuned in order to obtain a sufficiently refined **stl** surface.
- 
- 
- ---
- 
- ## References
- 
- - [STL](https://en.wikipedia.org/wiki/STL_(file_format)) file format
- - [STEP](https://en.wikipedia.org/wiki/ISO_10303-21) file format 
- 
- 
+- *chord* $c=100mm$
+- *span* $b=300mm$
+
+We would typically start by designing our geometry in a CAD software (e.g., FreeCAD), but we assume you already know how to do that using your own workflows. To save some time, use the wing model that you can find in this folder.
+
+You'll notice that two different file formats are provided: a `.stl` file and a `.step` file. Both are widely used for data exchange and nearly all CAD systems allow importing and exporting such formats. In this training, we will need both files: See why in the notes below.
+
+When meshing a flow domain, we need to consider whether we are simulating external or internal flow. In this case, we are considering an external flow: we will use the solid geometry to generate the **solid mesh**, and we will subtract it from a sufficiently large box to generate the **fluid mesh**.
+
+### Notes on file formats
+
+You might wonder: "Why two formats?".
+
+We will prepare the fluid mesh using the `snappyHexMesh` tool of OpenFOAM. This [supports various geometry formats](https://www.openfoam.com/documentation/guides/latest/doc/guide-meshing-snappyhexmesh-geometry.html), including [STL](https://en.wikipedia.org/wiki/STL_(file_format)), a quite common format.
+
+STL files describe unstructured triangulated surfaces. However, some tools cannot model solids based on this description. Instead, we will use a [STEP](https://en.wikipedia.org/wiki/ISO_10303-21) file to describe the solid, which explicitly defines volumes.
+
+Once you generate your model with your favorite CAD tool, you can export it in both formats and use these the way we'll use them in the following tasks.
+
+Notice that, sometimes, some parameters need to be tuned in order to obtain a sufficiently refined STL surface. Use the provided files to avoid any mesh-related issues later on. Overall, meshing is often (very) complicated, and we only want to give you a starting point for a rather simple case.
