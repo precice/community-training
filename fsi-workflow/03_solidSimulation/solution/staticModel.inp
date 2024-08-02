@@ -1,0 +1,19 @@
+*INCLUDE, INPUT=wing2312.msh
+*MATERIAL, Name=EL
+*ELASTIC
+ 400000, 0.3
+*DENSITY
+ 3000
+*SOLID SECTION, Elset=Eall, Material=EL
+*STEP, INC=1000000
+*STATIC,
+1., 1.
+*BOUNDARY
+root_Nodes, 1, 3
+*CLOAD, 
+ tip_Nodes, 2, 500.
+*NODE FILE
+ U
+*EL FILE
+ S, E
+*END STEP
