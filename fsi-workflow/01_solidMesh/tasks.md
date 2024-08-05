@@ -90,7 +90,7 @@ If everything went as expected, a mesh should appear. In case you get any error 
 
 ## Create mesh groups
 
-Now that we have a mesh, we also need to create the boundaries. Since we want to couple the complete surface, it makes sense that we add all the boundaries into one group as well.
+Now that we have a mesh, we also need to create the boundaries. We will need to identify the `root surface`, which will be clamped, and the `wet surface`, which will be in contact with the fluid. These surfaces are defined as `mesh groups`. 
 
 - From the `Model` tav, expand the `Analysis` branch and select `FEMMeshGmsh`:
 
@@ -110,17 +110,36 @@ Now that we have a mesh, we also need to create the boundaries. Since we want to
 
 ![FreeCAD: Add surface to mesh group](./images/Groups04.png)
 
-- Click `Add`, then click on the rendering to select the profile of the wing (pay attention to reference frame to identify it), and `OK` to add the surface to the mesh group. You can rotate the view using the cude on the upper right corner, or [using your mouse](https://wiki.freecad.org/Mouse_navigation) (e.g., by `Shift` + `right click`).
-- In the `Model` tab, select the `MeshGroup` and rename its `Label` to `root`.
+- Click `Add`, then click on the rendering to select the profile of the wing (pay attention to reference frame to identify it), and `OK` to add the surface to the mesh group. You can rotate the view using the cube on the upper right corner, or [using your mouse](https://wiki.freecad.org/Mouse_navigation) (e.g., by `Shift` + `right click`).
+
+![FreeCAD: surface group for root](./images/root_Group.png)
+
+- In the `Model` tab, select the `MeshGroup` and rename its `Label` to `root`. This will help us define the boundary condition in the Solid domain.
 
 ![FreeCAD: Rename mesh group](./images/Groups05.png)
 
-- Repeat for other surfaces (they are 4: `upper`, `lower`, `tip` and `trailing`. Pay attention to the trailing edge surface, you need to zoom-in to see it). Remember to first select `FEMMeshGmsh`.
-- Rename the group (**TODO: Which? How?**) to `wetSurface`
+- Define a new group comprising all components of the `wet Surface` (they are 4: as shown below. Pay attention to the trailing edge surface, you need to zoom-in to see it). Remember to first select `FEMMeshGmsh`.
 
-- Repeat for the leading edge (it will be used for single physics tests), with group name `tip`.
+| ![FreeCAD: wet surface 1](./images/group_WS_01.png) | ![FreeCAD: we surface 2](./images/group_WS_02.png) |
+| ![FreeCAD: wet surface 3](./images/group_WS_03.png) | ![FreeCAD: we surface 4](./images/group_WS_04.png) |
 
-**TODO:** Add screenshot with final setup
+- In order to define a goup with multiple surfaces:
+  1. click `Add`
+  2. `select` the desired surface 
+  3. `repeat` steps `1.` and `2.` for each of the four elements
+  4. Click `OK` 
+
+![FreeCAD: wet surface steps](./images/group_WS_steps.png)  
+  
+- As for the `root` Group. change the `Label` in the `Properties` to `wetSurface`
+
+![FreeCAD: Rename wet surface group](./images/group_WS_rename.png)
+
+- Finally, create a group for the wingtip surface using the same steps used for the root surface, with group name `tip`. It will be used for single physics tests.
+
+You should come up with a list of three groups under the current mesh.
+
+![FreeCAD: final list of groups](./images/groups_final.png)
 
 Select the mesh -> double click -> click `Apply` to remesh and create groups -> click `OK`.
 
@@ -138,10 +157,10 @@ Save also the FreeCAD model with `File` -> `Save`.
 
 To verify, open the `wing2312.inp` file you just generated with a text editor:
 
-- Look for `ELSET`: Skip the `Evolume` set, you may remove all other `ELSET` entries (but you don't need to, they are just not used in the rest of the course)
-- Look for `NSET`: skip `Nall`
-  - `*NSET, NSET=tip_Nodes` 
-  - `*NSET, NSET=wetSurface_Nodes`
-  - `*NSET, NSET=root_Nodes`
-- Notice the names of all the sets of nodes for each of the groups.
+- Look for `NSET`: you should find
+  - `NSET=Nall`: this keyword defines the beginning of the list of coordinates of all the mesh nodes
+  - `*NSET, NSET=root_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `root`
+  - `*NSET, NSET=wetSurface_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `wetSurface`
+  - `*NSET, NSET=tip_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `tip`  
+- Take note of the exact names of all the sets of nodes for each of the groups, because we'll use them in the following steps.
 - save and close
