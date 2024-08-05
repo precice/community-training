@@ -137,6 +137,8 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 - Finally, create a group for the wingtip surface using the same steps used for the root surface, with group name `tip`. It will be used for single physics tests.
 
+![FreeCAD: wingtip group](./images/tip_group.png)
+
 You should come up with a list of three groups under the current mesh.
 
 ![FreeCAD: final list of groups](./images/groups_final.png)
