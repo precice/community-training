@@ -18,7 +18,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application         pimpleFoam;
+application         snappyHexMesh;
 
 //libs ( "libOpenFOAM.so" "libgroovyBC.so" ) ;
 libs ( "libOpenFOAM.so" ) ;
@@ -49,122 +49,7 @@ timeFormat          general;
 
 timePrecision       12;
 
-runTimeModifiable true;
+runTimeModifiable   true;
 //adjustTimeStep    yes;
 //maxCo             5.0;
 
-
-functions
-{
-    
-	forces
-    {
-        type                forces;
-        libs 		        ( "libforces.so" );
-        patches             (naca0012);
-        rho                 rhoInf;
-        log                 true;
-        rhoInf              1000;
-        CofR                (0 0 0);
-    }
-    
-	minmaxdomain
-    {
-        type fieldMinMax;
-        libs ("libfieldFunctionObjects.so");
-        enabled true;
-        mode component;
-        writeControl timeStep;
-        writeInterval 1;
-        log true;
-        fields (p U);
-    }
-    
-    Co1
-	{
-    	// Mandatory entries (unmodifiable)
-    	type            CourantNo;
-    	libs            (fieldFunctionObjects);
-
-    	// Optional entries (runtime modifiable)
-    	rho             rhoInf;
-    	rhoInf		1000;
-
-    	// Optional (inherited) entries
-    	//field           <phi>;
-    	//result          <fieldResult>;
-    	//region          region0;
-    	enabled         true;
-    	log             true;
-    	//timeStart       0;
-    	//timeEnd         1000;
-    	executeControl  timeStep;
-    	executeInterval 1;
-    	writeControl    timeStep;
-    	writeInterval   1;
-	}
-	
-	forceCoeffs1
-	{
-    	// Mandatory entries
-    	type            forceCoeffs;
-    	libs            ("libforces.so");
-    	patches         (naca0012);
-
-
-    	// Optional entries
-		
-    	// Field names
-    	//p               p;
-    	//U               U;
-    	rho         	rhoInf;
-	rhoInf      	1000;
-
-    	// Reference pressure [Pa]
-    	pRef            0;
-
-    	// Include porosity effects?
-    	porosity        no;
-
-    	// Store and write volume field representations of forces and moments
-    	writeFields     yes;
-
-    	// Centre of rotation for moment calculations
-    	CofR            (0 0 0);
-
-    	// Lift direction
-    	liftDir         (0 1 0);
-		
-    	// Drag direction
-    	dragDir         (1 0 0);
-
-    	// Pitch axis
-    	pitchAxis       (0 0 1);
-
-    	// Freestream velocity magnitude [m/s]
-    	magUInf         1;
-
-    	// Reference length [m]
-    	lRef            0.1;
-
-    	// Reference area [m2]
-    	Aref            0.03;
-
-    	// Spatial data binning
-    	// - extents given by the bounds of the input geometry
-    	//binData
-    	//{
-        //	nBin        20;
-        //	direction   (1 0 0);
-        //	cumulative  yes;
-    	//}
-}
-
-    preCICE_Adapter
-    {
-        type preciceAdapterFunctionObject;
-        libs ("libpreciceAdapterFunctionObject.so");
-    }
-
-
-}
