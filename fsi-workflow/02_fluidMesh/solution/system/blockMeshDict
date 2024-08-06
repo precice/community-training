@@ -1,0 +1,91 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+|*---------------------------------------------------------------------------*|
+|  File created by CFD support s.r.o.  on   Thu Feb  8 07:38:52 2018          |
+|                    http://www.cdfsupport.com                                |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version 2.0;
+    format ascii;
+    class dictionary;
+    location "meshFactory/component1/constant/polyMesh";
+    object blockMeshDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale 1;
+
+x1 -0.25; 
+x2 1.25;
+y1 -0.24;
+y2 0.24;
+z1 0;
+z2 0.48;
+
+vertices
+(
+     ( $x1  $y1  $z1)
+     ( $x2  $y1  $z1)
+     ( $x2  $y2  $z1)
+     ( $x1  $y2  $z1)
+     ( $x1  $y1  $z2)
+     ( $x2  $y1  $z2)
+     ( $x2  $y2  $z2)
+     ( $x1  $y2  $z2)
+);
+
+blocks
+(
+     hex (0 1 2 3 4 5 6 7) (25 8 8) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+
+    inlet
+    {
+        type patch;
+        faces
+        (
+             (0 4 7 3)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+             (2 6 5 1)
+        );
+    }
+    far
+    {
+        type slip;
+        faces
+        (
+             (1 5 4 0)
+             (4 5 6 7)
+             (3 7 6 2)        
+             (0 3 2 1)
+        );
+    }
+    symmetry
+    {
+        type symmetryPlane;
+        faces
+        (
+        );
+    }
+);
+
+// ************************************************************************* //
