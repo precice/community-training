@@ -32,66 +32,26 @@ addLayers true;
 // - to 'snap' the mesh boundary to the surface
 geometry
 {
-    naca0012.stl
+    naca2312.stl
     {
         type triSurfaceMesh;
-        name naca0012;
+        name naca2312;
     }
 
     
-    myBox2
+    refineBox
     {
         type searchableBox;
         min (-0.100 -0.05 -0.100);
         max ( 0.380  0.05  0.310);
     }    
-    
-    /*
-    LE
-    {
-        type            searchableCylinder;
-        point1          (-0.05  0 -0.1);
-        point2          (-0.05 0  0.31);
-        radius          0.012;
-    }
-    */
-    
+        
     wake
     {
         type searchableBox;
         min ( 0.000 -0.004 -0.100);
         max ( 0.200  0.004  0.310);
     }    
-
-    /*    
-    TE
-    
-    {
-        type searchableBox;
-        min ( 0.045 -0.005 -0.100);
-        max ( 0.060  0.005  0.305);
-    }    
-    
-    {
-        type            searchableCylinder;
-        point1          ( 0.05  0 -0.1);
-        point2          ( 0.05 0  0.305);
-        radius          0.0011;
-    }
-    */
-
-    /*
-    tip
-    {
-        type            searchableCylinder;
-        point1          ( -0.05 0 0.30);
-        point2          (  0.05 0 0.30);
-        radius          0.016;
-    }
-    */
-
-
-
 }
 
 // Settings for the castellatedMesh generation.
@@ -140,7 +100,7 @@ castellatedMeshControls
     features
     (
         {
-            file "naca0012.eMesh";
+            file "naca2312.eMesh";
             level 6;
         }
     );
@@ -152,7 +112,7 @@ castellatedMeshControls
     // angle > resolveFeatureAngle get refined up to the maximum level.    
     refinementSurfaces
     {
-        naca0012          
+        naca2312          
         { 
             level (5 7); 
             patchInfo 
@@ -183,46 +143,17 @@ castellatedMeshControls
     // - outside. Same but cells outside.        
     refinementRegions
     {
-        myBox2
+        refineBox
         {
             mode inside;
             levels ((1e5 2));
         }        
-        
-        /*
-        LE
-        {
-            mode inside;
-            levels ((1e5 4));
-        }
-        */
         
         wake
         {
             mode inside;
             levels ((1e5 4));
         }
-        /*
-        TE
-        {
-            mode inside;
-            levels ((1e5 7));
-        }
-        
-        naca0012
-        {
-            mode distance;
-            levels ((0.002 5));
-        }
-        */
-        /*
-        tip
-        {
-            mode inside;
-            levels ((1e5 5));
-        }
-        */
-
     }
     
     // Mesh selection
@@ -291,7 +222,7 @@ addLayersControls
     
     layers
     {
-        naca0012 
+        naca2312 
         {
             nSurfaceLayers  3;
             // expansionRatio  1.5;
