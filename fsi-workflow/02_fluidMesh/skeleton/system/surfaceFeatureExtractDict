@@ -19,7 +19,7 @@ FoamFile
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-naca0012.stl
+yourSTLfile.stl
 {
     extractionMethod extractFromSurface;
     extractFromSurfaceCoeffs
