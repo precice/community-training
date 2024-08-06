@@ -1,4 +1,4 @@
-*INCLUDE, INPUT=wing2312.msh
+*INCLUDE, INPUT=wing2312fine.inp
 *MATERIAL, Name=EL
 *ELASTIC
  400000, 0.3
