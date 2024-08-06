@@ -90,7 +90,7 @@ If everything went as expected, a mesh should appear. In case you get any error 
 
 ## Create mesh groups
 
-Now that we have a mesh, we also need to create the boundaries. We will need to identify the `root surface`, which will be clamped, and the `wet surface`, which will be in contact with the fluid. These surfaces are defined as `mesh groups`. 
+Now that we have a mesh, we also need to create the boundaries. We will need to identify the `root surface`, which will be clamped, and the `wet surface`, which will be in contact with the fluid. These surfaces are defined as `mesh groups`.
 
 - From the `Model` tav, expand the `Analysis` branch and select `FEMMeshGmsh`:
 
@@ -118,10 +118,10 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 ![FreeCAD: Rename mesh group](./images/Groups05.png)
 
-- Define a new group comprising all components of the `wet Surface` (they are 4: as shown below. Pay attention to the trailing edge surface, you need to zoom-in to see it). Remember to first select `FEMMeshGmsh`.
+- Define a new group comprising all components of the `wetSurface` (they are 4: as shown below. Pay attention to the trailing edge surface, you need to zoom-in to see it). Remember to first select `FEMMeshGmsh`.
 
-| ![FreeCAD: wet surface 1](./images/group_WS_01.png) | ![FreeCAD: we surface 2](./images/group_WS_02.png) |
-| ![FreeCAD: wet surface 3](./images/group_WS_03.png) | ![FreeCAD: we surface 4](./images/group_WS_04.png) |
+| ![FreeCAD: wet surface 1](./images/group_WS_01.png) | ![FreeCAD: wet surface 2](./images/group_WS_02.png) |
+| ![FreeCAD: wet surface 3](./images/group_WS_03.png) | ![FreeCAD: wet surface 4](./images/group_WS_04.png) |
 
 - In order to define a goup with multiple surfaces:
   1. click `Add`
@@ -143,9 +143,9 @@ You should come up with a list of three groups under the current mesh.
 
 ![FreeCAD: final list of groups](./images/groups_final.png)
 
-Select the mesh -> double click -> click `Apply` to remesh and create groups -> click `OK`.
+Select the mesh (`FEMMeshGmsh`) -> double click -> click `Apply` to remesh and create groups -> click `OK`.
 
-**IMPORTANT**: You need to remesh otherwise the groups won't be created.
+**IMPORTANT**: You need to remesh, otherwise the groups won't be created.
 
 ## Export the mesh file and verify
 
