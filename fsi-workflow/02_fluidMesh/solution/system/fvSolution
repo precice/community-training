@@ -1,0 +1,141 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+|*---------------------------------------------------------------------------*|
+|  File created by CFD support s.r.o.  on   Thu Feb  8 07:38:52 2018          |
+|                    http://www.cdfsupport.com                                |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    p
+    {
+        solver          PCG;
+        preconditioner  FDIC;
+        tolerance       1e-06;
+        relTol          0.01;
+    }
+
+    pFinal
+    {
+        $p;
+        relTol          0;
+    }
+
+    pcorr
+    {
+        solver          PCG;
+        preconditioner  FDIC;
+        tolerance       1e-06;
+        relTol          0.01;
+    }
+    
+    pcorrFinal
+    {
+        $pcorr;
+        relTol          0;
+    }
+    
+
+    Phi
+    {
+        $p;
+    }
+
+    U
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-8;
+        relTol          0.0;
+        minIter		2;
+    }
+
+    UFinal
+    {
+        $U;
+        relTol          0;
+    }
+    
+    cellDisplacement
+    {
+        solver          PCG;
+        preconditioner  DIC;
+
+        tolerance       1e-06;
+        relTol          0;
+        maxIter         100;
+    }
+    
+    cellDisplacementFinal
+    {
+    	$cellDisplacement;
+    }
+
+}
+
+PIMPLE
+{
+	consistent  yes;
+	
+	momentumPredictor yes;
+	
+    nCorrectors 3;
+    nNonOrthogonalCorrectors 2;
+    nOuterCorrectors 50;
+	
+	
+	residualControl
+    {
+        "(U|k|epsilon|omega)"
+        {
+            relTol          0.001;	//0.01  - 0.001  - 0.001Y
+            tolerance       0.0001;	//0.001 - 0.0001 - 0.0005Y
+        }
+
+        "(p|p_rgh)"
+        {
+            tolerance 0.001;
+            relTol 0;
+        }
+        U
+        {
+            tolerance 0.0001;
+            relTol 0;
+        }
+    }
+}
+
+relaxationFactors
+{
+
+    fields
+    {
+        ".*"     1;	//0.9-1 Be carefull when under-relaxing fields as it might become unstable
+    }
+    equations
+    {
+        "p.*"     0.9;	//0.7Y-0.9
+	"(U|k|omega).*"	0.9;
+    }
+}
+
+potentialFlow
+{
+    nNonOrthogonalCorrectors 2;
+}
+
+
+// ************************************************************************* //
