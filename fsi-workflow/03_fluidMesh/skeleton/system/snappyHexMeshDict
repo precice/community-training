@@ -20,9 +20,9 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 // Which of the steps to run
-castellatedMesh true;
-snap true;
-addLayers true;
+castellatedMesh false;
+snap false;
+addLayers false;
 
 // Geometry. Definition of all surfaces. All surfaces are of class
 // searchableSurface.
@@ -32,7 +32,7 @@ addLayers true;
 // - to 'snap' the mesh boundary to the surface
 geometry
 {
-    naca2312.stl
+    yourSTLfile.stl
     {
         type triSurfaceMesh;
         name naca2312;
@@ -100,7 +100,7 @@ castellatedMeshControls
     features
     (
         {
-            file "naca2312.eMesh";
+            file "yourSTLfile.eMesh";
             level 6;
         }
     );
@@ -117,7 +117,7 @@ castellatedMeshControls
             level (5 7); 
             patchInfo 
             { 
-                type wall;                
+                type DEFINETYPE;                
             }            
         }
         
@@ -222,10 +222,9 @@ addLayersControls
     
     layers
     {
-        naca2312 
+        yourSurface 
         {
-            nSurfaceLayers  3;
-            // expansionRatio  1.5;
+            nSurfaceLayers  NL;
         }
     }
 
@@ -240,7 +239,7 @@ addLayersControls
     relativeSizes false;
     
     // Expansion factor for layer mesh
-    expansionRatio 1.0;
+    expansionRatio ER;
     
     // Wanted thickness of the layer furthest away from the wall.
     // If relativeSizes this is relative to undistorted size of cell
