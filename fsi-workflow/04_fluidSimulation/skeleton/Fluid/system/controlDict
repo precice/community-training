@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         1200;
+endTime         END;
 
 deltaT          1;
 
@@ -74,7 +74,7 @@ functions
 
 	//// Density
 	rho rhoInf;
-	rhoInf 1000.;
+	rhoInf RHO;
 
 	//// Centre of rotation
 	CofR (0 0 0);
@@ -99,7 +99,7 @@ functions
 	pName p;
 	Uname U;
 	rho rhoInf;
-	rhoInf 1000.0;
+	rhoInf RHO;
 
 	//// Dump to file
 	log true;
@@ -108,9 +108,9 @@ functions
 	liftDir (0 1 0);
 	dragDir (1 0 0);
 	pitchAxis (0 0 1);
-	magUInf 0.3;
-	lRef 0.1;         // reference lenght for moments!!!
-	Aref 0.03;	      // reference area 1 for 2d
+	magUInf UINF;
+	lRef CHORD;         // reference lenght for moments
+	Aref AREA;	      // reference area 1 for 2d
 
         writeControl    outputTime;
         //writeControl   timeStep;

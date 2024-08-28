@@ -93,8 +93,8 @@ SIMPLE
 
     residualControl
     {
-        p               1e-5;
-        U               1e-5;
+        p               P_RES;
+        U               U_RES;
         "(k|epsilon|omega|f|v2)" 1e-4;
     }
 }
@@ -107,7 +107,7 @@ relaxationFactors
     }
     equations
     {
-        U               0.6;
+        U               0.7;
         k               0.7;
         omega           0.7;
         epsilon         0.7;
