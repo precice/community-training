@@ -110,9 +110,8 @@ We have to
 
 - use `clean_case.sh`
 - move the 250 directory somewhere, to use it in the FSI
-- update the coefficients with the values above plus **endTime = 500** the simulation should stop at step 415
-- run as before
-- copy the (presumably) 415 directory somewhere else
+- update the coefficients with the values above plus **endTime = 200**
+- copy the 200 directory somewhere else
 
 
 Other **TODOS**:
