@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         1000;
+endTime         500;
 
 deltaT          1;
 
@@ -122,7 +122,7 @@ functions
     {
     	type yPlus;
     	libs ("libutilityFunctionObjects.so");
-    	enabled true;
+    	enabled false;
         writeControl outputTime;
 
 	//writeControl timeStep;
