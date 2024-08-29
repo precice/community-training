@@ -108,10 +108,10 @@ Now we consider a laminar incompressible simulation in air. The main parameters 
 
 We have to
 
-- use `clean_case.sh`
+- use `clean_case.sh` (**TODO** explain what it does)
 - move the 250 directory somewhere, to use it in the FSI
-- update the coefficients with the values above plus **endTime = 200**
-- copy the 200 directory somewhere else
+- update the simulation values with the values above plus **endTime = 200**
+- rerun simulation
 
 
 Other **TODOS**:
