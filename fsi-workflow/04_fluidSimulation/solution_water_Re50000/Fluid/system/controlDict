@@ -1,0 +1,133 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |				
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8                                   	
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+application     simpleFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         250;
+
+deltaT          1;
+
+writeControl    adjustableRunTime;
+//writeControl    runTime;
+
+writeInterval   1;
+
+purgeWrite      5;
+
+writeFormat     ascii;
+
+writePrecision  10;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  no;
+maxCo           4;
+maxDeltaT       0.01;
+
+// ************************************************************************* //
+
+functions
+{
+
+    forces_object
+    {
+	type forces;
+	libs ("libforces.so");
+
+	writeControl outputTime;
+	//writeControl   timeStep;
+	//writeInterval  1;
+
+	//// Patches to sample
+	//patches ("body1" "body2" "body3");
+	patches ("naca2312");
+
+	//// Name of fields
+	pName p;
+	Uname U;
+
+	//// Density
+	rho rhoInf;
+	rhoInf 1000.;
+
+	//// Centre of rotation
+	CofR (0 0 0);
+    }
+
+///////////////////////////////////////////////////////////////////////////
+
+    forceCoeffs_object
+    {
+	// rhoInf - reference density
+	// CofR - Centre of rotation
+	// dragDir - Direction of drag coefficient
+	// liftDir - Direction of lift coefficient
+	// pitchAxis - Pitching moment axis
+	// magUinf - free stream velocity magnitude
+	// lRef - reference length
+	// Aref - reference area
+	type forceCoeffs;
+	libs ("libforces.so");
+	patches (naca2312);
+
+	pName p;
+	Uname U;
+	rho rhoInf;
+	rhoInf 1000.;
+
+	//// Dump to file
+	log true;
+
+	CofR (0.0 0 0);
+	liftDir (0 1 0);
+	dragDir (1 0 0);
+	pitchAxis (0 0 1);
+	magUInf 0.5;
+	lRef 0.1;         // reference lenght for moments!!!
+	Aref 0.03;	      // reference area 1 for 2d
+
+        writeControl    outputTime;
+        //writeControl   timeStep;
+        //writeInterval  1;
+    }
+
+///////////////////////////////////////////////////////////////////////////
+    yplus
+    {
+    	type yPlus;
+    	libs ("libutilityFunctionObjects.so");
+    	enabled false;
+        writeControl outputTime;
+
+	//writeControl timeStep;
+	//writeInterval 1;
+    }
+///////////////////////////////////////////////////////////////////////////
+
+};

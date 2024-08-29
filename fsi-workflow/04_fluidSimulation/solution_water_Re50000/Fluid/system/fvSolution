@@ -1,0 +1,130 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |				
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8                                   	
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+
+    cellDisplacement
+    {
+        solver          PCG;
+        preconditioner  DIC;
+
+        tolerance       1e-06;
+        relTol          0;
+        maxIter         100;
+    }
+
+    p
+    {
+        solver                  GAMG;
+        tolerance               1e-06;
+        relTol                  0.00;
+        smoother                GaussSeidel;
+        nPreSweeps              0;
+        nPostSweeps             2;
+        cacheAgglomeration      on;
+        agglomerator            faceAreaPair;
+        nCellsInCoarsestLevel   1000;
+        mergeLevels             1;
+    }
+    /*
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-6;
+        relTol          0.01;
+	    minIter 	    3;
+	    maxIter         100;
+    }
+    */
+
+    pFinal
+    {
+        $p;
+        relTol          0;
+	    minIter 	    5;
+    }
+
+/*
+    pcorr
+    {
+        $pFinal;
+        solver          PCG;
+        preconditioner  DIC;
+    }
+
+    pcorrFinal
+    {
+        $pcorr;
+        relTol          0;
+    }
+*/
+
+    "(U|k|epsilon|omega)"
+    {
+/*
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-6;
+        relTol          0;
+*/
+
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-8;
+        relTol          0.0;
+	    minIter 	    5;
+    }
+
+    "(U|k|epsilon|omega)Final"
+    {
+        $U;
+        tolerance       1e-8;
+        relTol          0;
+	    minIter 	    5;
+    }
+}
+
+
+SIMPLE
+{
+    consistent no;             // if yes simplec
+    nNonOrthogonalCorrectors    2;
+
+    residualControl
+    {
+        p               1e-4;
+        U               1e-5;
+        "(k|epsilon|omega|f|v2)" 1e-4;
+    }
+}
+
+relaxationFactors
+{
+    fields
+    {
+        p               0.5;
+    }
+    equations
+    {
+        U               0.7;
+        k               0.7;
+        omega           0.7;
+        epsilon         0.7;
+    }
+}
+
+// ************************************************************************* //

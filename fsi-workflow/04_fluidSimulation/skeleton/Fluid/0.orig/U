@@ -16,7 +16,7 @@ FoamFile
 
 dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform (0.3 0 0);
+internalField   uniform (UINF 0 0);
 
 boundaryField
 {
@@ -25,7 +25,7 @@ boundaryField
 
     naca2312
     {
-        type            noSlip;
+        type            BOUNDARY;
         value           uniform (0 0 0);
     }
 
