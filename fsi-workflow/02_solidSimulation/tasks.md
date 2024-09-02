@@ -1,32 +1,7 @@
-# FSI Workflow
+# Task 2: simulation of the Solid domain
 
-A training module showcasing how to setup an FSI simulation from scratch.
+In this section we'll simulate the *Fluid Domain* alone, to gain confidence with the **CalculiX** syntax and to check that our solid mesh and model work.
 
+## Adjust the FreeCAD settings
 
----
-
-
-Tasks:
-
- - [ ] **Geometry** preparation
- - [ ] Meshing of **Solid Domain**
- - [ ] Meshing of **Fluid Domain** 
- - [ ] etc. [TODO: update]
- 
- 
-
- ---
- 
- # Step 1: 
- 
-
-
- ---
- 
- ## Notes [TLDR]
- 
- 
- ---
- 
- ## References
- 
+### Export settings
