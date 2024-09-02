@@ -167,3 +167,11 @@ To verify, open the `wing2312.inp` file you just generated with a text editor:
 - Take note of the exact names of all the sets of nodes for each of the groups, because we'll use them in the following steps.
 - `*ELSET, ELSET=GROUPNAME_Faces`: where `GROUPNAME` is one of the groups that you defined (`root`, `wetSurface`, `lowerSurface`). These sets define the groups of surface elements. We don't need them for the FSI simulation
 - save and close
+
+## Scale the mesh file
+
+Unfortunately, **FreeCAD** exports all node coordinates in **mm** and there is no option to change it. We prefer to have everything in **SI** units so, in the `10_utils` folder you can find a `inp_convert.py` file. Copy it in your folder and, after checking that the name on line **43** matches your mesh file, run it:
+
+`python3 inp_convert.py`
+
+You should find a `wing2312_m.inp` file in your folder.
