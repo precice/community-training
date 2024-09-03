@@ -1,7 +1,7 @@
 
 ***********************************************************
 ** Import FEM mesh
-*INCLUDE, INPUT=wing2312_m.inp
+*INCLUDE, INPUT=YOURMESH.inp
 
 ***********************************************************
 ** Materials
@@ -18,22 +18,22 @@
 ***********************************************************
 ** computation step
 *STEP, INC=1000000
-*DYNAMIC, ALPHA=-0.05, DIRECT
-2.E-2, 5.0
+*DYNAMIC, ALPHA=DAMP, DIRECT
+DT, TFINAL
 
 ***********************************************************
 ** Fixed Constraints
 *BOUNDARY
-root_Nodes, 1, 3
+NODESET, 1, 3
 
 ***********************************************************
 ** Ramp load 
-*AMPLITUDE, Name=A1
-0., 0.01, 1.0, 1., 5., 1.
+*AMPLITUDE, Name=STARTRAMP
+RAMPSEQUENCE
 
 ***********************************************************
 ** Load: gravity
-*DLOAD, OP=NEW, AMPLITUDE=A1, TIME DELAY=0. 
+*DLOAD, OP=NEW, AMPLITUDE=STARTRAMP, TIME DELAY=0. 
 Eall, GRAV, 9.810, 0., -1.0, 0.0
 
 ***********************************************************

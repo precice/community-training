@@ -6,7 +6,7 @@ In this section we'll simulate the *Solid Domain* alone, to gain confidence with
 
 This model allows you to perform a static simulation in which the cantilevered wing is subjet to its own weight.
 
-### Complete the .inp file
+### Complete the staticModel.inp file
 
 Enter the `static` folder and:
 
@@ -37,7 +37,10 @@ In order to run the simulation, open a terminal in the current folder and type:
 
 `ccx_preCICE -i staticModel`
 
-**Note**: remeber to type the input file without the extension.
+**Notes**:
+
+- remeber to type the input file without the extension
+- if you need to clean your simulation, you can use `clean.sh`
 
 ### Analyze the results
 
@@ -70,6 +73,51 @@ Where:
 
 ## Dynamic Simulation
 
+This model allows you to perform a static simulation in which the cantilevered wing is subjet to its own weight.
+
+### Complete the .inp file
+
+Enter the `dynamic` folder and:
+
+- Copy your generated solid mesh in the current folder
+
+Open the `dynamicModel.inp` file and:
+
+- replace **YOURMESH.inp** (line **4**) with the name of your mesh (`wing2312_m.inp`)
+- replace **DAMP**, **DT**, **TFINAL** (lines **21, 22**) with the following:
+  - `-0.05` (numerical damping, see notes below)
+  - `1.E-2` ($\Delta  t = 1 \cdot 10^{-2}s$)
+  - `2.` ($t_{final} = 2 s$)
+- replace **NODESET** (line **27**) with the name of the set of root nodes (`root_Nodes`)
+- replace **RAMPSEQUENCE** (line **32**) with the sequence `0.0, 0.05, 0.5, 1.0, 2.0, 1.0`, that is a sequence of values **time**, **amplitude** as in the following picture:  
+
+![amplitude](./images/ampl.png)
+
+Notice in the file:
+
+- **DIRECT** specifies that the user-defined initial time increment should not be changed
+- **ALPHA** takes an argument in the range $\left[-\frac{1}{3}, 0 \right]$. It controls the dissipation of the high frequency response: lower numbers lead to increased numerical damping
+- lines **36-37**: define a *distributed load* (body force) **GRAV** $\vec{g} = 9.81$ with direction $(0, -1, 0)$ as we did in static simulation, but e are applying it with a factor defined in lines **31-32**.
+
+### Run the dynamic simulation
+
+In order to run the simulation, open a terminal in the current folder and type:
+
+`ccx_preCICE -i dynamicModel`
+
+**Notes**:
+
+- remeber to type the input file without the extension
+- if you need to clean your simulation, you can use `clean.sh`
+
+### Analyze the dynamic results
+
+The main result files are:
+
+- `dynamicModel.frd`: which contains all the `U`, `S` and `E` information
+- `dynamicModel.dat`: which contains the reaction force resultants
+
+(**TODO**: read files, convert to VTU)
 
 ## References
 
