@@ -1,7 +1,7 @@
 #!/bin/sh
 
 blockMesh
-surfaceFeatureExtract
+# surfaceFeatureExtract
 decomposePar
 mpirun -np 8 snappyHexMesh -parallel
 reconstructParMesh

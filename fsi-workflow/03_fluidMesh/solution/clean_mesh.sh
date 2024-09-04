@@ -5,6 +5,7 @@ cd constant
 
 cd triSurface
 rm -rfv *.eMesh
+rm -rfv *.obj
 cd ..
 
 rm -rfv polyMesh
