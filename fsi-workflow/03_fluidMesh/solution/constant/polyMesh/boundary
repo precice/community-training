@@ -22,28 +22,28 @@ FoamFile
     {
         type            patch;
         nFaces          64;
-        startFace       4336;
+        startFace       3456;
     }
     outlet
     {
         type            patch;
         nFaces          64;
-        startFace       4400;
+        startFace       3520;
     }
     far
     {
         type            slip;
         inGroups        1(slip);
-        nFaces          800;
-        startFace       4464;
-        faces           ( ( 1 5 4 0 ) ( 4 5 6 7 ) ( 3 7 6 2 ) ( 0 3 2 1 ) );
+        nFaces          480;
+        startFace       3584;
+        faces           ( ( 1 5 4 0 ) ( 4 5 6 7 ) ( 3 7 6 2 ) );
     }
     symmetry
     {
         type            symmetryPlane;
         inGroups        1(symmetryPlane);
-        nFaces          0;
-        startFace       5264;
+        nFaces          160;
+        startFace       4064;
     }
 )
 

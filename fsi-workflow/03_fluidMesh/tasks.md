@@ -32,7 +32,7 @@ In this case we create a box:
 
 If you look at the reference frame of the wing in the `blockMeshDict`, you'll notice that it is placed at the root section at mid chord. So:
 
-- we place the *inlet* face at $x_1 = -0.25$m and the *outlet* face at $x_2 = 1.25$ m.
+- we place the *inlet* face at $x_1 = -0.24$m and the *outlet* face at $x_2 = 1.2536$ m.
 - we place the wing in the middle of the box in *y* direction, so we place the *y* limits at $y_1 = -0.24$ m and $y_2=0.24$ m.
 - finally, we place the root section at $z_1 = 0$ m and the final face at $z_2 = 0.48$ m.
 
@@ -41,7 +41,7 @@ All these parameters are set at lines `24-29` of `blockMeshDict`. For the moment
 ### Discretization
 
 Once we have defined the limits, we need to define the number of blocks that we want in each direction. Look for the dictionary entry `blocks` in `blockMeshDict` and locate the terms `NX`, `NY` and `NZ`. These represent the number of cells in which the domain will be divided into in each direction.
-We divide the domain into $0.06 \times 0.06 \times 0.06$m cells, so you need to substitute `NX`, `NY` and `NZ` with `25`, `8` and `8` respectively.
+We divide the domain into $0.08 \times 0.06 \times 0.06$m cells, so you need to substitute `NX`, `NY` and `NZ` with `20`, `8` and `8` respectively.
 The background mesh is quite coarse but for the moment we favor execution speed.
 
 ### Boundary conditions
@@ -50,7 +50,8 @@ The background mesh is quite coarse but for the moment we favor execution speed.
 
 - `inlet`: where we define the fluid velocity of the incoming flow
 - `outlet`: where we define the properties of the outgoing flow to be at constant pressure
-- `slip`: all other faces can be considered as *frictionless walls*
+- `slip`: far away faces can be considered as *frictionless walls*
+- `symmetryPlane`: the face containing the root of the wing is considered a symmetry plane
 
 ## Generating the background mesh
 

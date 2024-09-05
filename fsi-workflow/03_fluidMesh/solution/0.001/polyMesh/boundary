@@ -22,35 +22,35 @@ FoamFile
     {
         type            patch;
         nFaces          64;
-        startFace       1084398;
+        startFace       805698;
     }
     outlet
     {
         type            patch;
         nFaces          64;
-        startFace       1084462;
+        startFace       805762;
     }
     far
     {
         type            slip;
         inGroups        1(slip);
-        nFaces          4218;
-        startFace       1084526;
-        faces           ( ( 1 5 4 0 ) ( 4 5 6 7 ) ( 3 7 6 2 ) ( 0 3 2 1 ) );
+        nFaces          480;
+        startFace       805826;
+        faces           ( ( 1 5 4 0 ) ( 4 5 6 7 ) ( 3 7 6 2 ) );
     }
     symmetry
     {
         type            symmetryPlane;
         inGroups        1(symmetryPlane);
-        nFaces          0;
-        startFace       1088744;
+        nFaces          1632;
+        startFace       806306;
     }
     naca2312
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          75318;
-        startFace       1088744;
+        nFaces          60220;
+        startFace       807938;
     }
 )
 

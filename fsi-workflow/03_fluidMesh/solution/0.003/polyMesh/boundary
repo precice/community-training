@@ -16,34 +16,41 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-4
+5
 (
     inlet
     {
         type            patch;
         nFaces          64;
-        startFace       1624344;
+        startFace       1264120;
     }
     outlet
     {
         type            patch;
         nFaces          64;
-        startFace       1624408;
+        startFace       1264184;
     }
     far
     {
         type            slip;
         inGroups        1(slip);
-        nFaces          5493;
-        startFace       1624472;
-        faces           ( ( 1 5 4 0 ) ( 4 5 6 7 ) ( 3 7 6 2 ) ( 0 3 2 1 ) );
+        nFaces          480;
+        startFace       1264248;
+        faces           ( ( 1 5 4 0 ) ( 4 5 6 7 ) ( 3 7 6 2 ) );
+    }
+    symmetry
+    {
+        type            symmetryPlane;
+        inGroups        1(symmetryPlane);
+        nFaces          2103;
+        startFace       1264728;
     }
     naca2312
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          63358;
-        startFace       1629965;
+        nFaces          52860;
+        startFace       1266831;
     }
 )
 
