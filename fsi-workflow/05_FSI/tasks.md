@@ -4,6 +4,12 @@ Finally
 
 ## Solid setup
 
+copy mesh
+
 ## Fluid setup
+
+copy mesh
+
+copy U, p, phi
 
 ## Coupled simulation

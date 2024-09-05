@@ -140,7 +140,7 @@ functions
 	liftDir (0 1 0);
 	dragDir (1 0 0);
 	pitchAxis (0 0 1);
-	magUInf 1.0;
+	magUInf 0.2;
 	lRef 0.1;         // reference lenght for moments!!!
 	Aref 0.03;
 
