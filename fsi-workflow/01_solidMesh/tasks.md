@@ -114,7 +114,9 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 ![FreeCAD: surface group for root](./images/root_Group.png)
 
-- In the `Model` tab, select the `MeshGroup` and rename its `Label` to `root`. This will help us define the boundary condition in the Solid domain.
+- In the `Model` tab, select the `MeshGroup` and rename its `Label` to `Nroot`. This will help us define the boundary condition in the Solid domain.
+
+**NOTE**: your node groups need to start with `N`, so that the CalculiX adapter can work properly.
 
 ![FreeCAD: Rename mesh group](./images/Groups05.png)
 
@@ -134,10 +136,6 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 - As for the `root` Group. change the `Label` in the `Properties` to `wetSurface`
 
 ![FreeCAD: Rename wet surface group](./images/group_WS_rename.png)
-
-- Finally, create a group for the wingtip surface using the same steps used for the root surface, with group name `lowerSurface`. It will be used for single physics tests.
-
-![FreeCAD: lower surface group](./images/lowerSurf_Group.png)
 
 You should come up with a list of three groups under the current mesh.
 
@@ -161,11 +159,10 @@ To verify, open the `wing2312.inp` file you just generated with a text editor:
 
 - Look for `NSET`: you should find
   - `NSET=Nall`: this keyword defines the beginning of the list of coordinates of all the mesh nodes
-  - `*NSET, NSET=root_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `root`
-  - `*NSET, NSET=wetSurface_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `wetSurface`
-  - `*NSET, NSET=lowerSurface_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `lowerSurface`  
+  - `*NSET, NSET=Nroot_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `Nroot`
+  - `*NSET, NSET=NwetSurface_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `NwetSurface`
 - Take note of the exact names of all the sets of nodes for each of the groups, because we'll use them in the following steps.
-- `*ELSET, ELSET=GROUPNAME_Faces`: where `GROUPNAME` is one of the groups that you defined (`root`, `wetSurface`, `lowerSurface`). These sets define the groups of surface elements. We don't need them for the FSI simulation
+- `*ELSET, ELSET=GROUPNAME_Faces`: where `GROUPNAME` is one of the groups that you defined (`Nroot`, `NwetSurface`). These sets define the groups of surface elements. We don't need them for the FSI simulation
 - save and close
 
 ## Scale the mesh file
