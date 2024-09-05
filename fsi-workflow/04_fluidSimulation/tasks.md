@@ -16,10 +16,8 @@ You'll find the required files in the `skeleton` directory. The `Fluid` director
 **TODO** decide how to proceed:
 
 - one case:
-    1. $Re=5\cdot 10^4$ laminar, incompressible, water (tested)
-    2. $Re=2\cdot 10^5$ laminar, incompressible, air (tested)
-    3. $Re \geq 2\cdot 10^5$ *turbulent*, incompressible, air (crashes, to be improved)
-    4. $Re \geq 1\cdot 10^6$ *turbulent*, *compressible*, air (to be prepared)
+    1. $Re=2\cdot 10^4$ laminar, incompressible, water
+    2. $Re=2\cdot 10^4$ laminar, incompressible, air
 - two cases:
     1. case **1** and **2** above
     2. other combination
@@ -28,10 +26,10 @@ You'll find the required files in the `skeleton` directory. The `Fluid` director
 
 Here we consider a laminar incompressible simulation in water. The main parameters are:
 
-- $U_{\infty} = 0.5$
+- $U_{\infty} = 0.2$
 - $\rho = 1000$
 - $\nu = 1 \cdot 10^{-6}$
-- $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
+- $Re = \frac{U_{\infty} c}{\nu} = 2 \cdot 10^4$
 
 ### `0.orig` folder
 
@@ -39,7 +37,7 @@ This folder contains the initial conditions for each of the simulation variables
 
 Open the file `U` and:
 
-- substitute **UINF** at line 19 with the value **0.5**. This initializes the whole domain to $U_{\infty}$
+- substitute **UINF** at line 19 with the value **0.2**. This initializes the whole domain to $U_{\infty}$
 - substitute the boundary condition **BOUNDARY** for the *naca2312* patch at line **28** with **noSlip**
 
 Note: we use the folder `0.orig` instead of the usual folder `0` just in case the simulation overwrites the initial conditions (e.g. you perform `potentialFoam` to initialize the fluid domain). The launch script that we prepared will take care of copying `0.orig` to `0`.
@@ -57,9 +55,9 @@ Here you need to perform the following activities:
 Here you will define how many simulation steps you want to perform and you will make use of *function objects* in order to compute **forces, moments** and **force** and **moment coefficients**:
 
 - Open the `controlDict` file and:
-    1. substitute **END** with **250** at line **26**: we will perform 250 simulation steps at most
+    1. substitute **END** with **500** at line **26**: we will perform 250 simulation steps at most
     2. substitute **RHO** with **1000.0** at lines **77** and **102**
-    3. substitute **UINF** with **0.5** at line **111**
+    3. substitute **UINF** with **0.2** at line **111**
     4. substitute **CHORD** with **0.1**at line **112**
     5. substitute **AREA** with **0.03** at line **113**
 
@@ -67,7 +65,7 @@ Then you will define the type of the simulation and some thresholds for the resi
 
 - Open `fvSchemes` and substitute **SIMULATIONTYPE** with **steadyState**
 - Open `fvSchemes` and:
-    1. substitute **P_RES** with **1e-4** at line **96**
+    1. substitute **P_RES** with **4e-5** at line **96**
     2. substitute **U_RES** with **1e-5** at line **97**
 
 ## Run the case
@@ -101,10 +99,10 @@ To check the simulation progress and plot the residuals over time, you can:
 
 Now we consider a laminar incompressible simulation in air. The main parameters are:
 
-- $U_{\infty} = 30$
+- $U_{\infty} = 3.0$
 - $\rho = 1.225$
 - $\nu = 1.5 \cdot 10^{-5}$
-- $Re = \frac{U_{\infty} c}{\nu} = 2 \cdot 10^5$
+- $Re = \frac{U_{\infty} c}{\nu} = 2 \cdot 10^4$
 
 We have to
 
@@ -112,8 +110,3 @@ We have to
 - move the 250 directory somewhere, to use it in the FSI
 - update the simulation values with the values above plus **endTime = 200**
 - rerun simulation
-
-
-Other **TODOS**:
-
-- decide whether to keep k, omega, nut and the ods file or delete them
