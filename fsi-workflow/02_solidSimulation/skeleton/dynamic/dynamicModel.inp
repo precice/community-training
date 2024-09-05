@@ -7,9 +7,9 @@
 ** Materials
 *MATERIAL, Name=EL
 *ELASTIC
- 200000000, 0.3
+ E, NU
 *DENSITY
- 3000
+ RHO
 
 ***********************************************************
 ** Sections
@@ -17,7 +17,7 @@
 
 ***********************************************************
 ** computation step
-*STEP, INC=1000000
+*STEP
 *DYNAMIC, ALPHA=DAMP, DIRECT
 DT, TFINAL
 
@@ -45,7 +45,7 @@ Eall, GRAV, 9.810, 0., -1.0, 0.0
 
 ** outputs --> dat file
  ** reaction forces for root nodes
-*NODE PRINT, NSET=root_Nodes, TOTALS=ONLY
+*NODE PRINT, NSET=Nroot_Nodes, TOTALS=ONLY
 RF
 
 ***********************************************************

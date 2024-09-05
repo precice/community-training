@@ -18,18 +18,18 @@
 ***********************************************************
 ** computation step
 *STEP, INC=1000000
-*DYNAMIC, ALPHA=-0.05, DIRECT
-1.0E-2, 2.0
+*DYNAMIC, ALPHA=-0.1, DIRECT
+5.0E-2, 4.0
 
 ***********************************************************
 ** Fixed Constraints
 *BOUNDARY
-root_Nodes, 1, 3
+Nroot_Nodes, 1, 3
 
 ***********************************************************
 ** Ramp load 
 *AMPLITUDE, Name=STARTRAMP
-0.0, 0.05, 0.5, 1.0, 2.0, 1.0
+0.0, 0.05, 0.5, 1.0, 4.0, 1.0
 
 
 ***********************************************************
@@ -46,7 +46,7 @@ Eall, GRAV, 9.810, 0., -1.0, 0.0
 
 ** outputs --> dat file
  ** reaction forces for root nodes
-*NODE PRINT, NSET=root_Nodes, TOTALS=ONLY
+*NODE PRINT, NSET=Nroot_Nodes, TOTALS=ONLY
 RF
 
 ***********************************************************
