@@ -1,0 +1,15 @@
+#!/bin/bash
+cd ${0%/*} || exit 1    		    		# Run from this directory
+. $WM_PROJECT_DIR/bin/tools/RunFunctions    # Tutorial run functions
+
+rm -rfv 0
+cp -r 0.orig 0
+
+echo "change Dictionary for U"
+changeDictionary 2>&1 | tee log.changeDict
+
+# Run
+decomposePar -force
+#    mpirun -np $procs $solver -parallel -case ${casename} 2>&1 | tee log.pimpleFoam
+#    reconstructPar -case ${casename}
+
