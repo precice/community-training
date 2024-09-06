@@ -27,12 +27,12 @@ The first task consists in generating the fluid domain. This is achieved by the 
 
 In this case we create a box:
 
-- 1.5m long in *x* direction (the direction of the freestream)
+- $1.6m$ long in *x* direction (the direction of the freestream)
 - with a section of $0.48 \times 0.48$ m in *y* (*lift* direction) and *z* (*span* direction)
 
 If you look at the reference frame of the wing in the `blockMeshDict`, you'll notice that it is placed at the root section at mid chord. So:
 
-- we place the *inlet* face at $x_1 = -0.24$m and the *outlet* face at $x_2 = 1.2536$ m.
+- we place the *inlet* face at $x_1 = -0.24$m and the *outlet* face at $x_2 = 1.36$ m.
 - we place the wing in the middle of the box in *y* direction, so we place the *y* limits at $y_1 = -0.24$ m and $y_2=0.24$ m.
 - finally, we place the root section at $z_1 = 0$ m and the final face at $z_2 = 0.48$ m.
 

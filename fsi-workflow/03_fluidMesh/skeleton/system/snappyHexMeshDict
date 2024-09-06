@@ -49,8 +49,8 @@ geometry
     wake
     {
         type searchableBox;
-        min ( 0.000 -0.004 -0.100);
-        max ( 0.200  0.004  0.310);
+        min ( 0.000 -0.01 -0.100);
+        max ( 0.200  0.01  0.310);
     }    
 }
 
@@ -114,7 +114,7 @@ castellatedMeshControls
     {
         naca2312          
         { 
-            level (5 7); 
+            level (5 5); 
             patchInfo 
             { 
                 type DEFINETYPE;                
@@ -127,7 +127,7 @@ castellatedMeshControls
     // Feature angle:
     // - used if min and max refinement level of a surface differ
     // - used if feature snapping (see snapControls below) is used
-    resolveFeatureAngle 45;
+    resolveFeatureAngle 130;
     
     // Region-wise refinement
     // ~~~~~~~~~~~~~~~~~~~~~~
