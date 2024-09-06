@@ -36,7 +36,7 @@ If you look at the reference frame of the wing in the `blockMeshDict`, you'll no
 - we place the wing in the middle of the box in *y* direction, so we place the *y* limits at $y_1 = -0.24$ m and $y_2=0.24$ m.
 - finally, we place the root section at $z_1 = 0$ m and the final face at $z_2 = 0.48$ m.
 
-All these parameters are set at lines `24-29` of `blockMeshDict`. For the moment, leave them like this.
+All these parameters are set in the beginning of `blockMeshDict`. For the moment, leave them like this.
 
 ### Discretization
 
@@ -57,9 +57,9 @@ The background mesh is quite coarse but for the moment we favor execution speed.
 
 After you have sourced your OpenFOAM, you can run `blockMesh` from the root folder of the case to generate the external domain.
 
-If you want to look at the domain, you can run `paraFoam -block`
+If you only want to look at the topology of the domain, without yet meshing it, you can run `blockMesh -write-vtk`. You can then visualize the `blockTopology.vtu` file in ParaView.
 
-(**TODO**: image)
+![Topology of the domain in ParaView](images/blockmesh-write-vtk.png)
 
 ## Configuring snappyHexMesh
 
@@ -69,24 +69,25 @@ Your first task is to copy `naca2312.stl` in the `constant/trisurface` directory
 
 Then you'll need to work on the following dictionary files:
 
-- `snappyHexMeshDict`
-- `decomposeParDict`
-
+- `snappyHexMeshDict`: define the actual mesh based on the provided geometry
+- `decomposeParDict`: define how the domain will be decomposed for parallel simulations
 
 ### snappyHexMeshDict
 
 The mesh generation process in `snappyHexMesh` is composed of 3 stages:
 
-- `castellatedMesh` which performs cells splitting and removal 	
-- `snap` which performs cell vertex points motion onto surface geometry 
+- `castellatedMesh` which performs cell splitting and removal
+- `snap` which performs cell vertex points motion onto surface geometry
 - `addlayers`: which introduces additional layers of hexahedral cells aligned to the boundary surface
 
-Each of them can be activated in the `snappyHexMeshDict` (lines *23-25*).
+Each stage can be activated in the beginning of the `snappyHexMeshDict` file. Activate all of them.
 
-There are a lot of parameters in the `snappyHexMeshDict` dictionary, we invite you to look at the comments in the file, at the references below and at the documentation for further details.
+There are a lot of parameters in the `snappyHexMeshDict` dictionary; we invite you to look at the comments in the file, at the references below, and at the documentation for further details.
 Here we focus on a few of them:
 
-#### Geometry (from line 33)
+#### Geometry
+
+This is defined in the `geometry` subdictionary.
 
 The geometry of the main elements of the mesh can be specified through an STL surface or geometry entities. Here we define our wing and two refinement regions:
 
@@ -95,40 +96,46 @@ The geometry of the main elements of the mesh can be specified through an STL su
     - `refineBox` around the wing
     - `wake` behind the wing
 
-#### Castellation (from line 58)
+#### Castellation
 
-In the **refinementSurfaces** entry (from line 113):
+This is defined in the `castellatedMeshControls` subdictionary.
 
-- substitute `DEFINETYPE` with `wall` under `naca2312/patchInfo`: we are telling *snappy* that our *STL* file is a boundary.
+In the `refinementSurfaces` entry:
 
-Notice the **locationInMesh** entry (line 167):
+- substitute `DEFINETYPE` with `wall` under `naca2312/patchInfo`: we are telling snappy that our STL file is a boundary.
 
-- Point vector inside the region to be meshed. This must be outside the wing and inside the initial mesh.
+Notice the `locationInMesh` entry:
 
-#### snapControls (feom line 177)
+- Point vector inside the region to be meshed. This must be outside the wing and inside the initial mesh (any location in this region will do).
+
+#### snapControls
+
+This is defined in the `snapControls` subdictionary.
 
 For the training we don't touch the parameters in this section.
 
-#### Add Layers (from line 217)
+#### Adding layers
+
+This is defined in the `addLayersControls` subdictionary.
 
 This section allows to define the boundary layer properties around our wing.
 
-In the **layers** entry (from line 223)
+In the `layers` entry:
 
-- substitute `yourSurface` with `naca2312` (i.e. the name assigned to your STL file on line 38)
+- substitute `yourSurface` with `naca2312` (i.e. the name assigned to your STL file in the `geometry` subdictionary)
 - substitute the value `NL`  with `3` at the `nSurfaceLayers` entry
 
-That is: we want to add **3 layers** to the **naca2312** surface.
+That is: we want to add 3 layers to the `naca2312` surface.
 
-At the `expansionRatio` entry (line 242) substitute `ER` with `1.0`: we want the 3 layers to be of the same height.
+At the `expansionRatio` entry, substitute `ER` with `1.0`: we want the 3 layers to be of the same height.
 
-Now your `snappyHexMeshDict` is complete. As we want to perfomr this operation in parallel, we first need to decompose the domain.
+Now your `snappyHexMeshDict` is complete. As we want to perform this operation in parallel, we also need to decompose the domain, for which we need to look into the `decomposeParDict`.
 
 ### decomposeParDict
 
 Open the `decomposeParDict` file in the `system` directory:
 
-- substitute `ND` on line 11 with **8**: this is the number of subdomains in which your case will be decomposed.
+- substitute `ND` with `8` in `numberOfSubdomains`: this is the number of subdomains in which your case will be decomposed, and it should typically not exceed the number of cores of the system.
 
 ## Meshing
 
@@ -136,17 +143,27 @@ Now everything is ready to mesh our domain.
 
 ### decomposePar
 
-First run `decomposePar`: your case will be divided into **8** subdomains (notice the directories `processorX` in the root folder of your case).
+First run `decomposePar`: your case will be divided into eight subdomains (notice the directories `processorX` in the root folder of your case).
 
 ### snappyHexMesh
 
-Now you can run: `mpirun -np 8 snappyHexMesh -parallel`
+Now you can create the mesh for the eight subdomains in parallel: 
+
+```shell
+mpirun -np 8 snappyHexMesh -parallel
+```
+
+This will take a few minutes to complete.
+
+In case you get an error that there are not enough slots in your system to run eight processes, reduce the `numberOfSubdomains` in `decomposeParDict` and the number of processes in `mpirun` accordingly.
+
+If you still want to execute eight processes, you can pass the `--oversubscribe` option to `mpirun`. This is then expected to take significantly longer.
 
 ### reconstructParMesh
 
 Once `snappyHexMesh` has finished, you can reconstruct your domain from the decomposed ones by running `reconstructParMesh`.
 
-When finished, you will see **3** time folders (0.001, 0.002, 0.003) in the root directory of the case. Each one corresponds to a stage of `snappyHexMesh`:
+When finished, you will see three time folders (0.001, 0.002, 0.003) in the root directory of the case. Each one corresponds to a stage of `snappyHexMesh`:
 
 - 0.001: castellatedMesh
 
@@ -164,14 +181,18 @@ Notes:
 - the timestep depends on the `deltaT` parameter in the `controlDict` file, but it is not relevant
 - you can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`
 
+**TODO:** We probably want to explicitly tell people to use the `-overwrite`, right? Or is that not needed?
+
 ## checkMesh
 
 Finally, you can have an idea of the quality of the mesh, in particular if there are distorted cells, by typing:
 
  `checkMesh -latestTime |  tee log.checkMesh`
 
+If everything goes well, you should see a `Mesh OK.` at the end.
+
 ## References
 
-Most of the info are taken from: http://www.wolfdynamics.com/wiki/meshing_OF_SHM.pdf
+Most of the information is taken from [this training presentation of Wolf Dynamics](http://www.wolfdynamics.com/wiki/meshing_OF_SHM.pdf) (with permission).
 
-You can also consult the official documentation: https://www.openfoam.com/documentation/user-guide/4-mesh-generation-and-conversion/4.4-mesh-generation-with-the-snappyhexmesh-utility
+You can also consult the [official documentation](https://www.openfoam.com/documentation/user-guide/4-mesh-generation-and-conversion/4.4-mesh-generation-with-the-snappyhexmesh-utility)
