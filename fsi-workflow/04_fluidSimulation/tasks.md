@@ -16,7 +16,7 @@ You'll find the required files in the `skeleton` directory. The `Fluid` director
 **TODO** decide how to proceed:
 
 - one case:
-    1. $Re=2\cdot 10^4$ laminar, incompressible, water
+    1. $Re=5\cdot 10^4$ laminar, incompressible, water
     2. $Re=2\cdot 10^4$ laminar, incompressible, air
 - two cases:
     1. case **1** and **2** above
@@ -26,10 +26,10 @@ You'll find the required files in the `skeleton` directory. The `Fluid` director
 
 Here we consider a laminar incompressible simulation in water. The main parameters are:
 
-- $U_{\infty} = 0.2$
+- $U_{\infty} = 0.5$
 - $\rho = 1000$
 - $\nu = 1 \cdot 10^{-6}$
-- $Re = \frac{U_{\infty} c}{\nu} = 2 \cdot 10^4$
+- $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
 
 ### `0.orig` folder
 
@@ -37,7 +37,7 @@ This folder contains the initial conditions for each of the simulation variables
 
 Open the file `U` and:
 
-- substitute **UINF** at line 19 with the value **0.2**. This initializes the whole domain to $U_{\infty}$
+- substitute **UINF** at line 19 with the value **0.5**. This initializes the whole domain to $U_{\infty}$
 - substitute the boundary condition **BOUNDARY** for the *naca2312* patch at line **28** with **noSlip**
 
 Note: we use the folder `0.orig` instead of the usual folder `0` just in case the simulation overwrites the initial conditions (e.g. you perform `potentialFoam` to initialize the fluid domain). The launch script that we prepared will take care of copying `0.orig` to `0`.
@@ -64,9 +64,9 @@ Here you will define how many simulation steps you want to perform and you will 
 Then you will define the type of the simulation and some thresholds for the residuals so that, if we reach those values, the simulation stops before *endTime*:
 
 - Open `fvSchemes` and substitute **SIMULATIONTYPE** with **steadyState**
-- Open `fvSchemes` and:
-    1. substitute **P_RES** with **4e-5** at line **96**
-    2. substitute **U_RES** with **1e-5** at line **97**
+- Open `fvSolution` and:
+    1. substitute **P_RES** with **1e-4** at line **96**
+    2. substitute **U_RES** with **1e-4** at line **97**
 
 ## Run the case
 

@@ -12,4 +12,6 @@ copy mesh
 
 copy U, p, phi
 
+changeDictionary
+
 ## Coupled simulation
