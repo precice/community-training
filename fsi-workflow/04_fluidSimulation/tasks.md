@@ -99,10 +99,10 @@ To check the simulation progress and plot the residuals over time, you can:
 
 Now we consider a laminar incompressible simulation in air. The main parameters are:
 
-- $U_{\infty} = 3.0$
+- $U_{\infty} = 7.5$
 - $\rho = 1.225$
 - $\nu = 1.5 \cdot 10^{-5}$
-- $Re = \frac{U_{\infty} c}{\nu} = 2 \cdot 10^4$
+- $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
 
 We have to
 
