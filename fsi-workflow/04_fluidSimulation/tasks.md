@@ -17,11 +17,10 @@ You'll find the required files in the `skeleton` directory. The `Fluid` director
 
 - one case:
     1. $Re=5\cdot 10^4$ laminar, incompressible, water
-    2. $Re=2\cdot 10^4$ laminar, incompressible, air
+    2. $Re=5\cdot 10^4$ laminar, incompressible, air
 - two cases:
     1. case **1** and **2** above
-    2. other combination
-
+ 
 ## Setup *Simulation 1*
 
 Here we consider a laminar incompressible simulation in water. The main parameters are:
@@ -33,7 +32,7 @@ Here we consider a laminar incompressible simulation in water. The main paramete
 
 ### `0.orig` folder
 
-This folder contains the initial conditions for each of the simulation variables: files `U` and `p` (plus other files in case you want to set up a turbulent model).
+This folder contains the boundary and the initial conditions for each of the simulation variables: files `U` and `p`.
 
 Open the file `U` and:
 
@@ -55,7 +54,7 @@ Here you need to perform the following activities:
 Here you will define how many simulation steps you want to perform and you will make use of *function objects* in order to compute **forces, moments** and **force** and **moment coefficients**:
 
 - Open the `controlDict` file and:
-    1. substitute **END** with **500** at line **26**: we will perform 250 simulation steps at most
+    1. substitute **END** with **500** at line **26**: we will perform 500 simulation steps at most
     2. substitute **RHO** with **1000.0** at lines **77** and **102**
     3. substitute **UINF** with **0.2** at line **111**
     4. substitute **CHORD** with **0.1**at line **112**
@@ -90,23 +89,34 @@ To check the simulation progress and plot the residuals over time, you can:
 
 ## Analysis of the results
 
-**TODO** comparison to "expected results"
+In order to understand if your simulation has converged and if you have obtained reasonable results, you can look at the output of the `function objects` that we enabled in the `controlDict` dictionary.
 
-- plot forces and force coefficients over time?
-- compute theoretical $C_D$ $C_L$?
+You can plot force coefficients over time by typing in the case root folder:
 
-## Setup *Simulation 2*
+`python3 plotCoefficients.py`
 
-Now we consider a laminar incompressible simulation in air. The main parameters are:
+You should see something like:
+
+![CdCl](./images/cdcl.png)
+
+You can compare those values with theoretical data (if you have them), or you can perform some *mesh independence study* to check the convergence of your setup.
+
+## Setup *Simulation 2* (optional)
+
+Now we consider a laminar incompressible simulation in air, with the same Reynolds number. The main parameters are:
 
 - $U_{\infty} = 7.5$
 - $\rho = 1.225$
 - $\nu = 1.5 \cdot 10^{-5}$
 - $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
 
-We have to
+You have to:
 
-- use `clean_case.sh` (**TODO** explain what it does)
-- move the 250 directory somewhere, to use it in the FSI
-- update the simulation values with the values above plus **endTime = 200**
-- rerun simulation
+- use `clean_case.sh` in the root folder. It removes the following:
+  - `0` folder
+  - `processor*` folder
+  - `postProcessing` folder
+- move the `500` directory in the `results/water` folder (overwrite the empty files), we will use it in the FSI simulation
+- update the simulation values (follow the previous steps and update the files as needed)
+- rerun the simulation with the updated values
+- move the `500` directory in the `results/air` folder
