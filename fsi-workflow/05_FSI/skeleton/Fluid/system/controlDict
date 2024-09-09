@@ -23,16 +23,15 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         5.0;	//20;
+endTime         TFINAL;
 
-deltaT          1e-3;
+deltaT          DT;
 
-writeControl    adjustableRunTime;
-//writeControl    runTime;
+writeControl    runTime;
 
 writeInterval   1e-2;
 
-purgeWrite      5;
+purgeWrite      0;
 
 writeFormat     ascii;
 
@@ -47,8 +46,7 @@ timePrecision   6;
 runTimeModifiable true;
 
 adjustTimeStep  no;
-maxCo           4;
-maxDeltaT       0.001;
+
 
 // ************************************************************************* //
 
@@ -111,8 +109,6 @@ functions
 
 ///////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////
-
     forceCoeffs_object
     {
 	// rhoInf - reference density
@@ -151,49 +147,8 @@ functions
 
 ///////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////
+	PRECICE_FO
 
-    minmaxdomain
-    {
-	type fieldMinMax;
-	//type banana;
-
-	libs ("libfieldFunctionObjects.so");
-
-	enabled true;
-
-	mode component;
-    
-    writeControl    outputTime;
-	//writeControl timeStep;
-	//writeInterval 1;
-
-	log true;
-
-	fields (p U); // k omega nut);
-    }
-
-///////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////
-    yplus
-    {
-    	type yPlus;
-    	libs ("libutilityFunctionObjects.so");
-    	enabled true;
-        writeControl outputTime;
-
-	//writeControl timeStep;
-	//writeInterval 1;
-    }
-///////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////
-    preCICE_Adapter
-    {
-        type preciceAdapterFunctionObject;
-        libs ("libpreciceAdapterFunctionObject.so");
-    }
 ///////////////////////////////////////////////////////////////////////////
 
 };

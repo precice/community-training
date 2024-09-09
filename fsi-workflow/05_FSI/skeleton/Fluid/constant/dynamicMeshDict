@@ -14,7 +14,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// dynamicFvMesh   dynamicOversetFvMesh;
 dynamicFvMesh      dynamicMotionSolverFvMesh;
 
 motionSolverLibs (fvMotionSolvers);
@@ -23,9 +22,7 @@ solver          displacementLaplacian;
 
 displacementLaplacianCoeffs
 {
-    diffusivity     inverseDistance (naca2312);
-//    diffusivity     exponential 0.25 inverseDistance (naca2312);
+    diffusivity     inverseDistance (WETSURF);
 }
-
 
 // ************************************************************************* //

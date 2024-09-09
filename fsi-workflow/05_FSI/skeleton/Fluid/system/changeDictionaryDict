@@ -19,9 +19,9 @@ U
 {
     boundaryField
     {
-        naca0012
+        PATCH
         {
-            type            movingWallVelocity;
+            type            TYPE;
             value           uniform  (0 0 0);
         }
     }

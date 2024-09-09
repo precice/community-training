@@ -61,23 +61,9 @@ snGradSchemes
     default         limited 1;
 }
 
-oversetInterpolation
-{
-    method          inverseDistance;
-}
-
 wallDist
 {
     method meshWave;
 }
-
-/*
-fluxRequired
-{
-    default         no;
-    pcorr           ;
-    p               ;
-}
-*/
 
 // ************************************************************************* //
