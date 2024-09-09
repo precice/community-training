@@ -4,9 +4,6 @@
 |  \\    /   O peration     | Version:  dev                                   |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
-|*---------------------------------------------------------------------------*|
-|  File created by CFD support s.r.o.  on   Thu Feb  8 07:38:52 2018          |
-|                    http://www.cdfsupport.com                                |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
