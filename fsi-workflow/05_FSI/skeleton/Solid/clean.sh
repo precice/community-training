@@ -1,6 +1,11 @@
 #!/usr/bin/env sh
 set -e -u
 
-. ../../tools/cleaning-tools.sh
+echo "clean CalculiX case"
+rm -fv ./*.cvg ./*.dat ./*.frd ./*.sta ./*.12d ./*.rout spooles.out dummy
+rm -fv *.vtu
+rm -fv *.pvd
 
-clean_calculix .
+rm -rfv *.log
+rm -rfv precice-profiling
+rm -rfv ../precice-run

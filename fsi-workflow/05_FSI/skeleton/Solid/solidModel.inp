@@ -1,15 +1,16 @@
 
 ***********************************************************
 ** Import FEM mesh
-*INCLUDE, INPUT=wing2312_m.inp
+*INCLUDE, INPUT=YOURMESH.inp
 
 ***********************************************************
 ** Materials
 *MATERIAL, Name=EL
 *ELASTIC
- 2.3E9, 0.37 *70.0E9, 0.35
+ E, NU
+
 *DENSITY
- 1060    *2700
+ RHO
 
 ***********************************************************
 ** Sections
@@ -19,25 +20,25 @@
 ** computation step
 *STEP, INC=1000000
 *DYNAMIC, ALPHA=-0.05, DIRECT
-1.0E-3, 2.0
+DT, TFINAL
 
 ***********************************************************
 ** Fixed Constraints
 *BOUNDARY
-root_Nodes, 1, 3
+NODESET, 1, 3
 
 ***********************************************************
 ** Ramp load 
 *AMPLITUDE, Name=STARTRAMP
-0.0, 0.05, 0.5, 1.0, 2.0, 1.0
+RAMPSEQUENCE
 
 
 ***********************************************************
 ** Load: gravity
 *CLOAD, AMPLITUDE=STARTRAMP, TIME DELAY=0. 
-wetSurface_Nodes, 1, 0.0
-wetSurface_Nodes, 2, 0.0
-wetSurface_Nodes, 3, 0.0
+WETSURF, 1, 0.0
+WETSURF, 2, 0.0
+WETSURF, 3, 0.0
 
 ***********************************************************
 ** Outputs --> frd file

@@ -3,7 +3,7 @@ participants:
     Solid:
         interfaces:
         - nodes-mesh: Solid-Mesh
-          patch: NwetSurface_Nodes
+          patch: WETSURF
           read-data: [Force]
           write-data: [Displacement]
           
