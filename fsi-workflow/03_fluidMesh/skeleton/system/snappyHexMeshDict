@@ -1,23 +1,11 @@
-/*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  dev                                   |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
-|    \\/     M anipulation  |                                                 |
-|*---------------------------------------------------------------------------*|
-|  File created by CFD support s.r.o.  on   Thu Feb  8 07:38:52 2018          |
-|                    http://www.cdfsupport.com                                |
-\*---------------------------------------------------------------------------*/
 FoamFile
 {
     version 2.0;
     format ascii;
     class dictionary;
-    location "meshFactory/component1/system";
+    location "system";
     object snappyHexMeshDict;
 }
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 // Which of the steps to run
 castellatedMesh false;
@@ -58,7 +46,7 @@ geometry
 castellatedMeshControls
 {
     // If local number of cells is >= maxLocalCells on any processor
-    // switches from from refinement followed by balancing
+    // switches from refinement followed by balancing
     // (current method) to (weighted) balancing before refinement.
     maxLocalCells 5000000;
 
@@ -439,5 +427,3 @@ writeFlags
 // Merge tolerance. Is fraction of overall bounding box of initial mesh.
 // Note: the write tolerance needs to be higher than this.
 mergeTolerance 1e-6;
-
-// ************************************************************************* //

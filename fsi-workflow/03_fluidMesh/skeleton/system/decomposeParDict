@@ -6,7 +6,6 @@ FoamFile
     location system;
     object decomposeParDict;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 numberOfSubdomains ND;
     
