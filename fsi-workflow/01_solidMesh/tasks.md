@@ -133,11 +133,11 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 ![FreeCAD: wet surface steps](./images/group_WS_steps.png)  
   
-- As for the `root` Group. change the `Label` in the `Properties` to `wetSurface`
+- As for the `root` Group. change the `Label` in the `Properties` to `NwetSurface`
 
 ![FreeCAD: Rename wet surface group](./images/group_WS_rename.png)
 
-You should come up with a list of three groups under the current mesh.
+You should now see a list of two groups under the current mesh.
 
 ![FreeCAD: final list of groups](./images/groups_final_LS.png)
 
