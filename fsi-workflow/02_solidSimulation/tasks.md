@@ -1,14 +1,14 @@
 # Task 2: simulation of the Solid domain
 
-In this section we'll simulate the *Solid Domain* alone, to gain confidence with the **CalculiX** syntax and to check that our solid mesh and model work.
+In this section we'll simulate the *Solid Domain* alone, to gain confidence with the **CalculiX** syntax and to check that our solid mesh and model work. **CalculiX** allows you to perform different kinds of simulations (e.g. static, dynamic, frequency...), but we stick with *dynamic simulations* because it is the one used in the coupled simulation.
 
 ## Dynamic Simulation
 
 This model allows you to perform a dynamic simulation in which the cantilevered wing is subjet to its own weight. The load is applied progressively, with a ramp law (yes, we know that it is not very realistic... But we just want to have a look at a simple CalculiX simulation).
 
-### Complete the staticModel.inp file
+### Complete the dynamicModel.inp file
 
-Enter the `dynamic` folder and:
+In the `skeleton` folder:
 
 - Copy your generated solid mesh in the current folder
 
@@ -16,10 +16,10 @@ Open the `dynamicModel.inp` file and:
 
 - replace **YOURMESH.inp** (line **4**) with the name of your mesh (`wing2312_m.inp`)
   - Note that CalculiX expects distance units in meters, while FreeCAD generates meshes with distances in millimeters. We need to adapt the values.
-- replace **E**, **NU**, **RHO** (i.e. the material properties of the material, lines **10, 12**) with the following:
-  - `2000000` ($E=200 MPa$)
-  - `0.3` ($\nu = 0.3$)
-  - `3000` ($\rho = 3000 \frac{kg}{m^3}$)
+- replace **E**, **NU**, **RHO** (i.e. the material properties of the material, lines **10, 12**) with the following (roughly corresponding to a Plyurethane elastomer or TPU):
+  - `2000000` (Young modulus: $E=200 MPa$)
+  - `0.3` (Poisson ratio: $\nu = 0.3$)
+  - `3000` (density: $\rho = 3000 \frac{kg}{m^3}$)
 - replace **DAMP**, **DT**, **TFINAL** (lines **21, 22**) with the following:
   - `-0.1` (numerical damping, see notes below)
   - `5.0E-2` ($\Delta  t = 5 \cdot 10^{-2}s$)
@@ -35,7 +35,7 @@ Notice the structure of the file:
 - lines **21-22**: define a dynamic simulation
   - **DIRECT** specifies that the user-defined initial time increment should not be changed
   - **ALPHA** takes an argument in the range $\left[-\frac{1}{3}, 0 \right]$. It controls the dissipation of the high frequency response: lower numbers lead to increased numerical damping
-- lines **26-27**: define a constraint in which the nodes belonging to the set are fixed.
+- lines **26-27**: define a constraint in which the nodes belonging to the set are fixed. Numbers `1, 3` indicate that node coordinates from `1` ($x$ direction) to `3` ($z$ direction) are fixed.
 - lines **36-37**: define a *distributed load* (body force) **GRAV** $\vec{g} = 9.81$ with direction $(0, -1, 0)$ as we did in static simulation, but we are applying it with a factor defined in lines **31-32**.
 - lines **41-44**: define the simulation output for each mesh element:
   - `U`: displacements
@@ -92,6 +92,10 @@ You will see a set of `dynamicModel.XX.vtu` files, and a `dynamicModel.pvd` file
 Open **Paraview** and then open `dynamicModel.pvd`. You can then look at the deformed shape of the wing by applying a `WarpByVector` filter based on the `U` vector (and a small scale factor):
 
 ![wing_deformed](./images/results_paraview.png)
+
+Here you can find a way to configure the *warping* of the surface:
+
+![warp_params](./images/Warp.png)
 
 #### Reaction forces
 

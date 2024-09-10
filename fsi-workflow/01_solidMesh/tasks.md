@@ -167,7 +167,7 @@ To verify, open the `wing2312.inp` file you just generated with a text editor:
 
 ## Scale the mesh file
 
-Unfortunately, **FreeCAD** exports all node coordinates in **mm** and there is no option to change it. We prefer to have everything in **SI** units so, in the `10_utils` folder you can find a `inp_convert.py` file. Copy it in your folder and, after checking that the name on line **43** matches your mesh file, run it:
+Unfortunately, **FreeCAD** exports all node coordinates in **mm** and there is no option to change it. We prefer to have everything in **SI** units so, in the `01_solidMesh` folder you can find a `inp_convert.py` file. After checking that the name on line **43** matches your mesh file, run it:
 
 `python3 inp_convert.py`
 
