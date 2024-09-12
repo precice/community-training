@@ -104,6 +104,18 @@ You should see something like:
 
 You can compare those values with theoretical data (if you have them), or you can perform some *mesh independence study* to check the convergence of your setup. But for the sake of time, let's move on to the FSI part.
 
+### Reconstruct the case
+
+Your case is decomposed in 8 subdomains. You can still view the results in **Paraview** by selecting `Decomposed Case` once you opened `Fluid.foam` (see picture below).
+
+![decomposed case](./images/decomposed.png)
+
+In our case we only need the latest time-step (`250`), which will be the initial state of our coupled simulation. In your terminal type
+
+`reconstructPar -latesttime`
+
+You will see the `250` folder in the root folder of your case containing the files `U`, `p`, and `phi`. Move those files in the `results/water` folder (overwrite the empty files), we will use it in the FSI simulation.
+
 ## Setup *Simulation 2* (optional)
 
 Now we consider a laminar incompressible simulation in air, with the same Reynolds number. The main parameters are:
@@ -119,7 +131,7 @@ You have to:
   - `0` folder
   - `processor*` folder
   - `postProcessing` folder
-- move the `250` directory in the `results/water` folder (overwrite the empty files), we will use it in the FSI simulation
+- remove the `250` directory
 - update the simulation values (follow the previous steps and update the files as needed)
 - rerun the simulation with the updated values
 - move the `250` directory in the `results/air` folder
