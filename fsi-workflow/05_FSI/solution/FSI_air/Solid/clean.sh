@@ -6,6 +6,8 @@ rm -fv ./*.cvg ./*.dat ./*.frd ./*.sta ./*.12d ./*.rout spooles.out dummy
 rm -fv *.vtu
 rm -fv *.pvd
 
+rm -rfv ./convert
+
 rm -rfv *.log
 rm -rfv precice-profiling
 rm -rfv ../precice-run
