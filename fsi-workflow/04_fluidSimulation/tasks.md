@@ -8,7 +8,7 @@ This will allow us to perform two important tasks:
 
 ## Introduction
 
-We want an initialized fluid domain, so we can simply perform a **steady state** simulation.
+We want an initialized fluid domain, so we can simply perform a **steady state** simulation. Later, in the FSI part, we will switch to a transient simulation.
 
 You'll find the required files in the `skeleton` directory. The `Fluid` directory is the OpenFOAM root case, containing the `constant`, `system` and
 `0.orig` folders. We put everything into the `Fluid` directory to familiarize with the fact that we'll soon have a `Fluid` and a `Solid` case.
@@ -25,9 +25,9 @@ You'll find the required files in the `skeleton` directory. The `Fluid` director
 
 Here we consider a laminar incompressible simulation in water. The main parameters are:
 
-- $U_{\infty} = 0.5$
-- $\rho = 1000$
-- $\nu = 1 \cdot 10^{-6}$
+- $U_{\infty} = 0.5 \ \mathrm{m/s}$
+- $\rho = 1000 \ \mathrm{kg/m^3}$
+- $\nu = 1 \cdot 10^{-6} \ \mathrm{m^2/s}$
 - $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
 
 ### `0.orig` folder
@@ -39,13 +39,13 @@ Open the file `U` and:
 - substitute **UINF** at line 19 with the value **0.5**. This initializes the whole domain to $U_{\infty}$
 - substitute the boundary condition **BOUNDARY** for the *naca2312* patch at line **28** with **noSlip**
 
-Note: we use the folder `0.orig` instead of the usual folder `0` just in case the simulation overwrites the initial conditions (e.g. you perform `potentialFoam` to initialize the fluid domain). The launch script that we prepared will take care of copying `0.orig` to `0`.
+Note: we use the folder `0.orig` instead of the usual folder `0` just in case the simulation overwrites the initial conditions (e.g., you execute `potentialFoam` to initialize the fluid domain). The launch script that we prepared will take care of copying `0.orig` to `0`.
 
 ### `constant` folder
 
 Here you need to perform the following activities:
 
-- Use the **mesh** you generated in the previous task: copy the `polyMesh` folder, that you find in the `0.003` folder, in here
+- Use the **mesh** you generated in the previous task: copy the `polyMesh` folder, which you can find in the `0.003` folder, in here
 - Open the `transportProperties` file to define the kinematic viscosity $\nu$: substitute **NU** at line **19** with `1e-06`
 - Open the `turbulenceProperties` file to define the type of simulation: uncomment line **17** to perform a **laminar** simulation
 
@@ -53,11 +53,11 @@ Here you need to perform the following activities:
 
 Here you will define how many simulation steps you want to perform and you will make use of *function objects* in order to compute **forces, moments** and **force** and **moment coefficients**:
 
-- Open the `controlDict` file and:
+- Open the `controlDict` file and orientate yourself on the different sections. Then:
     1. substitute **END** with **500** at line **26**: we will perform 500 simulation steps at most
     2. substitute **RHO** with **1000.0** at lines **77** and **102**
     3. substitute **UINF** with **0.2** at line **111**
-    4. substitute **CHORD** with **0.1**at line **112**
+    4. substitute **CHORD** with **0.1** at line **112**
     5. substitute **AREA** with **0.03** at line **113**
 
 Then you will define the type of the simulation and some thresholds for the residuals so that, if we reach those values, the simulation stops before *endTime*:
@@ -76,38 +76,40 @@ In order to run simulation, open a terminal from the `skeleton` folder, source O
 - running `simpleFoam` in parallel and logging the output in `log.solver`
 - reconstucting the latest timeStep
 
-## Monitoring
+By default, the script is running the case with 8 processes, using oversubscription. You can change the partitioning by changing the `system/decomposeParDict` and you then change the number of processes in `run_case.sh`.
 
-(**TODO** check if available)
+The simulation will probably take around 5-10 min to complete all 500 iterations. You can get a pretty much converged state earlier (e.g., around 300 iterations).
+
+## Monitoring
 
 To check the simulation progress and plot the residuals over time, you can:
 
 - open another terminal
 - go to the `Fluid` folder
 - source OpenFOAM
-- type `pyFoamPlotWatcher log.solver`
+- type `pyFoamPlotWatcher log.solver` (requires [PyFoam](https://pypi.org/project/PyFoam/))
 
-## Analysis of the results
+## Analyzing the results
 
-In order to understand if your simulation has converged and if you have obtained reasonable results, you can look at the output of the `function objects` that we enabled in the `controlDict` dictionary.
+In order to understand if your simulation has converged and if you have obtained reasonable results, you can look at the output of the `functions` that we enabled in the `controlDict` dictionary.
 
 You can plot force coefficients over time by typing in the case root folder:
 
 `python3 plotCoefficients.py`
 
-You should see something like:
+You should see something like: (**TODO: Check**)
 
 ![CdCl](./images/cdcl.png)
 
-You can compare those values with theoretical data (if you have them), or you can perform some *mesh independence study* to check the convergence of your setup.
+You can compare those values with theoretical data (if you have them), or you can perform some *mesh independence study* to check the convergence of your setup. But for the sake of time, let's move on to the FSI part.
 
 ## Setup *Simulation 2* (optional)
 
 Now we consider a laminar incompressible simulation in air, with the same Reynolds number. The main parameters are:
 
-- $U_{\infty} = 7.5$
-- $\rho = 1.225$
-- $\nu = 1.5 \cdot 10^{-5}$
+- $U_{\infty} = 7.5\ \mathrm{m/s}$
+- $\rho = 1.225 \ \mathrm{kg/m^3}$
+- $\nu = 1.5 \cdot 10^{-5}\ \mathrm{m^2/s}$
 - $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
 
 You have to:

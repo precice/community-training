@@ -179,9 +179,7 @@ When finished, you will see three time folders (0.001, 0.002, 0.003) in the root
 
 Notes:
 - the timestep depends on the `deltaT` parameter in the `controlDict` file, but it is not relevant
-- you can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`
-
-**TODO:** We probably want to explicitly tell people to use the `-overwrite`, right? Or is that not needed?
+- you can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`. In the next step (fluid simulation), we will use the `0.003` directory.
 
 ## checkMesh
 
