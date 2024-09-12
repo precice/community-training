@@ -13,14 +13,13 @@ We want an initialized fluid domain, so we can simply perform a **steady state**
 You'll find the required files in the `skeleton` directory. The `Fluid` directory is the OpenFOAM root case, containing the `constant`, `system` and
 `0.orig` folders. We put everything into the `Fluid` directory to familiarize with the fact that we'll soon have a `Fluid` and a `Solid` case.
 
-**TODO** decide how to proceed:
+Here we consider two cases:
 
-- one case:
-    1. $Re=5\cdot 10^4$ laminar, incompressible, water
-    2. $Re=5\cdot 10^4$ laminar, incompressible, air
-- two cases:
-    1. case **1** and **2** above
- 
+ 1. $Re=5\cdot 10^4$ laminar, incompressible, water
+ 2. $Re=5\cdot 10^4$ laminar, incompressible, air
+
+The first one is required for the next step of the training. The second one, similar in the structure, but considering different fluid properties, is given as homework.
+
 ## Setup *Simulation 1*
 
 Here we consider a laminar incompressible simulation in water. The main parameters are:
@@ -43,15 +42,15 @@ Note: we use the folder `0.orig` instead of the usual folder `0` just in case th
 
 ### `constant` folder
 
-Here you need to perform the following activities:
+Here we need to perform the following activities:
 
-- Use the **mesh** you generated in the previous task: copy the `polyMesh` folder, which you can find in the `0.003` folder, in here
+- Use the **mesh** we generated in the previous task: copy the `polyMesh` folder, which you can find in the `0.003` folder, in here
 - Open the `transportProperties` file to define the kinematic viscosity $\nu$: substitute **NU** with `1e-06`
 - Open the `turbulenceProperties` file to define the type of simulation: substitute `TYPE` with `laminar`, to perform a **laminar** simulation
 
 ### `system` folder
 
-Here you will define how many simulation steps you want to perform and you will make use of *function objects* in order to compute **forces, moments** and **force** and **moment coefficients**:
+Here we will define how many simulation steps we want to perform and we will make use of *function objects* in order to compute **forces, moments** and **force** and **moment coefficients**:
 
 - Open the `controlDict` file and orientate yourself on the different sections. Then:
     1. substitute **END** with **250** at `entTime` entry: we will perform 250 simulation steps at most
@@ -61,7 +60,7 @@ Here you will define how many simulation steps you want to perform and you will 
        2. substitute `CHORD` with `0.1`
        3. substitute `AREA` with `0.03`
 
-Then you will define the type of the simulation and some thresholds for the residuals so that, if we reach those values, the simulation stops before *endTime*:
+Then we will define the type of the simulation and some thresholds for the residuals so that, if we reach those values, the simulation stops before *endTime*:
 
 - Open `fvSchemes` and substitute `SIMULATIONTYPE` with `steadyState` in the `ddtSchemes` dictionary entry
 - Open `fvSolution` and in the `residualControl` entry:
@@ -134,4 +133,4 @@ You have to:
 - remove the `250` directory
 - update the simulation values (follow the previous steps and update the files as needed)
 - rerun the simulation with the updated values
-- move the `250` directory in the `results/air` folder
+- move the files in the `250` directory in the `results/air/250` folder
