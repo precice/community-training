@@ -6,40 +6,43 @@ Finally we are able to put everything together and start our **fluid-structure i
 
 Enter the `Solid` folder.
 
-
 You need to use the mesh generated in step `01_solidMesh`: copy the `.inp` mesh in the current directory.
 
 **NOTE**: Remember to use the one converted in *meters*.
 
 ### `solidModel.inp`
 
-Complete the file with the following information: 
+**TODO:** Since we have already set these in task 2, do we really need to repeat everything? Could we use the previous file, instead?
+
+Complete the file with the following information:
 
 - section `*INCLUDE`: replace `YOURMESH.inp` with the actual name of the mesh (`wing2312_m.inp`)
 - section `*MATERIAL`: replace the terms `E`, `NU` and  `RHO` with `5.68E8`, `0.46` and `2070` which correspond to a polymeric material close to PTFE
-- section `*DYNAMIC`: replace `DT` and `TFINAL` with `1.0E-3` and `0.5`. We perfrom a simulation $0.5$ seconds long with a time-step of $1ms$
+- section `*DYNAMIC`: replace `DT` and `TFINAL` with `1.0E-3` and `0.5`. We perform a simulation $0.5$ seconds long with a time-step of $1ms$
 - section `*BOUNDARY`: replace `NODESET` with the name given to the msh group of the **root** (`Nroot_Nodes`)
 - section `*AMPLITUDE`: replace `RAMPSEQUENCE` with `0.0, 0.05, 0.2, 1.0, 0.5, 1.0`. We ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.2s$
 - section `*CLOAD`: replace each of the `WETSURF` entries with the name of the group given to the **wet surface**(`NwetSurface_Nodes`)
 
 ### `config.yaml`
 
-This file contains the information required by the **CalculiX adapter** to connect to **preCICE**. The information here must match the information contained in the `precice-config.xml` file
+This file contains the information required by the **CalculiX adapter** to connect to **preCICE**. The information here must match the information contained in the `precice-config.xml` file. See the [CalculiX adapter documentation](https://precice.org/adapter-calculix-config.html).
 
- - entry `patch`: replace `WETSURF` with the name of the group given to the *wet surface*, **WITHOUT the N at the beginning**  (`wetSurface_Nodes`)
+ - entry `patch`: replace `WETSURF` with the name of the group given to the *wet surface* (see the mesh `.inp` file), **WITHOUT the N at the beginning**  (`wetSurface_Nodes`)
 
-The **Solid participant** is now ready and we can move to the **Fluid participant**.
+The rest of the entries specify the path to the preCICE configuration file, the coupling mesh defined in the preCICE configuration file (`Solid-Mesh`, a nodes-based mesh), the read data (forces), and the write data (absolute displacements).
+
+The **Solid participant** is now ready, and we can move to the **Fluid participant**.
 
 ## Fluid setup
 
-Now go back to the root of the case and enter the `Fluid` folder. This is an usual `OpenFOAM` case that you have to configure.
+Now go back to the root of the case and enter the `Fluid` folder. This is a usual `OpenFOAM` case that we have to configure. For the preCICE-specific parts, have a look at the [OpenFOAM adapter documentation](https://precice.org/adapter-openfoam-config.html).
 
 ### `constant` folder
 
-In this folder you need to:
+In this folder, we need to:
 
 - copy our previously generated mesh: copy the `polyMesh` folder from your `0.003` folder in `03_fluidMesh/skeleton` (or from the `constant` folder in `04_fluidSimulation/skeleton/Fluid`)
-- open the `dynamicMeshDict` and replace `WETSURF` in the `displacementLaplacianCoeffs` dictionary entry with the name given to the wing patch (`naca2312`). This dictionary tells OpenFOAM that we need a mesh motion solver to perform our FSI simulation
+- open the `dynamicMeshDict` and replace `WETSURF` in the `displacementLaplacianCoeffs` dictionary entry with the name given to the wing patch (`naca2312`, specified in `constant/polyMesh/boundary`). This file configures a mesh motion solver (`displacementLaplacian`).
 
 ### `0.orig` folder
 
@@ -49,20 +52,20 @@ Create a folder named `0.orig` in the `Fluid` folder. Copy here the files:
 - `p`
 - `phi`
 
-that you have saved in `04_fluidSimulation/skeleton/results/water/500`. We are initializing the fluid domain with our previous solution.
+that you have saved in `04_fluidSimulation/skeleton/results/water/500`. By copying results from the converged state of the steady-state simulation into the `0.orig/` (and effectively `0/`) directory, we are initializing the fluid domain with our previous solution.
 
 ### update of `U` file
 
-When we performed the the fluid simulation, in the `U` file for the initial conditions, we defined the surface of the wing as `noSlip`. This boundary condition remains through all your simulation and it is the current BC in the `U` file that you copied. In **FSI** simulations, it would give you wrong results. The correct BC is `movingWallVelocity`. To avoid opening a large file to look for a boundary condition, you can use the utility `changeDictionary`. You have to:
+When we performed the fluid simulation, in the `U` file for the initial conditions, we defined the surface of the wing as `noSlip`. This boundary condition remains through all your simulation and it is the current BC in the `U` file that you copied. In **FSI** simulations, we need that the velocity is overwritten by preCICE, for which we need to use the `movingWallVelocity` BC. To avoid opening a large file to look for a boundary condition, we can use the utility `changeDictionary`:
 
 - open the file `changeDictionaryDict` in the `system` folder
-- in the `boundaryField` dictionary entry, look for `PATCH` and replace it with `naca2312` and the entry `TYPE` with `movingWallVelocity`. You will update the boundary condition before running the coupled simulation.
+- in the `boundaryField` dictionary entry, look for `PATCH` and replace it with `naca2312` and the entry `TYPE` with `movingWallVelocity`. We will update the boundary condition before running the coupled simulation (file `Allrun.pre`).
 
 ### `system` folder
 
 Open the `controlDict` file and:
 
-- replace the term `TFINAL` for the entry `endTime` with `5.0`
+- replace the term `TFINAL` for the entry `endTime` with `5.0` **TODO:** Should not matter, the adapter sets it automatically
 - replace the entry `DT` for the entry `deltaT` with `1e-3`
 - replace the entry `PRECICE_FO`, a placeholder for the **preCICE Funtion Object** with the following:
 
@@ -76,10 +79,12 @@ Open the `controlDict` file and:
 
 Note: we are using the same $\Delta t$ for the **Fluid** and the **Solid** part, no subcycling.
 
-Open the `preciceDict` file and:
+Similarly to the `config.yml` file that we edited for the CalculiX adapter, we also need to configure the OpenFOAM adapter. Open the `preciceDict` file and:
 
-- replace the entry `PATCH` in the `interface1` dictionary entry with the name given to the wing boundary patch (`naca2312`)
-- replace the entry `RHO` in the `FSI` dictionary entry with the water density ($\rho_{water} = 1000.0 \frac{kg}{m^3}$)
+- replace the entry `PATCH` in the `Interface1` dictionary entry with the name given to the wing boundary patch (`naca2312`)
+- replace the entry `RHO` in the `FSI` dictionary entry with the water density ($\rho_{water} = 1000.0 \frac{kg}{m^3}$) We are using an incompressible solver, so the adapter needs a density value to compute the forces.
+
+Notice that, compared to the previous, steady-state flow simulation, we are now using the transient `pimpleFoam` solver.
 
 ## preCICE setup
 
@@ -105,7 +110,7 @@ Open the `precice-config.xml` file in the `skeleton` folder and:
 
 ## Coupled simulation
 
-Now you are ready to perform the coupled simulation:
+Now we are ready to perform the coupled simulation:
 
 ### Solid participant
 
@@ -122,7 +127,7 @@ Open another terminal and enter the `Fluid` folder. Here you have to:
 - source OpenFOAM (e.g. type `of2406`)
 - run `./Allrun.pre` which takes care of:
   - copying `0.orig` into `0`
-  - executing `changeDictionary`
+  - executing `changeDictionary` to switch the boundary condition from `noSlip` to `movingWallVelocity`
   - decomposing the case into **8** subdomains
 - run `./run_fluid.sh` to start the parallel simulation
 
