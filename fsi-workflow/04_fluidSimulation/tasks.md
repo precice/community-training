@@ -36,8 +36,8 @@ This folder contains the boundary and the initial conditions for each of the sim
 
 Open the file `U` and:
 
-- substitute **UINF** at line 19 with the value **0.5**. This initializes the whole domain to $U_{\infty}$
-- substitute the boundary condition **BOUNDARY** for the *naca2312* patch at line **28** with **noSlip**
+- substitute **UINF** in the `internalField` dictionary entry with the value **0.5**. This initializes the whole domain to $U_{\infty}$
+- substitute the boundary condition **BOUNDARY** for the *naca2312* patch in the `boundaryField` entry with **noSlip**
 
 Note: we use the folder `0.orig` instead of the usual folder `0` just in case the simulation overwrites the initial conditions (e.g., you execute `potentialFoam` to initialize the fluid domain). The launch script that we prepared will take care of copying `0.orig` to `0`.
 
@@ -46,26 +46,27 @@ Note: we use the folder `0.orig` instead of the usual folder `0` just in case th
 Here you need to perform the following activities:
 
 - Use the **mesh** you generated in the previous task: copy the `polyMesh` folder, which you can find in the `0.003` folder, in here
-- Open the `transportProperties` file to define the kinematic viscosity $\nu$: substitute **NU** at line **19** with `1e-06`
-- Open the `turbulenceProperties` file to define the type of simulation: uncomment line **17** to perform a **laminar** simulation
+- Open the `transportProperties` file to define the kinematic viscosity $\nu$: substitute **NU** with `1e-06`
+- Open the `turbulenceProperties` file to define the type of simulation: substitute `TYPE` with `laminar`, to perform a **laminar** simulation
 
 ### `system` folder
 
 Here you will define how many simulation steps you want to perform and you will make use of *function objects* in order to compute **forces, moments** and **force** and **moment coefficients**:
 
 - Open the `controlDict` file and orientate yourself on the different sections. Then:
-    1. substitute **END** with **500** at line **26**: we will perform 500 simulation steps at most
-    2. substitute **RHO** with **1000.0** at lines **77** and **102**
-    3. substitute **UINF** with **0.2** at line **111**
-    4. substitute **CHORD** with **0.1** at line **112**
-    5. substitute **AREA** with **0.03** at line **113**
+    1. substitute **END** with **250** at `entTime` entry: we will perform 250 simulation steps at most
+    2. substitute **RHO** with **1000.0** in the `forces_object` and in the `forceCoeffs_object`
+    3. again in the in the `forceCoeffs_object`:
+       1. substitute `UINF` with `0.5`
+       2. substitute `CHORD` with `0.1`
+       3. substitute `AREA` with `0.03`
 
 Then you will define the type of the simulation and some thresholds for the residuals so that, if we reach those values, the simulation stops before *endTime*:
 
-- Open `fvSchemes` and substitute **SIMULATIONTYPE** with **steadyState**
-- Open `fvSolution` and:
-    1. substitute **P_RES** with **1e-4** at line **96**
-    2. substitute **U_RES** with **1e-4** at line **97**
+- Open `fvSchemes` and substitute `SIMULATIONTYPE` with `steadyState` in the `ddtSchemes` dictionary entry
+- Open `fvSolution` and in the `residualControl` entry:
+    1. substitute `P_RES` with `1e-4`
+    2. substitute `U_RES` with `1e-4`
 
 ## Run the case
 
@@ -78,7 +79,7 @@ In order to run simulation, open a terminal from the `skeleton` folder, source O
 
 By default, the script is running the case with 8 processes, using oversubscription. You can change the partitioning by changing the `system/decomposeParDict` and you then change the number of processes in `run_case.sh`.
 
-The simulation will probably take around 5-10 min to complete all 500 iterations. You can get a pretty much converged state earlier (e.g., around 300 iterations).
+The simulation will probably take around 5 min to complete all 250 iterations. You can get a pretty much converged state, even if the residuals in this case don't reach the limits which would automatically stop the simulation.
 
 ## Monitoring
 
@@ -97,7 +98,7 @@ You can plot force coefficients over time by typing in the case root folder:
 
 `python3 plotCoefficients.py`
 
-You should see something like: (**TODO: Check**)
+You should see something like:
 
 ![CdCl](./images/cdcl.png)
 
@@ -118,7 +119,7 @@ You have to:
   - `0` folder
   - `processor*` folder
   - `postProcessing` folder
-- move the `500` directory in the `results/water` folder (overwrite the empty files), we will use it in the FSI simulation
+- move the `250` directory in the `results/water` folder (overwrite the empty files), we will use it in the FSI simulation
 - update the simulation values (follow the previous steps and update the files as needed)
 - rerun the simulation with the updated values
-- move the `500` directory in the `results/air` folder
+- move the `250` directory in the `results/air` folder
