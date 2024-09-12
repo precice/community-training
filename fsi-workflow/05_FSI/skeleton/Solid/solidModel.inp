@@ -1,16 +1,16 @@
 
 ***********************************************************
 ** Import FEM mesh
-*INCLUDE, INPUT=YOURMESH.inp
+*INCLUDE, INPUT=wing2312_m.inp
 
 ***********************************************************
 ** Materials
 *MATERIAL, Name=EL
 *ELASTIC
- E, NU
+ 5.68E8, 0.46
 
 *DENSITY
- RHO
+ 2070
 
 ***********************************************************
 ** Sections
@@ -20,17 +20,17 @@
 ** computation step
 *STEP, INC=1000000
 *DYNAMIC, ALPHA=-0.05, DIRECT
-DT, TFINAL
+1.0E-3, 0.5
 
 ***********************************************************
 ** Fixed Constraints
 *BOUNDARY
-NODESET, 1, 3
+Nroot_Nodes, 1, 3
 
 ***********************************************************
 ** Ramp load 
 *AMPLITUDE, Name=STARTRAMP
-RAMPSEQUENCE
+0.0, 0.05, 0.2, 1.0, 0.5, 1.0
 
 
 ***********************************************************

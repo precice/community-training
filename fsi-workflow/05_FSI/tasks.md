@@ -12,22 +12,23 @@ You need to use the mesh generated in step `01_solidMesh`: copy the `.inp` mesh 
 
 ### `solidModel.inp`
 
-**TODO:** Since we have already set these in task 2, do we really need to repeat everything? Could we use the previous file, instead?
+Check the following information in the file:
+
+- section `*INCLUDE`: we are including the mesh named `wing2312_m.inp`, replace `with the actual name of your mesh, if different
+- section `*MATERIAL`: the material properties correspond to a polymeric material close to PTFE
+- section `*DYNAMIC`: we perform a simulation $0.5$ seconds long with a time-step of $1ms$
+- section `*BOUNDARY`: the group of the **root** (`Nroot_Nodes`) is fixed
+- section `*AMPLITUDE`: we ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.2s$
 
 Complete the file with the following information:
 
-- section `*INCLUDE`: replace `YOURMESH.inp` with the actual name of the mesh (`wing2312_m.inp`)
-- section `*MATERIAL`: replace the terms `E`, `NU` and  `RHO` with `5.68E8`, `0.46` and `2070` which correspond to a polymeric material close to PTFE
-- section `*DYNAMIC`: replace `DT` and `TFINAL` with `1.0E-3` and `0.5`. We perform a simulation $0.5$ seconds long with a time-step of $1ms$
-- section `*BOUNDARY`: replace `NODESET` with the name given to the msh group of the **root** (`Nroot_Nodes`)
-- section `*AMPLITUDE`: replace `RAMPSEQUENCE` with `0.0, 0.05, 0.2, 1.0, 0.5, 1.0`. We ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.2s$
-- section `*CLOAD`: replace each of the `WETSURF` entries with the name of the group given to the **wet surface**(`NwetSurface_Nodes`)
+- section `*CLOAD`: replace each of the `WETSURF` entries with the name of the group given to the **wet surface** (`NwetSurface_Nodes`)
 
 ### `config.yaml`
 
 This file contains the information required by the **CalculiX adapter** to connect to **preCICE**. The information here must match the information contained in the `precice-config.xml` file. See the [CalculiX adapter documentation](https://precice.org/adapter-calculix-config.html).
 
- - entry `patch`: replace `WETSURF` with the name of the group given to the *wet surface* (see the mesh `.inp` file), **WITHOUT the N at the beginning**  (`wetSurface_Nodes`)
+- entry `patch`: replace `WETSURF` with the name of the group given to the *wet surface* (see the mesh `.inp` file), **WITHOUT the N at the beginning** (`wetSurface_Nodes`)
 
 The rest of the entries specify the path to the preCICE configuration file, the coupling mesh defined in the preCICE configuration file (`Solid-Mesh`, a nodes-based mesh), the read data (forces), and the write data (absolute displacements).
 
@@ -46,13 +47,15 @@ In this folder, we need to:
 
 ### `0.orig` folder
 
-Create a folder named `0.orig` in the `Fluid` folder. Copy here the files:
+In this folder there is a new dictionary file `pointDisplacement`: this is required by the **meshMotionSolver**.
+
+Copy here the files:
 
 - `U`
 - `p`
 - `phi`
 
-that you have saved in `04_fluidSimulation/skeleton/results/water/500`. By copying results from the converged state of the steady-state simulation into the `0.orig/` (and effectively `0/`) directory, we are initializing the fluid domain with our previous solution.
+that you have saved in `04_fluidSimulation/skeleton/results/water/250`. By copying results from the converged state of the steady-state simulation into the `0.orig/` (and effectively `0/`) directory, we are initializing the fluid domain with our previous solution.
 
 ### update of `U` file
 
@@ -65,7 +68,7 @@ When we performed the fluid simulation, in the `U` file for the initial conditio
 
 Open the `controlDict` file and:
 
-- replace the term `TFINAL` for the entry `endTime` with `5.0` **TODO:** Should not matter, the adapter sets it automatically
+- replace the term `TFINAL` for the entry `endTime` with `0.5` (**NOTE:** the end time does not matter, the adapter sets it automatically)
 - replace the entry `DT` for the entry `deltaT` with `1e-3`
 - replace the entry `PRECICE_FO`, a placeholder for the **preCICE Funtion Object** with the following:
 

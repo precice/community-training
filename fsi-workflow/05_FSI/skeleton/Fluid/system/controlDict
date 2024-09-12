@@ -29,7 +29,7 @@ deltaT          DT;
 
 writeControl    runTime;
 
-writeInterval   1e-2;
+writeInterval   1e-3;
 
 purgeWrite      0;
 
