@@ -39,8 +39,6 @@ timePrecision   6;
 runTimeModifiable true;
 
 adjustTimeStep  no;
-maxCo           4;
-maxDeltaT       0.01;
 
 // ************************************************************************* //
 
