@@ -95,7 +95,6 @@ Once we have prepared the **participants** we can setup **preCICE**.
 
 Open the `precice-config.xml` file in the `skeleton` folder and:
 
-- replace the **two** occurrencies of `RADIUS` in the `<mapping:rbf>` tag with  `0.05` (**TODO** motivate value?)
 - in the `<watch-point>` tag replace:
   - `TIP_COORD` with `0.0;0.0;0.3`
   - `TIP_LE_COORD` with `-0.05;0.0;0.3`
@@ -106,10 +105,9 @@ Open the `precice-config.xml` file in the `skeleton` folder and:
 
 **NOTES**:
 
-- **TODO** RBF
 - we are considering **3** watch-points at the tip of the wing, so that we can look at the displacement and at the pitching angle of the final section of the wing
 - all the simulation components share the same $\Delta t$ and $t_{final}$
-- **TODO** any notes on convergence
+- The convergence measure that we chose is a good compromise between accuracy and execution time
 
 ## Coupled simulation
 
