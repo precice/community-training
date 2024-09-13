@@ -89,6 +89,10 @@ To check the simulation progress and plot the residuals over time, you can:
 - source OpenFOAM
 - type `pyFoamPlotWatcher log.solver` (requires [PyFoam](https://pypi.org/project/PyFoam/))
 
+You shoud obtain a graph of the residuals like the following picture:
+
+![residuals](./images/pyFoam.png)
+
 ## Analyzing the results
 
 In order to understand if your simulation has converged and if you have obtained reasonable results, you can look at the output of the `functions` that we enabled in the `controlDict` dictionary.
