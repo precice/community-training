@@ -15,7 +15,7 @@ You need to use the mesh generated in step `01_solidMesh`: copy the `.inp` mesh 
 Check the following information in the file:
 
 - section `*INCLUDE`: we are including the mesh named `wing2312_m.inp`, replace `with the actual name of your mesh, if different
-- section `*MATERIAL`: the material properties correspond to a polymeric material close to PTFE
+- section `*MATERIAL`: the material properties correspond to a polymeric material close Polystyrene or ABS
 - section `*DYNAMIC`: we perform a simulation $0.5$ seconds long with a time-step of $1ms$
 - section `*BOUNDARY`: the group of the **root** (`Nroot_Nodes`) is fixed
 - section `*AMPLITUDE`: we ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.2s$

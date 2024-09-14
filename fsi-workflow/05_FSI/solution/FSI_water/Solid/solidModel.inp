@@ -7,10 +7,10 @@
 ** Materials
 *MATERIAL, Name=EL
 *ELASTIC
- 5.64E8, 0.46
-
+ 1E9, 0.35
+*DAMPING,ALPHA=0.0,BETA=0.0025
 *DENSITY
- 2070
+ 1060
 
 ***********************************************************
 ** Sections
