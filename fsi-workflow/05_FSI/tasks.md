@@ -154,6 +154,12 @@ During the **FSI** simulation you can monitor the ongoing simulation through the
 - `./plotDisplacement.sh` which plots the **watch-points** displacements over time
 - `python3 plotConvergence.py` which plots the number of iterations and the realative error for each time-step
 
+The pictures below show the output of the two utilities
+
+![tip displacement](./images/Tip_disp_damp.png)
+
+![convergence](./images/convergence.png)
+
 ## Results
 
 Once you have finished your simulation you can have a look at the results.
@@ -164,7 +170,15 @@ Once you have finished your simulation you can have a look at the results.
 
 ### Solid results
 
-**TODO** convert from frd. we will obtain 500 files.
+In order to open both **Fluid** and **Solid** domains at the same time in *Paraview*, we first need to convert from the *CalculiX* results file `solidModel.frd` to a set of `vtu` solution files and a `pvd` collecion file. 
+
+```
+python3 convert2vtu.py
+```
+
+This will create a `convert` folder where you will find 500 `.vtu` files.
+
+In *Paraview* select `File->Open...` and point to the `solidModel.pvd` file.
 
 ## Simulation 2 (optional)
 
