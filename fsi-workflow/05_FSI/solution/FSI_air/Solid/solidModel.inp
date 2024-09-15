@@ -8,9 +8,10 @@
 *MATERIAL, Name=EL
 *ELASTIC
  2E8, 0.35
+*DAMPING,ALPHA=0.0,BETA=0.01
 
 *DENSITY
- 1060
+ 730
 
 ***********************************************************
 ** Sections
@@ -19,8 +20,8 @@
 ***********************************************************
 ** computation step
 *STEP, INC=1000000
-*DYNAMIC, ALPHA=-0.2, DIRECT
-1.0E-3, 1.0
+*DYNAMIC, ALPHA=-0.05, DIRECT
+1.0E-3, 2.0
 
 ***********************************************************
 ** Fixed Constraints
