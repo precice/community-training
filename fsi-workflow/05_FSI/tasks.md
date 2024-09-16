@@ -164,12 +164,6 @@ The pictures below show the output of the two utilities
 
 Once you have finished your simulation you can have a look at the results.
 
-### Fluid results
-
-**TODO** clean from the 0.009 files. or we save each timestep
-
-### Solid results
-
 In order to open both **Fluid** and **Solid** domains at the same time in *Paraview*, we first need to convert from the *CalculiX* results file `solidModel.frd` to a set of `vtu` solution files and a `pvd` collecion file. 
 
 ```
@@ -178,10 +172,35 @@ python3 convert2vtu.py
 
 This will create a `convert` folder where you will find 500 `.vtu` files.
 
-In *Paraview* select `File->Open...` and point to the `solidModel.pvd` file.
+
+### Fluid results
+
+Open a terminal in the `Fluid` folder and type `paraFoam`
+
+1. This will open `Fluid.foam` in the folder
+2. In `Case type` select `Decomposed Case`
+3. Then press `Apply`
+
+![open](./images/open_fluid.png)
+
+You will then have access to the `OpenFOAM` fluid simulation results.
+
+![fluid](./images/parafoam.png)
+
+### Solid results
+
+In the same `parafoam` instance, select `File->Open...` and point to the `solidModel.pvd` file.
+
+Now you will have access to fhe **Fluid** and the **Solid** results.
+
+![FSI](./images/result_FSI.png)
 
 ## Simulation 2 (optional)
 
-**TODO**
+In the folder:
 
-- clean and rerun? copy? provide other case? point to "solution"?
+```
+./05_FSI/solution/FSI_air
+```
+
+you can find another case with other physical properties, both for the fluid (air) and for the solid (close to propylene). The Reynold number is still $5\cdot10^4$. We leave it to you as a starting point to change some physical properties or experiment.
