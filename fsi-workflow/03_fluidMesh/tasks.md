@@ -4,6 +4,10 @@ In this section we'll generate the Fluid Mesh for OpenFOAM.
 As we are doing external aerodynamics, we will first generate a background mesh and then embed the geometry in that mesh, removing the respective region.
 We will generate the mesh directly with the OpenFOAM tools blockMesh and snappyHexMesh.
 
+General overview:
+
+![Fluid mesh: General overview](images/flowchart/flowchart-fluid-mesh.png)
+
 In `skeleton/`, you can find:
 
 - The `constant` and `system` directories expected in an OpenFOAM case
@@ -120,7 +124,7 @@ decomposePar
 
 Eight directories with names `processor[0-7]` will be generated, including configuration files similar to the ones defined for a single-process case.
 
-### Generating the mesh
+## Generating the mesh
 
 Now we can create the mesh for the eight subdomains in parallel:
 
