@@ -1,20 +1,11 @@
-/*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  dev                                   |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
-|    \\/     M anipulation  |                                                 |
-\*---------------------------------------------------------------------------*/
 FoamFile
 {
     version 2.0;
     format ascii;
     class dictionary;
-    location "meshFactory/component1/system";
+    location "system";
     object surfaceFeatureExtractDict;
 }
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 naca2312.stl
 {
@@ -29,6 +20,3 @@ naca2312.stl
     }
     writeObj yes;
 }
-
-
-// ************************************************************************* //
