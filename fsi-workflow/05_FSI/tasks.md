@@ -18,7 +18,7 @@ Check the following information in the file:
 - section `*MATERIAL`: the material properties correspond to a polymeric material close Polystyrene or ABS
 - section `*DYNAMIC`: we perform a simulation $0.5$ seconds long with a time-step of $1ms$
 - section `*BOUNDARY`: the group of the **root** (`Nroot_Nodes`) is fixed
-- section `*AMPLITUDE`: we ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.2s$
+- section `*AMPLITUDE`: we ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.1s$
 
 Complete the file with the following information:
 
@@ -68,7 +68,7 @@ When we performed the fluid simulation, in the `U` file for the initial conditio
 
 Open the `controlDict` file and:
 
-- replace the term `TFINAL` for the entry `endTime` with `0.5` (**NOTE:** the end time does not matter, the adapter sets it automatically)
+- replace the term `TFINAL` for the entry `endTime` with `0.2` (**NOTE:** the end time does not matter, the adapter sets it automatically)
 - replace the entry `DT` for the entry `deltaT` with `1e-3`
 - replace the entry `PRECICE_FO`, a placeholder for the **preCICE Funtion Object** with the following:
 
@@ -100,7 +100,7 @@ Open the `precice-config.xml` file in the `skeleton` folder and:
   - `TIP_LE_COORD` with `-0.05;0.0;0.3`
   - `TIP_TE_COORD` with `0.05;0.0;0.3`
 - replace `DT` in the `<time-window>` tag with `0.001`
-- replace `TFINAL` in the `<max-time>` tag with `0.5`
+- replace `TFINAL` in the `<max-time>` tag with `0.2`
 - replace the **two** occurrencies of `REL_CONV` in the `<relative-convergence-measure>` tag with `1e-3`
 
 **NOTES**:
