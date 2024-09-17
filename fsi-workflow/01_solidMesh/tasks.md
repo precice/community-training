@@ -46,11 +46,11 @@ The first task consists in importing the wing:
 
 - Click `File` -> `Import...`.
 - Select the STEP file `naca2312.step`.
-- In newer FreeCAD versions, a dialog will be shown. Click `OK` with the default options.
+- In newer FreeCAD versions, a pop-up dialog will be shown. Click `OK` with the default options.
 
 ![FreeCAD: Import geometry](./images/PD_import.png)
 
-An object named `Open CASCADE STEP Translator 7.5 1` should appear on the left and you should see the wing. Drag and drop this object into `Body`. This should appear as a `BaseFeature` entry under the `Body`.
+An object named `Open CASCADE STEP Translator 7.5 1` should appear on the left, a wing-shaped object should appear rendered. Drag and drop this object into `Body`. This should appear as a `BaseFeature` entry under the `Body`.
 
 ![FreeCAD: BaseFeature](./images/PD_BF.png)
 
@@ -68,7 +68,7 @@ Now we can generate a mesh for the `Wing`.
 
 ![FreeCAD: Add Analysis container](./images/FEM_Mesh01.png)
 
-- Use the following parameters:
+- In the `Tasks` tab, use the following parameters:
   - Element dimension: `3D`
   - Element order: `2nd`
   - Max element size: `20mm`
@@ -80,8 +80,8 @@ Now we can generate a mesh for the `Wing`.
 
 If everything went as expected, a mesh should appear. Otherwise:
 
-  - In case you get any error related to creating temporary files, see the troubleshooting section below.
-  - In case you get a `File to load not existing or not readable` error, try again after a couple of seconds.
+- In case you get any error related to creating temporary files, see the troubleshooting section below.
+- In case you get a `File to load not existing or not readable` error, try again after a couple of seconds.
 
 ![FreeCAD: Mesh generated](./images/FEM_Mesh03.png)
 
@@ -101,8 +101,6 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 ![FreeCAD: Mesh group](./images/Groups02.png)
 
-  In case you cannot select anything and you get an error "Active Task Dialog found!", you might need to switch to the `Tasks` tab and click `OK` or `Cancel` to exit from the previous task.
-
 - In the `Model` tab, there should now also be a `MeshGroup` under the `FEMMeshGmsh`.
 
 ![FreeCAD: Added MeshGroup](./images/Groups03.png)
@@ -111,7 +109,7 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 ![FreeCAD: Add surface to mesh group](./images/Groups04.png)
 
-- Click `Add`, then click on the rendering to select the profile of the wing (pay attention to reference frame to identify it), and `OK` to add the surface to the mesh group. You can rotate the view using the cube on the upper right corner, or [using your mouse](https://wiki.freecad.org/Mouse_navigation) (e.g., by `Shift` + `right click`).
+- Click `Add`, then click on the rendering to select the profile of the wing (pay attention to reference frame to identify it), and `OK` to add the surface to the mesh group. You can rotate the view using the cube in the upper right corner, or [using your mouse](https://wiki.freecad.org/Mouse_navigation) (e.g., by `Shift` + `right click`).
 
 ![FreeCAD: surface group for root](./images/root_Group.png)
 
@@ -122,7 +120,7 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 ![FreeCAD: Rename mesh group](./images/Groups05.png)
 
 - Select again the mesh (`FEMMeshGmsh`) and define a new group comprising all components of the `wetSurface` (they are 4: as shown below. Pay attention to the trailing edge surface, you need to zoom-in to see it).
-  1. click `Add`
+  1. Click `Add`
   2. `select` a patch
   3. `repeat` steps `1.` and `2.` for each of the four elements
   4. Click `OK`
@@ -131,7 +129,7 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 ![FreeCAD: wet surface group](./images/group_WS.png)
   
-- As for the `root` Group. change the `Label` in the `Properties` to `NwetSurface`
+- As for the `root` Group. Change the `Label` in the `Properties` to `NwetSurface`
 
 ![FreeCAD: Rename wet surface group](./images/group_WS_rename.png)
 
@@ -139,17 +137,19 @@ You should now see a list of two groups under the current mesh.
 
 ![FreeCAD: final list of groups](./images/groups_final_LS.png)
 
-**IMPORTANT**: You now need to remesh to generate the groups. Select the mesh (`FEMMeshGmsh`) -> double click -> click `Apply` to remesh and create groups -> click `OK`.
+**IMPORTANT**: You now need to re-mesh to generate the groups. Select the mesh (`FEMMeshGmsh`) -> double click -> click `Apply` to re-mesh and create groups -> click `OK`.
 
 ## Export the mesh file and verify
 
+We are now ready to export the mesh into a `.inp` file (Abaqus input file format, compatible with CalculiX):
+
 - Keep the mesh (`FEMMeshGmsh`) selected.
-- Click `File` -> `Export...`.
-- Name the file  `wing2312.inp`.
+- Click `File` and `Export...`.
+- Name the file `wing2312.inp`.
 - Select `FEM mesh formats (*.dat, *.inp, ...)`.
 - Click `Save`.
 
-Save also save the FreeCAD model with `File` -> `Save`.
+Save also the FreeCAD project with `File` and `Save`.
 
 To verify, open the `wing2312.inp` file you just generated with a text editor:
 
@@ -159,7 +159,6 @@ To verify, open the `wing2312.inp` file you just generated with a text editor:
   - `*NSET, NSET=NwetSurface_Nodes`: this keyword defines the beginning of the list of node IDs belonging to the mesh group `NwetSurface`
 - Take note of the exact names of all the sets of nodes for each of the groups, because we'll use them in the following steps.
 - `*ELSET, ELSET=GROUPNAME_Faces`: where `GROUPNAME` is one of the groups that you defined (`Nroot`, `NwetSurface`). These sets define the groups of surface elements. We don't need them for the FSI simulation
-- save and close
 
 ## Scale the mesh file
 
@@ -181,3 +180,9 @@ Depending on the installation method (e.g., when using an AppImage file on Linux
 - Select the `FEM` icon from on the left.
 - In the `General` tab, switch from `Temporary directories` to `Use custom directory`.
 - Select a path where you know your user can write files (e.g., your `Desktop`).
+
+### Options unavailable
+
+In case you cannot select anything, and you get an error "Active Task Dialog found!", you might need to switch to the `Tasks` tab and click `OK` or `Cancel` to exit from the previous task.
+
+Several options only appear if you have selected an object they can be applied on, and every workbench comes with completely different buttons and options.

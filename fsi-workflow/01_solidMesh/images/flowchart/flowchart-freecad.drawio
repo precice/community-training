@@ -43,7 +43,7 @@
         <mxCell id="9AXBvBu898958EGjWWhA-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#ffe6cc;strokeColor=#d79b00;" edge="1" parent="1" source="9AXBvBu898958EGjWWhA-7" target="9AXBvBu898958EGjWWhA-9">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9AXBvBu898958EGjWWhA-7" value="Export the mesh&lt;br&gt;&lt;div&gt;and check&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+        <mxCell id="9AXBvBu898958EGjWWhA-7" value="Export the INP&lt;br&gt;mesh&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;file&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
           <mxGeometry x="520" y="600" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="9AXBvBu898958EGjWWhA-9" value="Next step" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
