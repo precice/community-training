@@ -35,7 +35,7 @@ The reference frame of the wing assumes point (0,0,0) to be in the middle of the
 
 All these parameters are set in the beginning of `blockMeshDict`. For the moment, leave them like this.
 
-### Discretization
+### Mesh resolution
 
 Once we have defined the limits, we need to define the number of cells that we want in each direction. Look for the dictionary entry `blocks` in `blockMeshDict`, which defines a block of a 20 x 8 x 8 cells per $x,y,z$.
 This means that we divide the domain into cells of $0.08 \times 0.06 \times 0.06$m.
@@ -60,7 +60,7 @@ In the `Fluid` folder, run:
 blockMesh
 ```
 
-If you only want to look at the topology of the domain, without yet meshing it, you can run `blockMesh -write-vtk`. You can then visualize the `blockTopology.vtu` file in ParaView.
+If you only want to look at the topology of the domain, without yet meshing it, you can run `blockMesh -write-vtk`. You can then visualize the `blockTopology.vtu` file in ParaView. You can enable the `Axis Grid` in the Properties tab.
 
 ![Topology of the domain in ParaView](images/blockmesh-write-vtk.png)
 
