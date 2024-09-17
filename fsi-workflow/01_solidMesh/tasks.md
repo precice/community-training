@@ -1,6 +1,8 @@
 # Task 1: Mesh of Solid domain
 
-In this section we'll generate a CalculiX mesh for the solid, using the [FEM Workbench of FreeCAD](https://wiki.freecad.org/FEM_Workbench). We will only use it to generate the mesh, and we will start the simulation from the terminal later on.
+In this section we'll generate a CalculiX mesh for the solid, using the [FEM Workbench of FreeCAD](https://wiki.freecad.org/FEM_Workbench). We will only use it to generate the mesh, and we will start the simulation from the terminal later on. General overview:
+
+![FreeCAD: General overview](./images/flowchart/flowchart-freecad.png)
 
 ## Adjust the FreeCAD settings
 
