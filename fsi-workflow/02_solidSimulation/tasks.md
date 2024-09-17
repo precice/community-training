@@ -1,12 +1,14 @@
-# Task 2: simulation of the Solid domain
+# Task 2: Simulation of the Solid domain
 
-In this section we'll simulate the *Solid Domain* alone, to gain confidence with the **CalculiX** syntax and to check that our solid mesh and model work. **CalculiX** allows you to perform different kinds of simulations (e.g. static, dynamic, frequency...), but we stick with *dynamic simulations* because it is the one used in the coupled simulation.
+In this section we'll simulate the Solid domain alone, to gain confidence with the CalculiX syntax and to check that our solid mesh and model work. CalculiX allows us to perform different kinds of simulations (e.g., static, dynamic, frequency...). The coupled simulation we want to end up with will be a dynamic one, so we already start with setting up a dynamic singe-physics simulation.
 
-## Dynamic Simulation
+This model represents a cantilevered wing subject to its own weight. The load is applied progressively, with a ramp law. Several simplifications are made here in the sake of time restrictions.
 
-This model allows you to perform a dynamic simulation in which the cantilevered wing is subjet to its own weight. The load is applied progressively, with a ramp law (yes, we know that it is not very realistic... But we just want to have a look at a simple CalculiX simulation).
+General overview of this task:
 
-### Complete the dynamicModel.inp file
+![Solid simulation: General overview](images/flowchart/flowchart-solid-simulation.png)
+
+## Complete the dynamicModel.inp file
 
 In the `skeleton` folder:
 
@@ -14,92 +16,92 @@ In the `skeleton` folder:
 
 Open the `dynamicModel.inp` file and:
 
-- replace **YOURMESH.inp** (line **4**) with the name of your mesh (`wing2312_m.inp`)
-  - Note that CalculiX expects distance units in meters, while FreeCAD generates meshes with distances in millimeters. We need to adapt the values.
-- replace **E**, **NU**, **RHO** (i.e. the material properties of the material, lines **10, 12**) with the following (roughly corresponding to a Plyurethane elastomer or TPU):
-  - `2000000` (Young modulus: $E=200 MPa$)
-  - `0.3` (Poisson ratio: $\nu = 0.3$)
-  - `3000` (density: $\rho = 3000 \frac{kg}{m^3}$)
-- replace **DAMP**, **DT**, **TFINAL** (lines **21, 22**) with the following:
-  - `-0.1` (numerical damping, see notes below)
-  - `5.0E-2` ($\Delta  t = 5 \cdot 10^{-2}s$)
-  - `4.` ($t_{final} = 2 s$)
-- replace **NODESET** (line **27**) with the name of the set of root nodes (`Nroot_Nodes`)
-- replace **RAMPSEQUENCE** (line **32**) with the sequence `0.0, 0.05, 0.5, 1.0, 4.0, 1.0`, that is a sequence of values **time**, **amplitude** as in the following picture:  
+- Replace `YOURMESH.inp` (line 4) with the name of the mesh (we previously named this `wing2312_m.inp`)
+  - Note that CalculiX expects distance units in meters, while FreeCAD generates meshes with distances in millimeters. We need to adapt the values (see the end of the solid meshing task).
+- Replace the material properties with the following, roughly corresponding to a Polyurethane elastomer (TPU):
+  - `E: 2000000` (Young modulus: $E=200 MPa$)
+  - `NU: 0.3` (Poisson ratio: $\nu = 0.3$)
+  - `RHO: 3000` (density: $\rho = 3000 \frac{kg}{m^3}$)
+- replace the numerical properties `DAMP`, `DT`, `TFINAL` with:
+  - `DAMP: -0.1` (numerical damping, see notes below)
+  - `DT: 5.0E-2` ($\Delta  t = 5 \cdot 10^{-2}s$)
+  - `TFINAL: 4.0` ($t_{final} = 4 s$)
+- replace `NODESET` with the name of the set of root nodes (`Nroot_Nodes`)
+- replace `RAMPSEQUENCE` with the sequence `0.0, 0.05, 0.5, 1.0, 4.0, 1.0`. This is a sequence of value pairs `{time, amplitude}` as in the following picture:  
 
 ![amplitude](./images/ampl.png)
 
 Notice the structure of the file:
 
-- line **20**: defines a computational step
-- lines **21-22**: define a dynamic simulation
-  - **DIRECT** specifies that the user-defined initial time increment should not be changed
-  - **ALPHA** takes an argument in the range $\left[-\frac{1}{3}, 0 \right]$. It controls the dissipation of the high frequency response: lower numbers lead to increased numerical damping
-- lines **26-27**: define a constraint in which the nodes belonging to the set are fixed. Numbers `1, 3` indicate that node coordinates from `1` ($x$ direction) to `3` ($z$ direction) are fixed.
-- lines **36-37**: define a *distributed load* (body force) **GRAV** $\vec{g} = 9.81$ with direction $(0, -1, 0)$ as we did in static simulation, but we are applying it with a factor defined in lines **31-32**.
-- lines **41-44**: define the simulation output for each mesh element:
+- Input a geometry file
+- Define the material properties
+- Define a computation step
+- Define a dynamic simulation
+  - `DIRECT` specifies that the user-defined initial time increment should not be changed
+  - `ALPHA` takes an argument in the range $\left[-\frac{1}{3}, 0 \right]$. It controls the dissipation of the high frequency response: lower numbers lead to increased numerical damping
+- Define constraints: Here, we define a constraint in which the nodes belonging to the set are fixed. Numbers `1, 3` indicate that node coordinates from `1` ($x$ direction) to `3` ($z$ direction) are fixed.
+- Define loads. We define here a distributed load (body force) `GRAV` $\vec{g} = 9.81$ with direction $(0, -1, 0)$, applied gradually over time.
+- Define the simulation output:
   - `U`: displacements
   - `S`: stresses
   - `E`: strains
-- lines **48-49**: compute the resultants of the reaction forces `RF` on the root nodes.
+  - `RF`: resultants (i.e., combination) of the reaction forces on the root nodes. These are additionally computed values that will be printed to a log file.
 
 ## Run the simulation
 
 In order to run the simulation, open a terminal in the current folder and type:
 
-`ccx_preCICE -i dynamicModel`
+```shell
+ccx_preCICE -i dynamicModel
+```
 
-**Notes**:
+Notes:
 
-- remeber to type the input file without the extension
-- if you need to clean your simulation, you can use `clean.sh`
-- even though we are using `ccx_preCICE`, this is just a CalculiX simulation, nothing related to preCICE yet.
+- Remember to type the input file without the extension
+- If you need to clean your simulation, you can use `clean.sh`
+- Even though we are using the executable `ccx_preCICE` (modified CalculiX which includes calls to preCICE), we have not defined any coupling interface yet. This is only a single-physics simulation for now.
 
 ## Analyze the results
 
 The main result files are:
 
-- `dynamicModel.frd`: which contains all the `U`, `S` and `E` information
-- `dynamicModel.dat`: which contains the reaction force resultants
+- `dynamicModel.frd`: CalculiX result format, which contains all the `U`, `S` and `E` information.
+- `dynamicModel.dat`: log file containing the reaction forces.
+
+We can convert `frd` files to other formats supported by ParaView using various converters. Look for the `convert2vtu.py` file in the current folder and type:
+
+```shell
+python3 convert2vtu.py
+```
+
+This script calls [ccx2paraview](https://github.com/calculix/ccx2paraview) with the appropriate settings and generates one `vtu` file per time step and a `pvd` file pointing to these.
+
+Alternatively, we could directly open `.frd` in FreeCAD, in the CalculiX tool CGX, or in other tools. However, we will later want to open the results of both the Solid and Fluid participants in the same tool, and ParaView fits this purpose.
+
+### Deformation of the wing
+
+Open the `dynamicModel.pvd` file in ParaView. You can then look at the deformed shape of the wing by applying a `WarpByVector` filter based on the `U` vector (and a small scale factor):
+
+![wing_deformed](./images/results_paraview_warp.png)
+
+### Reaction forces
+
+Open `dynamicModel.dat` with a text editor. This file contains a vector for each time step of the simulation. If you go towards the end, you'll notice that the `y` component of the reaction force converges (in magnitude, opposite in sign) to the weight of the wing.
 
 ### Theoretical data of the wing
 
+The good thing with using standard geometry designs (in this case, NACA airfoils), is that we get data to compare our simulation results to, or we can easily compute derived quantities. For this NACA2312 and these material parameters:
+
 - Area section of the wing: $A=8.0958 \cdot 10^{-4}m^2$
 - Inertia moment $J_x = 6.9464 \cdot 10^{-9}m^4$
-- length of the wing: $l=0.3m$
-- total weight of the wing is $\rho \cdot g \cdot A \cdot l = 7.148 kg$
-- distributed load along the span (beam approximation, see picture below) $w=\rho \cdot g \cdot A$
-- tip displacement: $y_B = \frac{w l^4}{8EJ_x} = -1.736 \cdot 10^{-2}m$
+- Length of the wing: $l=0.3m$
+- Total weight of the wing is $\rho \cdot g \cdot A \cdot l = 7.148 kg$
+- Distributed load along the span (beam approximation, see picture below) $w=\rho \cdot g \cdot A$
+- Expected tip displacement: $y_B = \frac{w l^4}{8EJ_x} = -1.736 \cdot 10^{-2}m$
 
 ![tip displacement](./images/cantilever.png)
 
-**NOTE**: we are a bit lazy here, as the $x, y$ axes are not *principal axes*, nevertheless we are very close and the approximation holds.
-
-### Comparison to simulation data
-
-The results file `dynamicModel.frd` can be read by **FreeCAD** (even if it expects your mesh to be in *mm*) or by the CalculiX tool **cgx**. When we perform our FSI simulation, we'll want to open both *Solid* and *Fluid* in the same tool; so here we get familiar with a tool that allows us to convert the `frd` file into a set of `vtu` files, with the corresponding `pvd` file, which provides pointers to the collection of data files.
-
-Look for the `convert2vtu.py` file in the current folder and type:
-
-`python3 convert2vtu.py`
-
-This script calls [ccx2paraview](https://github.com/calculix/ccx2paraview) with the appropriate settings.
-
-You will see a set of `dynamicModel.XX.vtu` files, and a `dynamicModel.pvd` file.
-
-#### Deformation of the wing
-
-Open **Paraview** and then open `dynamicModel.pvd`. You can then look at the deformed shape of the wing by applying a `WarpByVector` filter based on the `U` vector (and a small scale factor):
-
-![wing_deformed](./images/results_paraview.png)
-
-Here you can find a way to configure the *warping* of the surface:
-
-![warp_params](./images/Warp.png)
-
-#### Reaction forces
-
-Open `dynamicModel.dat` with a text editor. This file contains vector for each time-step of the simulation. If you go towards the end, you'll notice that the *y* component of the reaction force converges (in magnitude, opposite in sign) to the weight of the wing.
+Note that we are a bit lazy here, as the $x, y$ axes are not *principal axes*. Nevertheless, we are very close and the approximation holds.
 
 ## References
 
