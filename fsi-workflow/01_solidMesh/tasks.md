@@ -1,6 +1,6 @@
 # Task 1: Mesh of Solid domain
 
-In this section we'll generate a CalculiX mesh for the solid, using FreeCAD.
+In this section we'll generate a CalculiX mesh for the solid, using the [FEM Workbench of FreeCAD](https://wiki.freecad.org/FEM_Workbench). We will only use it to generate the mesh, and we will start the simulation from the terminal later on.
 
 ## Adjust the FreeCAD settings
 
@@ -25,15 +25,6 @@ Configure as follows:
 
 Then, click `Apply` and `OK`.
 
-### Temporary directories (optional)
-
-Depending on the installation method (e.g., when using an AppImage file on Linux), some tools (e.g., GMSH) might not be able to write some necessary temporary files in the default directories. To ensure everything will go smooth (and to be able to explore what the tools do):
-
-- Click `Edit` -> `Preferences`.
-- Select the `FEM` icon from on the left.
-- In the `General` tab, switch from `Temporary directories` to `Use custom directory`.
-- Select a path where you know your user can write files (e.g., your `Desktop`).
-
 ## Import the wing
 
 The first task consists in importing the wing:
@@ -53,6 +44,7 @@ The first task consists in importing the wing:
 
 - Click `File` -> `Import...`.
 - Select the STEP file `naca2312.step`.
+- In newer FreeCAD versions, a dialog will be shown. Click `OK` with the default options.
 
 ![FreeCAD: Import geometry](./images/PD_import.png)
 
@@ -84,13 +76,16 @@ Now we can generate a mesh for the `Wing`.
 
 - Click `Apply` and `OK` to generate the mesh.
 
-If everything went as expected, a mesh should appear. In case you get any error related to creating temporary files, see the settings steps in the first section.
+If everything went as expected, a mesh should appear. Otherwise:
+
+  - In case you get any error related to creating temporary files, see the troubleshooting section below.
+  - In case you get a `File to load not existing or not readable` error, try again after a couple of seconds.
 
 ![FreeCAD: Mesh generated](./images/FEM_Mesh03.png)
 
 ## Create mesh groups
 
-Now that we have a mesh, we also need to create the boundaries. We will need to identify the `root surface`, which will be clamped, and the `wet surface`, which will be in contact with the fluid. These surfaces are defined as `mesh groups`.
+Now that we have a mesh, we also need to create the boundaries. We will need to identify the `root surface`, which will be clamped, and the `wet surface`, which will be in contact with the fluid. These surfaces are defined as [mesh groups](https://wiki.freecad.org/FEM_MeshGroup).
 
 - From the `Model` tab, expand the `Analysis` branch and select `FEMMeshGmsh`:
 
@@ -116,22 +111,19 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 - In the `Model` tab, select the `MeshGroup` and rename its `Label` to `Nroot`. This will help us define the boundary condition in the Solid domain.
 
-**NOTE**: your node groups need to start with `N`, so that the CalculiX adapter can work properly.
+**NOTE**: Node group names need to start with `N`.
 
 ![FreeCAD: Rename mesh group](./images/Groups05.png)
 
-- Define a new group comprising all components of the `wetSurface` (they are 4: as shown below. Pay attention to the trailing edge surface, you need to zoom-in to see it). Remember to first select `FEMMeshGmsh`.
-
-| ![FreeCAD: wet surface 1](./images/group_WS_01.png) | ![FreeCAD: wet surface 2](./images/group_WS_02.png) |
-| ![FreeCAD: wet surface 3](./images/group_WS_03.png) | ![FreeCAD: wet surface 4](./images/group_WS_04.png) |
-
-- In order to define a goup with multiple surfaces:
+- Select again the mesh (`FEMMeshGmsh`) and define a new group comprising all components of the `wetSurface` (they are 4: as shown below. Pay attention to the trailing edge surface, you need to zoom-in to see it).
   1. click `Add`
-  2. `select` the desired surface 
+  2. `select` a patch
   3. `repeat` steps `1.` and `2.` for each of the four elements
-  4. Click `OK` 
+  4. Click `OK`
 
 ![FreeCAD: wet surface steps](./images/group_WS_steps.png)  
+
+![FreeCAD: wet surface group](./images/group_WS.png)
   
 - As for the `root` Group. change the `Label` in the `Properties` to `NwetSurface`
 
@@ -141,19 +133,17 @@ You should now see a list of two groups under the current mesh.
 
 ![FreeCAD: final list of groups](./images/groups_final_LS.png)
 
-Select the mesh (`FEMMeshGmsh`) -> double click -> click `Apply` to remesh and create groups -> click `OK`.
-
-**IMPORTANT**: You need to remesh, otherwise the groups won't be created.
+**IMPORTANT**: You now need to remesh to generate the groups. Select the mesh (`FEMMeshGmsh`) -> double click -> click `Apply` to remesh and create groups -> click `OK`.
 
 ## Export the mesh file and verify
 
-- Keep the mesh selected.
+- Keep the mesh (`FEMMeshGmsh`) selected.
 - Click `File` -> `Export...`.
 - Name the file  `wing2312.inp`.
 - Select `FEM mesh formats (*.dat, *.inp, ...)`.
 - Click `Save`.
 
-Save also the FreeCAD model with `File` -> `Save`.
+Save also save the FreeCAD model with `File` -> `Save`.
 
 To verify, open the `wing2312.inp` file you just generated with a text editor:
 
@@ -167,8 +157,21 @@ To verify, open the `wing2312.inp` file you just generated with a text editor:
 
 ## Scale the mesh file
 
-Unfortunately, **FreeCAD** exports all node coordinates in **mm** and there is no option to change it. We prefer to have everything in **SI** units so, in the `01_solidMesh` folder you can find a `inp_convert.py` file. After checking that the name on line **43** matches your mesh file, run it:
+Unfortunately, FreeCAD exports all node coordinates in millimeters and, at least in version 0.21, there is no option to change it. We prefer to have everything in SI units so, in the `01_solidMesh` folder you can find a `inp_convert.py` file. After checking that the name on line 43 matches your mesh file, run it:
 
 `python3 inp_convert.py`
 
 You should find a `wing2312_m.inp` file in your folder.
+
+## Troubleshooting
+
+### File permission issues
+
+Check this section if you face any file permission issues while running GMSH.
+
+Depending on the installation method (e.g., when using an AppImage file on Linux), some tools (e.g., GMSH) might not be able to write some necessary temporary files in the default directories. You can change this working directory:
+
+- Click `Edit` -> `Preferences`.
+- Select the `FEM` icon from on the left.
+- In the `General` tab, switch from `Temporary directories` to `Use custom directory`.
+- Select a path where you know your user can write files (e.g., your `Desktop`).
