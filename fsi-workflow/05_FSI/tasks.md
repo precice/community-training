@@ -92,17 +92,17 @@ Once we have prepared the **participants** we can configure **preCICE**.
 
 Open the `precice-config.xml` file in the `skeleton` folder and:
 
-- in the `<watch-point>` tag replace:
-  - `TIP_COORD` with `0.0;0.0;0.3`
-  - `TIP_LE_COORD` with `-0.05;0.0;0.3`
-  - `TIP_TE_COORD` with `0.05;0.0;0.3`
 - replace `DT` in the `<time-window>` tag with `0.001`
 - replace `TFINAL` in the `<max-time>` tag with `0.5`
 - replace the **two** occurrences of `REL_CONV` in the `<relative-convergence-measure>` tag with `1e-3`
 
 **NOTES**:
 
-- we are considering **3** watch-points at the tip of the wing, so that we can look at the displacement and at the pitching angle of the final section of the wing
+- we are considering **3** watch-points at the tip of the wing, so that we can look at the displacement and at the pitching angle of the final section of the wing:
+  - *tip mid-chord* at coordinates `0.0;0.0;0.3`
+  - *tip leading edge* at coordinates `-0.05;0.0;0.3`
+  - *tip trailing edge* at coordinates `0.05;0.0;0.3`
+
 - all the simulation components share the same $\Delta t$ and $t_{final}$
 - The convergence measure that we chose is a good compromise between accuracy and execution time
 - We are using the same $\Delta t$ for the **Fluid** and the **Solid** part, which is also the same as the coupling time window here. This means that the two participants are *not* subcycling.
@@ -147,8 +147,9 @@ are provided.
 
 During the **FSI** simulation you can monitor the ongoing simulation through the following utilities:
 
-- `./plotDisplacement.sh` which plots the **watch-points** displacements over time. Call it from the directory of the Solid participant: `cd Solid && ../plotDisplacement.sh`.
-- `python3 plotConvergence.py` which plots the number of iterations and the realative error for each time-step. **TODO:** Shouldn't the script check for the `precice-Solid-convergence.log`?
+- `./plotDisplacement.sh` which plots the **watch-points** displacements over time. `./plotDisplacement.sh`.
+- `python3 plotConvergence.py` which plots the number of iterations and the realative error for each time-step.
+- run them from the case root folder.
 
 The pictures below show the output of the two utilities
 
