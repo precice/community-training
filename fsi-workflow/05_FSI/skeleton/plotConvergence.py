@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-data_raw = np.genfromtxt('precice-Fluid-convergence.log',skip_header=1)
+data_raw = np.genfromtxt('precice-Solid-convergence.log',skip_header=1)
 
 #print(data_raw)
 
