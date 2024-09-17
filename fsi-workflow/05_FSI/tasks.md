@@ -14,8 +14,8 @@ You need to use the mesh generated in step `01_solidMesh`: copy the `.inp` mesh 
 
 Check the following information in the file:
 
-- section `*INCLUDE`: we are including the mesh named `wing2312_m.inp`, replace `with the actual name of your mesh, if different
-- section `*MATERIAL`: the material properties correspond to a polymeric material close Polystyrene or ABS
+- section `*INCLUDE`: we are including the mesh named `wing2312_m.inp`, replace this with the actual name of your mesh, if different
+- section `*MATERIAL`: the material properties correspond to a polymeric material close to Polystyrene or ABS
 - section `*DYNAMIC`: we perform a simulation $0.5$ seconds long with a time-step of $1ms$
 - section `*BOUNDARY`: the group of the **root** (`Nroot_Nodes`) is fixed
 - section `*AMPLITUDE`: we ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.2s$
@@ -57,22 +57,23 @@ Copy here the files:
 
 that you have saved in `04_fluidSimulation/skeleton/results/water/250`. By copying results from the converged state of the steady-state simulation into the `0.orig/` (and effectively `0/`) directory, we are initializing the fluid domain with our previous solution.
 
-### update of `U` file
+### `U` file
 
 When we performed the fluid simulation, in the `U` file for the initial conditions, we defined the surface of the wing as `noSlip`. This boundary condition remains through all your simulation and it is the current BC in the `U` file that you copied. In **FSI** simulations, we need that the velocity is overwritten by preCICE, for which we need to use the `movingWallVelocity` BC. To avoid opening a large file to look for a boundary condition, we can use the utility `changeDictionary`:
 
 - open the file `changeDictionaryDict` in the `system` folder
-- in the `boundaryField` dictionary entry, look for `PATCH` and replace it with `naca2312` and the entry `TYPE` with `movingWallVelocity`. We will update the boundary condition before running the coupled simulation (file `Allrun.pre`).
+- in the `boundaryField` dictionary entry, look for `PATCH` and replace it with `naca2312` and the entry `TYPE` with `movingWallVelocity`. We will update the boundary condition before running the coupled simulation (you can see that in the file `Allrun.pre` - do not run this yet).
 
 ### `system` folder
 
 Open the `controlDict` file and:
 
-- replace the term `TFINAL` for the entry `endTime` with `0.5` (**NOTE:** the end time does not matter, the adapter sets it automatically)
-- replace the entry `DT` for the entry `deltaT` with `1e-3`
+- notice that, compared to the previous, steady-state flow simulation, we are now using the transient `pimpleFoam` solver.
+- replace the term `TFINAL` for the entry `endTime` with `0.5` (**NOTE:** This value does not actually matter, as preCICE controls the end of the simulation, but we still set it for consistency.)
+- replace the entry `DT` for the entry `deltaT` with `1e-3` (fixed, as `adjustTimeStep` is disabled)
 - replace the entry `PRECICE_FO`, a placeholder for the **preCICE Funtion Object** with the following:
 
-```
+```c++
     preCICE_Adapter
     {
         type preciceAdapterFunctionObject;
@@ -80,18 +81,14 @@ Open the `controlDict` file and:
     }
 ```
 
-Note: we are using the same $\Delta t$ for the **Fluid** and the **Solid** part, no subcycling.
-
 Similarly to the `config.yml` file that we edited for the CalculiX adapter, we also need to configure the OpenFOAM adapter. Open the `preciceDict` file and:
 
 - replace the entry `PATCH` in the `Interface1` dictionary entry with the name given to the wing boundary patch (`naca2312`)
 - replace the entry `RHO` in the `FSI` dictionary entry with the water density ($\rho_{water} = 1000.0 \frac{kg}{m^3}$) We are using an incompressible solver, so the adapter needs a density value to compute the forces.
 
-Notice that, compared to the previous, steady-state flow simulation, we are now using the transient `pimpleFoam` solver.
-
 ## preCICE setup
 
-Once we have prepared the **participants** we can setup **preCICE**.
+Once we have prepared the **participants** we can configure **preCICE**.
 
 Open the `precice-config.xml` file in the `skeleton` folder and:
 
@@ -101,17 +98,20 @@ Open the `precice-config.xml` file in the `skeleton` folder and:
   - `TIP_TE_COORD` with `0.05;0.0;0.3`
 - replace `DT` in the `<time-window>` tag with `0.001`
 - replace `TFINAL` in the `<max-time>` tag with `0.5`
-- replace the **two** occurrencies of `REL_CONV` in the `<relative-convergence-measure>` tag with `1e-3`
+- replace the **two** occurrences of `REL_CONV` in the `<relative-convergence-measure>` tag with `1e-3`
 
 **NOTES**:
 
 - we are considering **3** watch-points at the tip of the wing, so that we can look at the displacement and at the pitching angle of the final section of the wing
 - all the simulation components share the same $\Delta t$ and $t_{final}$
 - The convergence measure that we chose is a good compromise between accuracy and execution time
+- We are using the same $\Delta t$ for the **Fluid** and the **Solid** part, which is also the same as the coupling time window here. This means that the two participants are *not* subcycling.
 
 ## Coupled simulation
 
-Now we are ready to perform the coupled simulation:
+Now we are ready to perform the coupled simulation.
+
+As expected, FSI simulations take a long time. If you are short in time, just read through the instructions and continue with analyzing the provided results in the `solution/` directory.
 
 ### Solid participant
 
@@ -120,6 +120,8 @@ Open a terminal and enter the `Solid` folder. Here you simply run the `run_soili
 ```
 ./run_solid.sh
 ```
+
+The Solid participant should now start and wait for the Fluid participant to appear as well.
 
 ### Fluid participant
 
@@ -132,13 +134,7 @@ Open another terminal and enter the `Fluid` folder. Here you have to:
   - decomposing the case into **8** subdomains
 - run `./run_fluid.sh` to start the parallel simulation
 
-```
-of2406
-./Allrun.pre
-./run_fluid.sh
-```
-
-### clean
+### Cleaning
 
 In case you need to clean and restart your simulation, the utilities:
 
@@ -151,8 +147,8 @@ are provided.
 
 During the **FSI** simulation you can monitor the ongoing simulation through the following utilities:
 
-- `./plotDisplacement.sh` which plots the **watch-points** displacements over time
-- `python3 plotConvergence.py` which plots the number of iterations and the realative error for each time-step
+- `./plotDisplacement.sh` which plots the **watch-points** displacements over time. Call it from the directory of the Solid participant: `cd Solid && ../plotDisplacement.sh`.
+- `python3 plotConvergence.py` which plots the number of iterations and the realative error for each time-step. **TODO:** Shouldn't the script check for the `precice-Solid-convergence.log`?
 
 The pictures below show the output of the two utilities
 
@@ -177,7 +173,7 @@ This will create a `convert` folder where you will find 500 `.vtu` files.
 
 Open a terminal in the `Fluid` folder and type `paraFoam`
 
-1. This will open `Fluid.foam` in the folder
+1. This will create an (empty) `Fluid.foam` in the folder, which helps ParaView identify this folder as OpenFOAM results.
 2. In `Case type` select `Decomposed Case`
 3. Then press `Apply`
 
@@ -189,11 +185,13 @@ You will then have access to the `OpenFOAM` fluid simulation results.
 
 ### Solid results
 
-In the same `parafoam` instance, select `File->Open...` and point to the `solidModel.pvd` file.
+In the same `parafoam` instance, select `File->Open...` and point to the `Solid/convert/solidModel.pvd` file.
 
 Now you will have access to fhe **Fluid** and the **Solid** results.
 
 ![FSI](./images/result_FSI.png)
+
+To see the displacement more easily, you can apply a `WarpByVector` filter, using the displacement (`U`) as vector, and a scale factor of your choice.
 
 ## Simulation 2 (optional)
 
