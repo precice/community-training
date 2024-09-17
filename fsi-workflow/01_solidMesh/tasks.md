@@ -91,6 +91,10 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 ![FreeCAD: Select FEMMeshGmsh](./images/Groups01.png)
 
+- Change the property `Groups of Nodes` to `true`:
+
+![FreeCAD: Enable Groups of Nodes](./images/Groups01-detail.png)
+
 - Click `Mesh` -> `FEM Mesh group`:
 
 ![FreeCAD: Mesh group](./images/Groups02.png)
