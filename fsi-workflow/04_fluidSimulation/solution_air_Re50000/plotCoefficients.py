@@ -23,4 +23,6 @@ ax1.set_xlim([0, 250])
 # ax1.set_ylim([1, 1.7])
 ax1.grid()
 
+plt.savefig('cdcl.png', dpi=300, bbox_inches='tight')
+
 plt.show()

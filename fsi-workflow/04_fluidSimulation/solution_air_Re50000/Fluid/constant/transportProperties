@@ -5,10 +5,7 @@ FoamFile
     class       dictionary;
     object      transportProperties;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 transportModel  Newtonian;
 
-nu              nu [ 0 2 -1 0 0 0 0 ] 1.5e-05;  // 0.000001
-
-// ************************************************************************* //
+nu              nu [ 0 2 -1 0 0 0 0 ] 1.5e-05;
