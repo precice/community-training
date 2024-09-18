@@ -17,7 +17,7 @@
 
 ***********************************************************
 ** computation step
-*STEP
+*STEP, INC=1000000
 *DYNAMIC, ALPHA=DAMP, DIRECT
 DT, TFINAL
 
