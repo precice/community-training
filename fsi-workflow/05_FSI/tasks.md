@@ -111,11 +111,12 @@ This starts CalculiX as the `Solid` preCICE participant. The Solid participant s
 
 Open another terminal and enter the `Fluid` folder. Here you have to:
 
-- run `./prepare.sh`, which:
+- Run `./prepare.sh`, which:
   - copies `0.orig` into `0`
   - uses `changeDictionary` to switch the boundary condition from `noSlip` to `movingWallVelocity`
   - decomposes the case into **8** subdomains
-- run `./run.sh` to start the parallel simulation
+- Run `./run.sh` to start the parallel simulation
+- After the simulation completes, run `./post-run.sh` to remove some empty result directories, which are created for technical reasons but are making further analysis trickier.
 
 In case the 8 subdomains are too many for your system, see the related notes in Task 4.
 
