@@ -132,12 +132,7 @@ Two windows with the following graphs should appear:
 
 ### Cleaning
 
-In case you need to clean and restart your simulation, the utilities:
-
-- `./Allclean` in the **Fluid** participant
-- `./clean.sh` in the **Solid** participant
-
-are provided.
+In case you need to clean and restart your simulation, use the `clean.sh` script of each participant case.
 
 ## Results
 
