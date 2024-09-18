@@ -16,7 +16,7 @@ for jj in range(np.size(data_raw,0)):
     data[int(data_raw[jj,0])-1,2:] = data_raw[jj,2:]
     data[int(data_raw[jj,0])-1,1] = data_raw[jj,1]
     
-plt.figure(figsize=(8,5))
+plt.figure(figsize=(10,8))
 plt.subplot(2,1,1)
 plt.plot(data[:,0],data[:,2],label='displacement')
 plt.plot(data[:,0],data[:,3],label='force')
