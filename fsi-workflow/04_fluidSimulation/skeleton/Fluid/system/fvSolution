@@ -5,7 +5,6 @@ FoamFile
     class       dictionary;
     object      fvSolution;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 solvers
 {
@@ -106,5 +105,3 @@ relaxationFactors
         epsilon         0.7;
     }
 }
-
-// ************************************************************************* //

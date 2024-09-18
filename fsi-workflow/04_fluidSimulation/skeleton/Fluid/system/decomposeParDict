@@ -5,7 +5,6 @@ FoamFile
     class       dictionary;
     object      decomposeParDict;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 numberOfSubdomains 8;
 
@@ -18,5 +17,3 @@ hierarchicalCoeffs
     //delta       0.001; // default=0.001
     //order       xyz;   // default=xzy
 }
-
-// ************************************************************************* //
