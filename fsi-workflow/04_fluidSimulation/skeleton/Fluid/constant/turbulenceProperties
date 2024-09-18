@@ -10,10 +10,9 @@ simulationType laminar;
 
 RAS
 {
-    //RASModel        kEpsilon;
     RASModel        kOmegaSST;
 
-    turbulence      on;
+    turbulence      off;
 
     printCoeffs     on;
 }

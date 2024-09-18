@@ -21,12 +21,27 @@ solvers
 
     p
     {
-        solver          PBiCGStab;
+        solver                  GAMG;
+        tolerance               1e-06;
+        relTol                  0.00;
+        smoother                GaussSeidel;
+        nPreSweeps              0;
+        nPostSweeps             2;
+        cacheAgglomeration      on;
+        agglomerator            faceAreaPair;
+        nCellsInCoarsestLevel   1000;
+        mergeLevels             1;
+    }
+    /*
+    {
+        solver          PCG;
         preconditioner  DIC;
         tolerance       1e-6;
         relTol          0.01;
-	    minIter 	    5;
+	    minIter 	    3;
+	    maxIter         100;
     }
+    */
 
     pFinal
     {
@@ -63,7 +78,7 @@ solvers
         preconditioner  DILU;
         tolerance       1e-8;
         relTol          0.0;
-	    minIter 	    3;
+	    minIter 	    5;
     }
 
     "(U|k|epsilon|omega)Final"
@@ -71,16 +86,14 @@ solvers
         $U;
         tolerance       1e-8;
         relTol          0;
-	    minIter 	    3;
+	    minIter 	    5;
     }
 }
 
 
 SIMPLE
 {
-    momentumPredictor           true;
-    nOuterCorrectors            2;
-    nCorrectors                 3;
+    consistent no;             // if yes simplec
     nNonOrthogonalCorrectors    2;
 
     residualControl

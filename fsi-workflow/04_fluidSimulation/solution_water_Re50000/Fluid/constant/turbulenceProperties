@@ -5,19 +5,14 @@ FoamFile
     class       dictionary;
     object      turbulenceProperties;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 simulationType laminar;
-//simulationType  RAS;
 
 RAS
 {
-    //RASModel        kEpsilon;
     RASModel        kOmegaSST;
 
     turbulence      off;
 
     printCoeffs     on;
 }
-
-// ************************************************************************* //

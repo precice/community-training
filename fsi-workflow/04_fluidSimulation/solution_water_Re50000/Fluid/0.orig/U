@@ -5,7 +5,6 @@ FoamFile
     class       volVectorField;
     object      U;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 1 -1 0 0 0 0];
 
@@ -14,8 +13,6 @@ internalField   uniform (0.5 0 0);
 boundaryField
 {
     
-    //#includeEtc "caseDicts/setConstraintTypes"
-
     naca2312
     {
         type            noSlip;
@@ -45,5 +42,3 @@ boundaryField
         type            symmetryPlane;
     }
 }
-
-// ************************************************************************* //

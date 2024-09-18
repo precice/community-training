@@ -5,8 +5,6 @@ FoamFile
     class       dictionary;
     object      controlDict;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
 
 application     simpleFoam;
 
@@ -21,7 +19,6 @@ endTime         250;
 deltaT          1;
 
 writeControl    adjustableRunTime;
-//writeControl    runTime;
 
 writeInterval   1;
 
@@ -40,8 +37,6 @@ timePrecision   6;
 runTimeModifiable true;
 
 adjustTimeStep  no;
-maxCo           4;
-maxDeltaT       0.01;
 
 // ************************************************************************* //
 
@@ -97,12 +92,12 @@ functions
 	//// Dump to file
 	log true;
 
-	CofR (0.0 0 0);
+	CofR (0.0 0.0 0.0);
 	liftDir (0 1 0);
 	dragDir (1 0 0);
 	pitchAxis (0 0 1);
 	magUInf 0.5;
-	lRef 0.1;         // reference lenght for moments!!!
+	lRef 0.1;         // reference lenght for moments
 	Aref 0.03;	      // reference area 1 for 2d
 
     writeControl    outputTime;

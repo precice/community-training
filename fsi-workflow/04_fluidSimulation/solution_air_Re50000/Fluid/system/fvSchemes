@@ -5,7 +5,6 @@ FoamFile
     class       dictionary;
     object      fvSchemes;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 ddtSchemes
 {
@@ -59,13 +58,3 @@ wallDist
     method meshWave;
 }
 
-
-fluxRequired
-{
-    default         no;
-    p               ;
-    Phi             ;
-}
-
-
-// ************************************************************************* //
