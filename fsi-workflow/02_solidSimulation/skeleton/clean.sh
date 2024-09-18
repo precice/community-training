@@ -8,5 +8,3 @@ rm -rfv ./convert
 
 rm -fv *.vtu
 rm -fv *.pvd
-
-rm -rfv ./convert
