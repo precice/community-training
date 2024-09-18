@@ -2,6 +2,10 @@
 
 Finally, we are now able to put everything together and start our fluid-structure interaction simulation. We'll use all the work done until now to configure the Fluid and Solid participants. The starting point of our case is in the `skeleton` folder, which is the root of our FSI case. This includes each participant to a separate directory, and the `precice-config.xml` file in their common parent directory.
 
+General overview:
+
+![FSI: General overview](images/flowchart/flowchart-fsi.png)
+
 ## Solid configuration
 
 Copy the `wing2312_m.inp` mesh from `01_solidMesh` into the current directory Remember to use the one converted to *meters*. Then, we can adjust the model and configure the CalculiX-preCICE adapter.
@@ -20,7 +24,7 @@ Complete the file with the following information:
 
 ### CalculiX adapter configuration
 
-This file is specific to the [CalculiX adapter](https://precice.org/adapter-calculix-config.html). The information here must match the information in `precice-config.xml`.
+The file `config.yml` is specific to the [CalculiX adapter](https://precice.org/adapter-calculix-config.html). The information here must match the information in `precice-config.xml`.
 
 The entries of this file specify the path to the preCICE configuration file, the coupling mesh (`Solid-Mesh`, a nodes-based mesh defined in the preCICE configuration file), the read data (forces), and the write data (absolute displacements). In this file:
 
