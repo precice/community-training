@@ -1,13 +1,14 @@
 # Community course on preCICE: FSI Workflow
 
-A training module showcasing how to setup an FSI simulation from scratch.
+Introductory course at the preCICE Workshop 2024, Stuttgart, September 24-27, 2024
 
 \vspace{2em}
 
 Claudio Caccia, Politecnico di Milano\newline `<claudiogiovanni.caccia@polimi.it>`
-Gerasimos Chourdakis, University of Stuttgart `<gerasimos.chourdakis@ipvs.uni-stuttgart.de>`
 
-This is a community-contributed part of the course. Contribute on GitHub: https://github.com/precice/community-training
+Gerasimos Chourdakis, University of Stuttgart\newline `<gerasimos.chourdakis@ipvs.uni-stuttgart.de>`
+
+This is a community-contributed part of the course: [Contribute on GitHub](https://github.com/precice/community-training).
 
 ## Dependencies
 
@@ -21,7 +22,11 @@ We will use the following software:
 ## Task 0: Prepare the geometry
 
 We will simulate fluid-structure interaction of a very simple airfoil, in 3D. [NACA airfoils](https://en.wikipedia.org/wiki/NACA_airfoil) are standardized designs that are popular in designing aircraft wings.
-Our case is slightly derived from the paper by *S. Heathcote, Z. Wang, I. Gursul, **Effect of spanwise flexibility on flapping wing propulsion**, Journal of Fluids and Structures, Volume 24, Issue 2, 2008*. In the paper, they considered a *NACA0012* profile, while our training involves a **NACA2312** profile wing (to have some lift at 0° angle of attack) with:
+Our case is slightly derived from the following paper:
+
+*S. Heathcote, Z. Wang, I. Gursul, **Effect of spanwise flexibility on flapping wing propulsion**, Journal of Fluids and Structures, Volume 24, Issue 2, 2008*.
+
+In the paper, they considered a *NACA0012* profile, while our training involves a **NACA2312** profile wing (to have some lift at 0° angle of attack) with:
 
 - *chord* $c=100mm$
 - *span* $b=300mm$
@@ -33,6 +38,8 @@ We have generated the geometry using the software [Salome](https://www.salome-pl
 You'll notice that two different file formats are provided: a `.stl` file and a `.step` file. Both are widely used for data exchange and nearly all CAD systems allow importing and exporting such formats. In this training, we will need both files: See why in the notes below.
 
 When meshing a flow domain, we need to consider whether we are simulating external or internal flow. In this case, we are considering an external flow: we will use the solid geometry to generate the **solid mesh**, and we will subtract it from a sufficiently large box to generate the **fluid mesh**.
+
+\newpage
 
 ### Notes on file formats
 

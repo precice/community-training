@@ -131,9 +131,9 @@ You can monitor the ongoing simulation by running the following scripts from the
 
 Two windows with the following graphs should appear:
 
-![tip displacement](./images/Tip_disp_damp.png)
+![Montoring: Tip displacement (`plotDisplacement.sh`)](./images/Tip_disp_damp.png)
 
-![convergence](./images/convergence.png)
+![Montoring: Convergence (`plotConvergence.py`)](./images/convergence.png)
 
 ### Cleaning
 
@@ -159,17 +159,17 @@ Open a terminal in the `Fluid` folder and type `paraFoam`
 2. In `Case type` select `Decomposed Case`
 3. Then press `Apply`
 
-![open](./images/open_fluid.png)
+![ParaView: Open `Fluid.foam`](./images/open_fluid.png)
 
 You will then have access to the `OpenFOAM` fluid simulation results.
 
-![fluid](./images/parafoam.png)
+![ParaView: Surface plot of flow velocity](./images/parafoam.png)
 
 ### Solid results
 
 In the same ParaView window, select `File->Open...` and point to the `Solid/convert/solidModel.pvd` file.
 
-![FSI](./images/result_FSI.png)
+![ParaView: Combined FSI results](./images/result_FSI.png)
 
 To see the displacement more easily, you can apply a `WarpByVector` filter, using the displacement (`U`) as vector, and a scale factor of your choice.
 

@@ -80,7 +80,7 @@ To check the simulation progress and plot the residuals over time, you can use [
 pyFoamPlotWatcher log.solver
 ```
 
-Two pop-up windows with residual graphs should appear:
+A pop-up window with residual graphs should appear:
 
 ![residuals](./images/pyFoam.png)
 
