@@ -19,12 +19,14 @@ We will use the following software:
 ## Task 0: Prepare the geometry
 
 We will simulate fluid-structure interaction of a very simple airfoil, in 3D. [NACA airfoils](https://en.wikipedia.org/wiki/NACA_airfoil) are standardized designs that are popular in designing aircraft wings.
-Our case involves a **NACA2312** profile wing with:
+Our case is slightly derived from the paper by *S. Heathcote, Z. Wang, I. Gursul, **Effect of spanwise flexibility on flapping wing propulsion**, Journal of Fluids and Structures, Volume 24, Issue 2, 2008*. In the paper, they considered a *NACA0012* profile, while our training involves a **NACA2312** profile wing (to have some lift at 0° angle of attack) with:
 
 - *chord* $c=100mm$
 - *span* $b=300mm$
 
 We would typically start by designing our geometry in a CAD software (e.g., FreeCAD), but we assume you already know how to do that using your own workflows. To save some time, use the wing model that you can find in this folder.
+
+We have generated the geometry using the software [Salome](https://www.salome-platform.org/) and exported it to our needs.
 
 You'll notice that two different file formats are provided: a `.stl` file and a `.step` file. Both are widely used for data exchange and nearly all CAD systems allow importing and exporting such formats. In this training, we will need both files: See why in the notes below.
 
