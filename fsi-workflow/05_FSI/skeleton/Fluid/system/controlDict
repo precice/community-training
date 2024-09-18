@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         TFINAL;
+endTime         0.2; // Will be overwritten by the adapter
 
 deltaT          DT;
 
@@ -147,7 +147,11 @@ functions
 
 ///////////////////////////////////////////////////////////////////////////
 
-	PRECICE_FO
+    preCICE_Adapter
+    {
+        type preciceAdapterFunctionObject;
+        libs ("libpreciceAdapterFunctionObject.so");
+    }
 
 ///////////////////////////////////////////////////////////////////////////
 

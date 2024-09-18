@@ -1,14 +1,10 @@
 # Task 5: FSI simulation
 
-Finally we are able to put everything together and start our **fluid-structure interaction** simulation. We'll use all the work done until now to setup our **Fluid** and **Solid** participants. The starting point of our case is in the `skeleton` folder, which is the root of our FSI case.
+Finally, we are now able to put everything together and start our fluid-structure interaction simulation. We'll use all the work done until now to configure the Fluid and Solid participants. The starting point of our case is in the `skeleton` folder, which is the root of our FSI case. This includes each participant to a separate directory, and the `precice-config.xml` file in their common parent directory.
 
-## Solid setup
+## Solid configuration
 
-Enter the `Solid` folder.
-
-You need to use the mesh generated in step `01_solidMesh`: copy the `.inp` mesh in the current directory.
-
-**NOTE**: Remember to use the one converted in *meters*.
+Copy the `wing2312_m.inp` mesh from `01_solidMesh` into the current directory Remember to use the one converted to *meters*. Then, we can adjust the model and configure the CalculiX-preCICE adapter.
 
 ### `solidModel.inp`
 
@@ -24,90 +20,78 @@ Complete the file with the following information:
 
 - section `*CLOAD`: replace each of the `WETSURF` entries with the name of the group given to the **wet surface** (`NwetSurface_Nodes`)
 
-### `config.yaml`
+### CalculiX adapter configuration
 
-This file contains the information required by the **CalculiX adapter** to connect to **preCICE**. The information here must match the information contained in the `precice-config.xml` file. See the [CalculiX adapter documentation](https://precice.org/adapter-calculix-config.html).
+This file is specific to the [CalculiX adapter](https://precice.org/adapter-calculix-config.html). The information here must match the information in `precice-config.xml`.
 
-- entry `patch`: replace `WETSURF` with the name of the group given to the *wet surface* (see the mesh `.inp` file), **WITHOUT the N at the beginning** (`wetSurface_Nodes`)
+The entries of this file specify the path to the preCICE configuration file, the coupling mesh (`Solid-Mesh`, a nodes-based mesh defined in the preCICE configuration file), the read data (forces), and the write data (absolute displacements). In this file:
 
-The rest of the entries specify the path to the preCICE configuration file, the coupling mesh defined in the preCICE configuration file (`Solid-Mesh`, a nodes-based mesh), the read data (forces), and the write data (absolute displacements).
+- Replace `WETSURF` with the name of the group given to the *wet surface* (see the mesh `.inp` file), **WITHOUT the `N` at the beginning** (i.e., `wetSurface_Nodes`).
 
-The **Solid participant** is now ready, and we can move to the **Fluid participant**.
+The Solid participant is now ready, and we can move to the Fluid participant.
 
-## Fluid setup
+## Fluid configuration
 
-Now go back to the root of the case and enter the `Fluid` folder. This is a usual `OpenFOAM` case that we have to configure. For the preCICE-specific parts, have a look at the [OpenFOAM adapter documentation](https://precice.org/adapter-openfoam-config.html).
+For the Fluid participant, we will use the [OpenFOAM-preCICE adapter](https://precice.org/adapter-openfoam-config.html).
 
-### `constant` folder
+Copy the previously generated mesh: copy the `polyMesh` folder from your `0.003` folder in `03_fluidMesh/skeleton`, or from the `constant` folder in `04_fluidSimulation/skeleton/Fluid`. We can then adjust the setting that are specific the coupling.
 
-In this folder, we need to:
+### Mesh motion
 
-- copy our previously generated mesh: copy the `polyMesh` folder from your `0.003` folder in `03_fluidMesh/skeleton` (or from the `constant` folder in `04_fluidSimulation/skeleton/Fluid`)
-- open the `dynamicMeshDict` and replace `WETSURF` in the `displacementLaplacianCoeffs` dictionary entry with the name given to the wing patch (`naca2312`, specified in `constant/polyMesh/boundary`). This file configures a mesh motion solver (`displacementLaplacian`).
+We are using the ALE approach to FSI. This means that OpenFOAM applies a displacement vector (mesh motion) on the otherwise static mesh (the number of cells and connection between points remains the same).
 
-### `0.orig` folder
+In the `constant/dynamicMeshDict`, replace `WETSURF` with the name given to the wing patch (`naca2312`, specified in `constant/polyMesh/boundary`). 
 
-In this folder there is a new dictionary file `pointDisplacement`: this is required by the **meshMotionSolver**.
+In the `0.orig/` folder, you can also find a new dictionary file `pointDisplacement`, required by the mesh motion solver.
 
-Copy here the files:
+### Initial state
 
-- `U`
-- `p`
-- `phi`
+In task 4, we obtained an steady-state solution, which we wanted to use as initial state here. Copy the files `U`, `p`, and `phi` from `04_fluidSimulation/skeleton/results/water/250` into the `0.orig/` directory.
 
-that you have saved in `04_fluidSimulation/skeleton/results/water/250`. By copying results from the converged state of the steady-state simulation into the `0.orig/` (and effectively `0/`) directory, we are initializing the fluid domain with our previous solution.
+### Boundary conditions
 
-### `U` file
+When we performed the fluid simulation, we defined the surface of the wing as `noSlip` in the `0.orig/U` file, which has also been applied to the results we just copied. In FSI simulations, we need that the velocity is overwritten by the OpenFOAM-preCICE adapter, for which we need to use the `movingWallVelocity` boundary condition. To avoid opening such a large file, we can use the utility `changeDictionary`:
 
-When we performed the fluid simulation, in the `U` file for the initial conditions, we defined the surface of the wing as `noSlip`. This boundary condition remains through all your simulation and it is the current BC in the `U` file that you copied. In **FSI** simulations, we need that the velocity is overwritten by preCICE, for which we need to use the `movingWallVelocity` BC. To avoid opening a large file to look for a boundary condition, we can use the utility `changeDictionary`:
+- Open the file `system/changeDictionaryDict`.
+- In the `boundaryField` dictionary entry, replace `PATCH` with `naca2312` and `TYPE` with `movingWallVelocity`.
 
-- open the file `changeDictionaryDict` in the `system` folder
-- in the `boundaryField` dictionary entry, look for `PATCH` and replace it with `naca2312` and the entry `TYPE` with `movingWallVelocity`. We will update the boundary condition before running the coupled simulation (you can see that in the file `Allrun.pre` - do not run this yet).
+We will update the `0.orig/U` file automatically before running the coupled simulation (see how in `Allrun.pre`).
 
-### `system` folder
+### Simulation control
 
 Open the `controlDict` file and:
 
-- notice that, compared to the previous, steady-state flow simulation, we are now using the transient `pimpleFoam` solver.
-- replace the term `TFINAL` for the entry `endTime` with `0.2` (**NOTE:** This value does not actually matter, as preCICE controls the end of the simulation, but we still set it for consistency.)
-- replace the entry `DT` for the entry `deltaT` with `1e-3` (fixed, as `adjustTimeStep` is disabled)
-- replace the entry `PRECICE_FO`, a placeholder for the **preCICE Funtion Object** with the following:
+- Notice that, compared to the previous, steady-state flow simulation, we are now using the transient `pimpleFoam` solver.
+- Replace the entry `DT` for the entry `deltaT` with `1e-3` (fixed, as `adjustTimeStep` is disabled)
+- Notice how we are enabling the adapter as a function object at the end of the file.
 
-```c++
-    preCICE_Adapter
-    {
-        type preciceAdapterFunctionObject;
-        libs ("libpreciceAdapterFunctionObject.so");
-    }
-```
+### OpenFOAM adapter configuration
 
-Similarly to the `config.yml` file that we edited for the CalculiX adapter, we also need to configure the OpenFOAM adapter. Open the `preciceDict` file and:
+The OpenFOAM adapter configuration file is `system/preciceDict`. In this file:
 
-- replace the entry `PATCH` in the `Interface1` dictionary entry with the name given to the wing boundary patch (`naca2312`)
-- replace the entry `RHO` in the `FSI` dictionary entry with the water density ($\rho_{water} = 1000.0 \frac{kg}{m^3}$) We are using an incompressible solver, so the adapter needs a density value to compute the forces.
+- Replace the entry `PATCH` in the `Interface1` dictionary entry with the name given to the wing boundary patch (`naca2312`)
+- Replace the entry `RHO` in the `FSI` dictionary entry with the water density ($\rho_{water} = 1000.0 \frac{kg}{m^3}$) We are using an incompressible solver, so the adapter needs a density value to compute the forces.
 
 ## preCICE setup
 
-Once we have prepared the **participants** we can configure **preCICE**.
+Once we have prepared the two participants, we can now also configure preCICE, i.e., the coupling itself. In the `precice-config.xml` file:
 
-Open the `precice-config.xml` file in the `skeleton` folder and:
+- Replace `DT` in the `<time-window>` tag with `0.001`
+- Replace `TFINAL` in the `<max-time>` tag with `0.2`
+- Replace the two occurrences of `REL_CONV` in the `<relative-convergence-measure>` tag with `1e-3`
 
-- replace `DT` in the `<time-window>` tag with `0.001`
-- replace `TFINAL` in the `<max-time>` tag with `0.2`
-- replace the **two** occurrences of `REL_CONV` in the `<relative-convergence-measure>` tag with `1e-3`
+NOTES:
 
-**NOTES**:
+- We are considering three watch-points at the tip of the wing, so that we can look at the displacement and at the pitching angle of the final section of the wing:
+  - *tip mid-chord* at coordinates `0.0; 0.0; 0.3`
+  - *tip leading edge* at coordinates `-0.05; 0.0; 0.3`
+  - *tip trailing edge* at coordinates `0.05; 0.0; 0.3`
 
-- we are considering **3** watch-points at the tip of the wing, so that we can look at the displacement and at the pitching angle of the final section of the wing:
-  - *tip mid-chord* at coordinates `0.0;0.0;0.3`
-  - *tip leading edge* at coordinates `-0.05;0.0;0.3`
-  - *tip trailing edge* at coordinates `0.05;0.0;0.3`
+- All the simulation components share the same $\Delta t$ and $t_{final}$.
+- The convergence measure that we chose is a good compromise between accuracy and execution time.
+- We are using the same $\Delta t$ for the Fluid and the Solid part, which is also the same as the coupling time window here. This means that the two participants are *not subcycling*.
 
-- all the simulation components share the same $\Delta t$ and $t_{final}$
-- The convergence measure that we chose is a good compromise between accuracy and execution time
-- We are using the same $\Delta t$ for the **Fluid** and the **Solid** part, which is also the same as the coupling time window here. This means that the two participants are *not* subcycling.
-
-## Coupled simulation
+## Running the coupled simulation
 
 Now we are ready to perform the coupled simulation.
 
@@ -115,24 +99,36 @@ As expected, FSI simulations take a long time. If you are short in time, just re
 
 ### Solid participant
 
-Open a terminal and enter the `Solid` folder. Here you simply run the `run_soilid.sh` script:
+Open a terminal and enter the `Solid` folder. Here you simply run the `run.sh` script:
 
 ```shell
 ./run.sh
 ```
 
-The Solid participant should now start and wait for the Fluid participant to appear as well.
+This starts CalculiX as the `Solid` preCICE participant. The Solid participant should now start and wait for the Fluid participant to appear as well.
 
 ### Fluid participant
 
 Open another terminal and enter the `Fluid` folder. Here you have to:
 
-- source OpenFOAM (e.g. type `of2406`)
 - run `./Allrun.pre` which takes care of:
   - copying `0.orig` into `0`
   - executing `changeDictionary` to switch the boundary condition from `noSlip` to `movingWallVelocity`
   - decomposing the case into **8** subdomains
 - run `./run_fluid.sh` to start the parallel simulation
+
+### Monitoring
+
+You can monitor the ongoing simulation by running the following scripts from the directory they are located:
+
+- `./plotDisplacement.sh`: Plots the displacements over time (exported as watch-points).
+- `python3 plotConvergence.py`: Plots the number of iterations and the relative error for each time step.
+
+Two windows with the following graphs should appear:
+
+![tip displacement](./images/Tip_disp_damp.png)
+
+![convergence](./images/convergence.png)
 
 ### Cleaning
 
@@ -143,32 +139,15 @@ In case you need to clean and restart your simulation, the utilities:
 
 are provided.
 
-## Monitoring
-
-During the **FSI** simulation you can monitor the ongoing simulation through the following utilities:
-
-- `./plotDisplacement.sh` which plots the **watch-points** displacements over time. `./plotDisplacement.sh`.
-- `python3 plotConvergence.py` which plots the number of iterations and the realative error for each time-step.
-- run them from the case root folder.
-
-The pictures below show the output of the two utilities
-
-![tip displacement](./images/Tip_disp_damp.png)
-
-![convergence](./images/convergence.png)
-
 ## Results
 
-Once you have finished your simulation you can have a look at the results.
-
-In order to open both **Fluid** and **Solid** domains at the same time in *Paraview*, we first need to convert from the *CalculiX* results file `solidModel.frd` to a set of `vtu` solution files and a `pvd` collecion file. 
+In order to open the results of both participants in the same ParaView window, we first need to convert the CalculiX results file `solidModel.frd` to a format compatible with ParaView:
 
 ```shell
 python3 convert2vtu.py
 ```
 
 This will create a `convert` folder where you will find 500 `.vtu` files.
-
 
 ### Fluid results
 
@@ -186,15 +165,13 @@ You will then have access to the `OpenFOAM` fluid simulation results.
 
 ### Solid results
 
-In the same `parafoam` instance, select `File->Open...` and point to the `Solid/convert/solidModel.pvd` file.
-
-Now you will have access to fhe **Fluid** and the **Solid** results.
+In the same ParaView window, select `File->Open...` and point to the `Solid/convert/solidModel.pvd` file.
 
 ![FSI](./images/result_FSI.png)
 
 To see the displacement more easily, you can apply a `WarpByVector` filter, using the displacement (`U`) as vector, and a scale factor of your choice.
 
-## Simulation 2 (optional)
+## Alternative setup: air (optional)
 
 In the folder:
 

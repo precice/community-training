@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         0.2;
+endTime         0.2; // Will be overwritten by the adapter
 
 deltaT          1e-3;
 

@@ -36,7 +36,7 @@ In the `constant/` directory:
 - In the `transportProperties` file, replace the `NU` (kinematic viscosity) with `1e-06`.
 - In the `turbulenceProperties`, we already define a `laminar` simulation.
 
-### Numerics
+### Simulation control and numerics
 
 In the `system/` directory, we define numerical properties and other options regarding the simulation execution. The files one typically needs to configure are `controlDict`, `fvSchemes`, and `fvSolution`.
 
