@@ -1,125 +1,116 @@
-# Step 4: simulation of the Fluid domain
+# Task 4: Simulation of the Fluid domain
 
-In this section we'll use the previously generated Fluid Mesh to perform a single physics simulation.
-This will allow us to perform two important tasks:
+In this section we'll use the previously generated Fluid Mesh to perform a single physics flow simulation. Besides checking the validity of the model, this allows us to obtain an initialized fluid domain for the FSI simulation.
 
-- check the validity of our model
-- obtain an initialized fluid domain, to be used in the FSI simulation
+We start here from a steady-state simulation. Later, in the FSI part, we will switch to a transient simulation.
 
-## Introduction
-
-We want an initialized fluid domain, so we can simply perform a **steady state** simulation. Later, in the FSI part, we will switch to a transient simulation.
-
-You'll find the required files in the `skeleton` directory. The `Fluid` directory is the OpenFOAM root case, containing the `constant`, `system` and
-`0.orig` folders. We put everything into the `Fluid` directory to familiarize with the fact that we'll soon have a `Fluid` and a `Solid` case.
-
-Here we consider two cases:
-
- 1. $Re=5\cdot 10^4$ laminar, incompressible, water
- 2. $Re=5\cdot 10^4$ laminar, incompressible, air
-
-The first one is required for the next step of the training. The second one, similar in the structure, but considering different fluid properties, is given as homework.
-
-## Setup *Simulation 1*
-
-Here we consider a laminar incompressible simulation in water. The main parameters are:
+In the following, we will simulate a scenario with incompressible, laminar flow of water with:
 
 - $U_{\infty} = 0.5 \ \mathrm{m/s}$
 - $\rho = 1000 \ \mathrm{kg/m^3}$
 - $\nu = 1 \cdot 10^{-6} \ \mathrm{m^2/s}$
 - $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
 
-### `0.orig` folder
+The solution also includes a scenario with air.
 
-This folder contains the boundary and the initial conditions for each of the simulation variables: files `U` and `p`.
+## Configuration
+
+### Boundary and initial conditions
+
+Th new folder `0.orig/` contains the boundary and the initial conditions for each of the simulation variables: files `U` and `p`.
 
 Open the file `U` and:
 
-- substitute **UINF** in the `internalField` dictionary entry with the value **0.5**. This initializes the whole domain to $U_{\infty}$
-- substitute the boundary condition **BOUNDARY** for the *naca2312* patch in the `boundaryField` entry with **noSlip**
+- Substitute `UINF` in the `internalField` dictionary entry with the value `0.5`. This initializes the whole domain to $U_{\infty}$
+- Substitute the boundary condition `BOUNDARY` for the `naca2312` patch in the `boundaryField` entry with `noSlip`.
 
-Note: we use the folder `0.orig` instead of the usual folder `0` just in case the simulation overwrites the initial conditions (e.g., you execute `potentialFoam` to initialize the fluid domain). The launch script that we prepared will take care of copying `0.orig` to `0`.
+Note: we use the folder `0.orig` instead of the usual folder `0` just in case the simulation overwrites the initial conditions (e.g., you execute `potentialFoam` to initialize the fluid domain). The run script copies `0.orig` to `0`.
 
-### `constant` folder
+### Mesh and model properties
 
-Here we need to perform the following activities:
+In the `constant/` directory:
 
-- Use the **mesh** we generated in the previous task: copy the `polyMesh` folder, which you can find in the `0.003` folder, in here
-- Open the `transportProperties` file to define the kinematic viscosity $\nu$: substitute **NU** with `1e-06`
-- Open the `turbulenceProperties` file to define the type of simulation: substitute `TYPE` with `laminar`, to perform a **laminar** simulation
+- Copy here the `polyMesh` folder, from the `0.003` folder or the previous task.
+- In the `transportProperties` file, replace the `NU` (kinematic viscosity) with `1e-06`.
+- In the `turbulenceProperties`, we already define a `laminar` simulation.
 
-### `system` folder
+### Numerics
 
-Here we will define how many simulation steps we want to perform and we will make use of *function objects* in order to compute **forces, moments** and **force** and **moment coefficients**:
+In the `system/` directory, we define numerical properties and other options regarding the simulation execution. The files one typically needs to configure are `controlDict`, `fvSchemes`, and `fvSolution`.
 
-- Open the `controlDict` file and orientate yourself on the different sections. Then:
-    1. substitute **END** with **250** at `entTime` entry: we will perform 250 simulation steps at most
-    2. substitute **RHO** with **1000.0** in the `forces_object` and in the `forceCoeffs_object`
-    3. again in the in the `forceCoeffs_object`:
-       1. substitute `UINF` with `0.5`
-       2. substitute `CHORD` with `0.1`
-       3. substitute `AREA` with `0.03`
+- Have a look into the `controlDict` file and:
+    1. substitute `END` with `250` at `entTime` entry: we will perform 250 steady-state iterations at most.
+    2. substitute `RHO` with `1000.0` in the `forces_object` and in the `forceCoeffs_object`. These function objects compute some forces we will later analyze. We have already pre-filled further parameters (`magUInf`, `lRef`, `Aref`).
+    3. Notice that we define `simpleFoam` as `application`. This is a steady-state solver implementing the [SIMPLE algorithm](https://en.wikipedia.org/wiki/SIMPLE_algorithm).
 
-Then we will define the type of the simulation and some thresholds for the residuals so that, if we reach those values, the simulation stops before *endTime*:
+- Open `fvSchemes` and substitute `SIMULATIONTYPE` with `steadyState`.
 
-- Open `fvSchemes` and substitute `SIMULATIONTYPE` with `steadyState` in the `ddtSchemes` dictionary entry
-- Open `fvSolution` and in the `residualControl` entry:
+- Open `fvSolution` and in the `residualControl` entry set the thresholds for earlier exiting the steady-state simulation:
     1. substitute `P_RES` with `1e-4`
     2. substitute `U_RES` with `1e-4`
 
-## Run the case
+## Running the case
 
-In order to run simulation, open a terminal from the `skeleton` folder, source OpenFOAM (e.g. type `of2406`) and then type `./run_case.sh`. This script will take care of:
+In order to run simulation, open a terminal from the `skeleton` folder and type:
 
-- copying `0.orig` into `0`
-- decomposing the case
-- running `simpleFoam` in parallel and logging the output in `log.solver`
-- reconstucting the latest timeStep
+```shell
+./run_case.sh`
+```
 
-By default, the script is running the case with 8 processes, using oversubscription. You can change the partitioning by changing the `system/decomposeParDict` and you then change the number of processes in `run_case.sh`.
+This script:
 
-The simulation will probably take around 5 min to complete all 250 iterations. You can get a pretty much converged state, even if the residuals in this case don't reach the limits which would automatically stop the simulation.
+- Copies `0.orig` into `0`
+- Decomposes the case
+- Runs `simpleFoam` in parallel and logs the output in `log.solver`
+- Reconstructs the latest time step
 
-## Monitoring
+By default, the script runs the case with 8 processes, using over-subscription. You can change the partitioning by changing the `system/decomposeParDict` and you then change the number of processes in `run_case.sh`.
 
-To check the simulation progress and plot the residuals over time, you can:
+The simulation will probably take around 5 min to complete all 250 iterations. We still get a pretty much converged state, even if the residuals in this case don't reach the limits which would automatically stop the simulation.
 
-- open another terminal
-- go to the `Fluid` folder
-- source OpenFOAM
-- type `pyFoamPlotWatcher log.solver` (requires [PyFoam](https://pypi.org/project/PyFoam/))
+Use the script `clear_case.sh` in case you need to start from scratch.
 
-You shoud obtain a graph of the residuals like the following picture:
+### Monitoring
+
+To check the simulation progress and plot the residuals over time, you can use [PyFoam](https://pypi.org/project/PyFoam/):
+
+```shell
+pyFoamPlotWatcher log.solver
+```
+
+Two pop-up windows with residual graphs should appear:
 
 ![residuals](./images/pyFoam.png)
 
 ## Analyzing the results
 
-In order to understand if your simulation has converged and if you have obtained reasonable results, you can look at the output of the `functions` that we enabled in the `controlDict` dictionary.
+In order to understand if your simulation has converged and if you have obtained reasonable results, you can look at the output of the `functions` that we enabled in the `controlDict` dictionary. You can plot force coefficients over time with:
 
-You can plot force coefficients over time by typing in the case root folder:
+```shell
+python3 plotCoefficients.py
+```
 
-`python3 plotCoefficients.py`
-
-You should see something like:
+A pop-up window should appear:
 
 ![CdCl](./images/cdcl.png)
 
-You can compare those values with theoretical data (if you have them), or you can perform some *mesh independence study* to check the convergence of your setup. But for the sake of time, let's move on to the FSI part.
+You could compare these values with theoretical data (not available), or you could perform some mesh-convergence study to check the convergence of your setup.
 
-### Reconstruct the case
+### Reconstructing the case
 
-Your case is decomposed in 8 subdomains. You can still view the results in **Paraview** by selecting `Decomposed Case` once you opened `Fluid.foam` (see picture below).
+Your case is decomposed into 8 subdomains. You can still view the results in ParaView by selecting `Decomposed Case` once you opened `Fluid.foam` (see picture below).
 
 ![decomposed case](./images/decomposed.png)
 
-In our case we only need the latest time-step (`250`), which will be the initial state of our coupled simulation. In your terminal type
+In our case, we only need the latest time step (`250`), which will be the initial state of our coupled simulation. We can reconstruct the decomposed case for this time step:
 
-`reconstructPar -latesttime`
+```shell
+reconstructPar -latesttime
+```
 
-You will see the `250` folder in the root folder of your case containing the files `U`, `p`, and `phi`. Move those files in the `results/water` folder (overwrite the empty files), we will use it in the FSI simulation.
+There should now be a `250/` directory containing the files `U`, `p`, and `phi`. Move these files into `results/water/`, overwriting the currently empty files. We will use these results as initial state for the FSI simulation.
 
-## Setup *Simulation 2* (optional)
+## Alternative setup: air (optional)
 
 Now we consider a laminar incompressible simulation in air, with the same Reynolds number. The main parameters are:
 
@@ -128,13 +119,13 @@ Now we consider a laminar incompressible simulation in air, with the same Reynol
 - $\nu = 1.5 \cdot 10^{-5}\ \mathrm{m^2/s}$
 - $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
 
-You have to:
+For this:
 
-- use `clean_case.sh` in the root folder. It removes the following:
+- Use `clean_case.sh` in the root folder. It removes the following:
   - `0` folder
   - `processor*` folder
   - `postProcessing` folder
-- remove the `250` directory
-- update the simulation values (follow the previous steps and update the files as needed)
-- rerun the simulation with the updated values
-- move the files in the `250` directory in the `results/air/250` folder
+- Remove the `250` directory
+- Update the simulation values
+- Rerun the simulation
+- Reconstruct the case and move the `250` directory in the `results/air/250` folder

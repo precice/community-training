@@ -98,9 +98,9 @@ functions
 	liftDir (0 1 0);
 	dragDir (1 0 0);
 	pitchAxis (0 0 1);
-	magUInf UINF;
-	lRef CHORD;         // reference lenght for moments
-	Aref AREA;	      // reference area 1 for 2d
+	magUInf 0.5;
+	lRef 0.1;         // reference lenght for moments
+	Aref 0.03;	      // reference area 1 for 2d
 
         writeControl    outputTime;
         //writeControl   timeStep;

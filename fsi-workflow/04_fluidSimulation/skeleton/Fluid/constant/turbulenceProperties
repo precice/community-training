@@ -7,7 +7,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-simulationType TYPE;
+simulationType laminar;
 
 RAS
 {
