@@ -115,7 +115,7 @@ Open another terminal and enter the `Fluid` folder. Here you have to:
   - copying `0.orig` into `0`
   - executing `changeDictionary` to switch the boundary condition from `noSlip` to `movingWallVelocity`
   - decomposing the case into **8** subdomains
-- run `./run_fluid.sh` to start the parallel simulation
+- run `./run.sh` to start the parallel simulation
 
 ### Monitoring
 
