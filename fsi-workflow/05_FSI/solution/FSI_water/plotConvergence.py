@@ -16,19 +16,19 @@ for jj in range(np.size(data_raw,0)):
     data[int(data_raw[jj,0])-1,2:] = data_raw[jj,2:]
     data[int(data_raw[jj,0])-1,1] = data_raw[jj,1]
     
-plt.figure(figsize=(10,8))
+plt.figure(figsize=(8,5))
 plt.subplot(2,1,1)
 plt.plot(data[:,0],data[:,2],label='displacement')
 plt.plot(data[:,0],data[:,3],label='force')
 plt.yscale('log')
 plt.legend()
-#plt.xlim([0,500])
+plt.xlim([0,200])
 plt.grid()
-plt.xlabel('time step')
+#plt.xlabel('time step')
 plt.ylabel('convergence')
 plt.subplot(2,1,2)
 plt.plot(data[:,0],data[:,1])
-#plt.xlim([0,500])
+plt.xlim([0,200])
 plt.ylim([0,8])
 plt.grid()
 plt.xlabel('time step')

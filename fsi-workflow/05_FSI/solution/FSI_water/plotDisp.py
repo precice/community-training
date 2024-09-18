@@ -24,7 +24,7 @@ time_le = data_le[:, 0]
 displacement_le = data_le[:, 5]
 
 # Create the plot
-plt.figure(figsize=(10,7))
+plt.figure(figsize=(8,5))
 plt.grid(True)
 
 # Set title and labels
