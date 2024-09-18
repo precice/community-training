@@ -19,11 +19,11 @@ Open the `dynamicModel.inp` file and:
 - Replace `YOURMESH.inp` (line 4) with the name of the mesh (we previously named this `wing2312_m.inp`)
   - Note that CalculiX expects distance units in meters, while FreeCAD generates meshes with distances in millimeters. We need to adapt the values (see the end of the solid meshing task).
 - Replace the material properties with the following, roughly corresponding to a Polyurethane elastomer (TPU):
-  - `E: 2000000` (Young modulus: $E=200 MPa$)
-  - `NU: 0.3` (Poisson ratio: $\nu = 0.3$)
-  - `RHO: 3000` (density: $\rho = 3000 \frac{kg}{m^3}$)
+  - `E: 1.0E9` (Young modulus: $E=1 GPa$)
+  - `NU: 0.35` (Poisson ratio: $\nu = 0.3$)
+  - `RHO: 1060` (density: $\rho = 3000 \frac{kg}{m^3}$)
 - replace the numerical properties `DAMP`, `DT`, `TFINAL` with:
-  - `DAMP: -0.1` (numerical damping, see notes below)
+  - `DAMP: 0.0025` (structural damping, see notes below)
   - `DT: 5.0E-2` ($\Delta  t = 5 \cdot 10^{-2}s$)
   - `TFINAL: 4.0` ($t_{final} = 4 s$)
 - replace `NODESET` with the name of the set of root nodes (`Nroot_Nodes`)
@@ -35,6 +35,7 @@ Notice the structure of the file:
 
 - Input a geometry file
 - Define the material properties
+- *CalculiX* allows you to add **Rayleigh damping** to dynamic simulation, using the keyword `DAMPING`, which takes 2 arguments: `ALPHA` and `BETA`. They define the damping matrix as $C = \alpha \cdot M + \beta \cdot K$
 - Define a computation step
 - Define a dynamic simulation
   - `DIRECT` specifies that the user-defined initial time increment should not be changed
@@ -95,9 +96,9 @@ The good thing with using standard geometry designs (in this case, NACA airfoils
 - Area section of the wing: $A=8.0958 \cdot 10^{-4}m^2$
 - Inertia moment $J_x = 6.9464 \cdot 10^{-9}m^4$
 - Length of the wing: $l=0.3m$
-- Total weight of the wing is $\rho \cdot g \cdot A \cdot l = 7.148 kg$
+- Total weight of the wing is $\rho \cdot g \cdot A \cdot l = 2.526 kg$
 - Distributed load along the span (beam approximation, see picture below) $w=\rho \cdot g \cdot A$
-- Expected tip displacement: $y_B = \frac{w l^4}{8EJ_x} = -1.736 \cdot 10^{-2}m$
+- Expected tip displacement: $y_B = -\frac{w l^4}{8EJ_x} = -1.227 \cdot 10^{-3}m$
 
 ![tip displacement](./images/cantilever.png)
 

@@ -8,6 +8,8 @@
 *MATERIAL, Name=EL
 *ELASTIC
  E, NU
+*DAMPING,ALPHA=0.0,BETA=DAMP
+
 *DENSITY
  RHO
 
@@ -18,7 +20,7 @@
 ***********************************************************
 ** computation step
 *STEP, INC=1000000
-*DYNAMIC, ALPHA=DAMP, DIRECT
+*DYNAMIC, ALPHA=0.0, DIRECT
 DT, TFINAL
 
 ***********************************************************

@@ -1,320 +1,320 @@
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.5000000E-01
 
-       -2.079133E-03  7.697476E-01 -1.481984E-05
+        1.312359E-04  3.683186E-01 -5.100181E-07
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1000000E+00
 
-        2.942835E-04  1.741213E+00  5.946109E-06
+        4.728189E-05  6.448054E-01  6.283272E-07
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1500000E+00
 
-        1.639053E-03  2.726199E+00  3.091204E-06
+       -1.192439E-04  7.777487E-01 -5.289658E-07
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2000000E+00
 
-        6.828309E-04  3.309545E+00 -3.193299E-06
+        6.295810E-05  1.131210E+00  2.482367E-07
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2500000E+00
 
-       -7.197806E-04  3.539453E+00  4.957847E-06
+        4.712315E-05  1.303467E+00  7.468793E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3000000E+00
 
-       -1.791858E-03  4.199883E+00 -9.282249E-06
+       -1.319999E-04  1.564312E+00 -2.951785E-07
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3500000E+00
 
-        4.083133E-04  5.146600E+00  6.355107E-06
+        1.523497E-04  1.819894E+00  3.482071E-07
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.4000000E+00
 
-        1.175263E-03  6.144562E+00 -2.673952E-06
+       -1.148578E-04  2.041143E+00 -2.620352E-07
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.4500000E+00
 
-        9.996367E-04  6.685278E+00  5.034545E-06
+        5.293223E-05  2.292238E+00  1.177458E-07
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.5000000E+00
 
-       -9.921294E-04  7.015468E+00 -4.107803E-06
+       -8.728541E-07  2.540846E+00  5.371489E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.5500000E+00
 
-       -9.207402E-05  7.207092E+00  8.278352E-07
+        3.814045E-05  2.558833E+00  4.783957E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.6000000E+00
 
-        9.287582E-04  7.351033E+00  1.410068E-06
+       -4.380536E-05  2.532004E+00 -4.754088E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.6500000E+00
 
-        3.421795E-04  7.331708E+00  3.754416E-07
+        2.065791E-05  2.554381E+00 -3.430942E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.7000000E+00
 
-       -2.091901E-04  7.106019E+00 -3.052447E-07
+        9.389257E-06  2.544224E+00  6.274837E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.7500000E+00
 
-       -9.922749E-04  7.049190E+00 -1.316612E-06
+       -2.826934E-05  2.542897E+00 -9.502470E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.8000000E+00
 
-        9.708400E-05  7.192428E+00 -4.223494E-07
+        2.986458E-05  2.549830E+00  8.938223E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.8500000E+00
 
-        6.188236E-04  7.347975E+00  1.736190E-06
+       -1.883584E-05  2.543572E+00 -5.725945E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.9000000E+00
 
-        5.257918E-04  7.313400E+00  1.244860E-07
+        4.485824E-06  2.545685E+00  1.943503E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.9500000E+00
 
-       -3.475412E-04  7.120956E+00 -3.300590E-09
+        5.481619E-06  2.547716E+00  7.239048E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1000000E+01
 
-       -7.942731E-04  7.063363E+00 -1.580739E-06
+       -8.180945E-06  2.543724E+00 -1.662252E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1050000E+01
 
-        3.511213E-05  7.188677E+00  7.996437E-08
+        5.239668E-06  2.547207E+00  1.248933E-08
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1100000E+01
 
-        5.411214E-04  7.338253E+00  1.084416E-06
+       -3.852877E-07  2.545640E+00 -3.208136E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1150000E+01
 
-        5.457582E-04  7.300339E+00  5.128905E-07
+       -3.130193E-06  2.545280E+00 -3.893353E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1200000E+01
 
-       -3.963089E-04  7.133954E+00 -2.093456E-07
+        3.943393E-06  2.546663E+00  5.619261E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1250000E+01
 
-       -6.253463E-04  7.074137E+00 -1.417914E-06
+       -2.555004E-06  2.545315E+00 -2.863305E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1300000E+01
 
-       -6.419840E-05  7.188985E+00  2.280755E-07
+        3.988420E-07  2.545983E+00 -1.409042E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1350000E+01
 
-        5.523445E-04  7.325757E+00  6.646524E-07
+        1.210082E-06  2.546066E+00  4.446094E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1400000E+01
 
-        4.641686E-04  7.291392E+00  8.690700E-07
+       -1.687136E-06  2.545559E+00 -5.043697E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1450000E+01
 
-       -3.434323E-04  7.143735E+00 -5.896348E-07
+        1.207447E-06  2.546072E+00  3.617147E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1500000E+01
 
-       -5.536558E-04  7.084541E+00 -9.107442E-07
+       -3.491091E-07  2.545821E+00 -1.435724E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1550000E+01
 
-       -9.699611E-05  7.189944E+00 -1.162199E-07
+       -3.344140E-07  2.545770E+00 -2.977067E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1600000E+01
 
-        5.350891E-04  7.313260E+00  8.261142E-07
+        5.763026E-07  2.545998E+00  1.009571E-09
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1650000E+01
 
-        3.904164E-04  7.284638E+00  6.468026E-07
+       -4.233325E-07  2.545762E+00 -8.103225E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1700000E+01
 
-       -2.762014E-04  7.151068E+00 -4.377187E-07
+        9.913740E-08  2.545892E+00  1.951506E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1750000E+01
 
-       -5.209548E-04  7.095103E+00 -8.696283E-07
+        1.699626E-07  2.545891E+00  3.349077E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1800000E+01
 
-       -8.930160E-05  7.190335E+00 -1.005451E-07
+       -2.674102E-07  2.545811E+00 -5.179270E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1850000E+01
 
-        4.862184E-04  7.302181E+00  7.367409E-07
+        2.041247E-07  2.545901E+00  3.697265E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1900000E+01
 
-        3.480188E-04  7.278516E+00  6.032338E-07
+       -6.700382E-08  2.545850E+00 -7.262768E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.1950000E+01
 
-       -2.300002E-04  7.157278E+00 -4.017176E-07
+       -5.141780E-08  2.545851E+00 -1.775473E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2000000E+01
 
-       -4.878006E-04  7.105106E+00 -7.693804E-07
+        1.006977E-07  2.545883E+00  2.746678E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2050000E+01
 
-       -7.595267E-05  7.190492E+00 -1.267016E-07
+       -8.225208E-08  2.545846E+00 -2.239990E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2100000E+01
 
-        4.305658E-04  7.292413E+00  6.886702E-07
+        3.004604E-08  2.545868E+00  1.005471E-10
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2150000E+01
 
-        3.230090E-04  7.272744E+00  5.320057E-07
+        1.779201E-08  2.545866E+00  1.227152E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2200000E+01
 
-       -2.019361E-04  7.162803E+00 -3.382152E-07
+       -3.918002E-08  2.545854E+00 -6.623857E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2250000E+01
 
-       -4.471628E-04  7.114290E+00 -7.102684E-07
+        3.311390E-08  2.545869E+00  5.915446E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2300000E+01
 
-       -6.949453E-05  7.190654E+00 -1.189441E-07
+       -1.251908E-08  2.545859E+00 -1.910916E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2350000E+01
 
-        3.822845E-04  7.283701E+00  6.188181E-07
+       -7.165375E-09  2.545861E+00 -2.021405E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2400000E+01
 
-        3.015106E-04  7.267334E+00  4.877171E-07
+        1.651167E-08  2.545865E+00  3.810152E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2450000E+01
 
-       -1.811244E-04  7.167753E+00 -2.963774E-07
+       -1.458553E-08  2.545859E+00 -3.241230E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2500000E+01
 
-       -4.048264E-04  7.122649E+00 -6.471098E-07
+        6.346365E-09  2.545863E+00  1.358824E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2550000E+01
 
-       -6.835016E-05  7.190890E+00 -1.158006E-07
+        1.919162E-09  2.545863E+00  4.864997E-12
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2600000E+01
 
-        3.430121E-04  7.275883E+00  5.576341E-07
+       -6.170798E-09  2.545861E+00 -1.427658E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2650000E+01
 
-        2.787403E-04  7.262296E+00  4.464443E-07
+        5.793764E-09  2.545863E+00  1.353495E-11
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2700000E+01
 
-       -1.614478E-04  7.172188E+00 -2.589537E-07
+       -2.666273E-09  2.545862E+00 -6.673329E-12
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2750000E+01
 
-       -3.661346E-04  7.130233E+00 -5.903558E-07
+       -6.635689E-10  2.545862E+00 -6.452616E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2800000E+01
 
-       -6.797355E-05  7.191221E+00 -1.105216E-07
+        2.472783E-09  2.545863E+00  4.696687E-12
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2850000E+01
 
-        3.092918E-04  7.268830E+00  5.000414E-07
+       -2.412763E-09  2.545862E+00 -4.735767E-12
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2900000E+01
 
-        2.558995E-04  7.257638E+00  4.112974E-07
+        1.183850E-09  2.545862E+00  2.183143E-12
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.2950000E+01
 
-       -1.424549E-04  7.176140E+00 -2.286929E-07
+        1.889363E-10  2.545862E+00  6.981082E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3000000E+01
 
-       -3.320212E-04  7.137123E+00 -5.359024E-07
+       -9.784118E-10  2.545862E+00 -2.335909E-12
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3050000E+01
 
-       -6.660503E-05  7.191626E+00 -1.073046E-07
+        1.006263E-09  2.545862E+00  2.303491E-12
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3100000E+01
 
-        2.788057E-04  7.262464E+00  4.498195E-07
+       -5.331030E-10  2.545862E+00 -1.229239E-12
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3150000E+01
 
-        2.345508E-04  7.253346E+00  3.777095E-07
+       -2.801420E-11  2.545862E+00 -1.731948E-14
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3200000E+01
 
-       -1.250984E-04  7.179650E+00 -2.011651E-07
+        3.698578E-10  2.545862E+00  7.625012E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3250000E+01
 
-       -3.015500E-04  7.143388E+00 -4.867072E-07
+       -4.039590E-10  2.545862E+00 -8.362200E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3300000E+01
 
-       -6.443292E-05  7.192083E+00 -1.035461E-07
+        2.252297E-10  2.545862E+00  4.831691E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3350000E+01
 
-        2.509410E-04  7.256719E+00  4.044404E-07
+        1.024875E-12  2.545862E+00 -1.509903E-14
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3400000E+01
 
-        2.150943E-04  7.249392E+00  3.468463E-07
+       -1.458609E-10  2.545862E+00 -3.095302E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3450000E+01
 
-       -1.097533E-04  7.182762E+00 -1.768776E-07
+        1.670561E-10  2.545862E+00  3.548273E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3500000E+01
 
-       -2.738976E-04  7.149088E+00 -4.417913E-07
+       -9.859147E-11  2.545862E+00 -2.047251E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3550000E+01
 
-       -6.193717E-05  7.192577E+00 -9.969500E-08
+        6.399853E-12  2.545862E+00 -2.620126E-14
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3600000E+01
 
-        2.256460E-04  7.251539E+00  3.636803E-07
+        5.565420E-11  2.545862E+00  1.252332E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3650000E+01
 
-        1.973376E-04  7.245751E+00  3.183023E-07
+       -6.794876E-11  2.545862E+00 -1.478817E-13
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3700000E+01
 
-       -9.627534E-05  7.185519E+00 -1.553000E-07
+        4.241218E-11  2.545862E+00  9.503509E-14
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3750000E+01
 
-       -2.486673E-04  7.154272E+00 -4.009334E-07
+       -5.277834E-12  2.545862E+00 -3.552714E-15
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3800000E+01
 
-       -5.935859E-05  7.193096E+00 -9.569918E-08
+       -2.098180E-11  2.545862E+00 -4.796163E-14
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3850000E+01
 
-        2.028359E-04  7.246869E+00  3.270259E-07
+        2.737888E-11  2.545862E+00  4.618528E-14
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3900000E+01
 
-        1.810238E-04  7.242400E+00  2.919186E-07
+       -1.793102E-11  2.545862E+00 -2.176037E-14
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.3950000E+01
 
-       -8.438540E-05  7.187960E+00 -1.360928E-07
+        3.028050E-12  2.545862E+00 -8.437695E-15
 
  total force (fx,fy,fz) for set NROOT_NODES and time  0.4000000E+01
 
-       -2.256748E-04  7.158987E+00 -3.638624E-07
+        8.013840E-12  2.545862E+00  1.598721E-14
