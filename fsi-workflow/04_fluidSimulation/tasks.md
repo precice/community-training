@@ -2,7 +2,11 @@
 
 In this section we'll use the previously generated Fluid Mesh to perform a single physics flow simulation. Besides checking the validity of the model, this allows us to obtain an initialized fluid domain for the FSI simulation.
 
-We start here from a steady-state simulation. Later, in the FSI part, we will switch to a transient simulation.
+We start here from a steady-state simulation. Later, in the FSI part, we will switch to a transient simulation. General overview:
+
+![Fluid simulation: General overview](images/flowchart/flowchart-fluid-simulation.png)
+
+## Configuration
 
 In the following, we will simulate a scenario with incompressible, laminar flow of water with:
 
@@ -12,8 +16,6 @@ In the following, we will simulate a scenario with incompressible, laminar flow 
 - $Re = \frac{U_{\infty} c}{\nu} = 5 \cdot 10^4$
 
 The solution also includes a scenario with air.
-
-## Configuration
 
 ### Boundary and initial conditions
 
