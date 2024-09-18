@@ -1,7 +1,7 @@
 #import logging
 import ccx2paraview.ccx2paraview as ccx2p
-import os
 import shutil
+import os
 
 name = './solidModel.frd'
 
