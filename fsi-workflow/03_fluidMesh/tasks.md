@@ -1,91 +1,88 @@
-# Step 3: Mesh of Fluid domain
+# Task 3: Mesh of the Fluid domain
 
-In this section we'll generate the Fluid Mesh using using the utility `snappyHexMesh` in OpenFOAM v2406.
-The objective is to mesh a rectangular shaped region  surrounding an object described by an *STL surface*, as commonly done in external aerodynamics simulations.
+In this section we'll generate the Fluid Mesh for OpenFOAM.
+As we are doing external aerodynamics, we will first generate a background mesh and then embed the geometry in that mesh, removing the respective region.
+We will generate the mesh directly with the OpenFOAM tools blockMesh and snappyHexMesh.
 
-## Introduction
+General overview:
 
-The mesh generation process in OpenFOAM consists of several steps. You'll find the required files in the `skeleton` directory, which is more or less structured as a common OpenFOAM case, with the `constant` and `system` folders.
-There is no `0` folder as it is not required at this step.
+![Fluid mesh: General overview](images/flowchart/flowchart-fluid-mesh.png)
 
-You'll also find two Bash scripts:
+In `skeleton/`, you can find:
 
-- `clean_mesh.sh`: this script allows you to remove all the intermediate and solution files, in case you want to start over with a new computation
-- `run_mesh.sh`: this script runs all the required steps in a batch. **Do not use this yet**, as we first need to prepare the respective configuration files.
+- The `constant` and `system` directories expected in an OpenFOAM case
+- `clean_mesh.sh`: Removes all the intermediate and solution files
+- `run_mesh.sh`: Runs all the required steps in a batch
 
-In order to generate a mesh, you need the following:
+In order to generate a mesh, we need the following:
 
-- a background hexaedral mesh which defines the extent of the computational domain and a base level mesh density. generated using `blockMesh`
-- surface data files in *STL format*, either binary or ASCII
-- a `snappyHexMeshDict` dictionary, with appropriate entries, located in the `system` sub-directory of the case
+- A background hexahedral mesh which defines the extent of the computational domain and a base level mesh density. Generated using `blockMesh`
+- An STL file with the respective object geometry
+- A `snappyHexMeshDict` dictionary
 
-## Configuring blockMesh
+## Background mesh
 
-The first task consists in generating the fluid domain. This is achieved by the tool `blockMesh`, which creates the domain and the external boundaries based on the parameters contained in the dictionary `blockMeshDict` in the `system` folder.
+To generate the background mesh, we need to configure the `system/blockMeshDict` file. Inspect this file and follow the comments (everything is pre-filled).
 
-### Domain dimension
+### Domain dimensions
 
-In this case we create a box:
+We create a bounding box with dimensions:
 
-- $1.6m$ long in *x* direction (the direction of the freestream)
-- with a section of $0.48 \times 0.48$ m in *y* (*lift* direction) and *z* (*span* direction)
+- $1.6m$ long in $x$ direction (the direction of the freestream)
+- with a section of $0.48 \times 0.48$ m in $y$ (*lift* direction) and $z$ (*span* direction)
 
-If you look at the reference frame of the wing in the `blockMeshDict`, you'll notice that it is placed at the root section at mid chord. So:
+The reference frame of the wing assumes point (0,0,0) to be in the middle of the chord:
 
-- we place the *inlet* face at $x_1 = -0.24$m and the *outlet* face at $x_2 = 1.36$ m.
-- we place the wing in the middle of the box in *y* direction, so we place the *y* limits at $y_1 = -0.24$ m and $y_2=0.24$ m.
-- finally, we place the root section at $z_1 = 0$ m and the final face at $z_2 = 0.48$ m.
+- We place the `inlet` face at $x_1 = -0.24$m and the `outlet` face at $x_2 = 1.36$ m.
+- We place the wing in the middle of the box in $y$ direction, so we place the $y$ limits at $y_1 = -0.24$ m and $y_2=0.24$ m.
+- Finally, we place the root section at $z_1 = 0$ m and the final face at $z_2 = 0.48$ m.
 
 All these parameters are set in the beginning of `blockMeshDict`. For the moment, leave them like this.
 
-### Discretization
+### Mesh resolution
 
-Once we have defined the limits, we need to define the number of blocks that we want in each direction. Look for the dictionary entry `blocks` in `blockMeshDict` and locate the terms `NX`, `NY` and `NZ`. These represent the number of cells in which the domain will be divided into in each direction.
-We divide the domain into $0.08 \times 0.06 \times 0.06$m cells, so you need to substitute `NX`, `NY` and `NZ` with `20`, `8` and `8` respectively.
-The background mesh is quite coarse but for the moment we favor execution speed.
+Once we have defined the limits, we need to define the number of cells that we want in each direction. Look for the dictionary entry `blocks` in `blockMeshDict`, which defines a block of a 20 x 8 x 8 cells per $x,y,z$.
+This means that we divide the domain into cells of $0.08 \times 0.06 \times 0.06$m.
+Since time in this course is short, let's stick with such a coarse background mesh.
 
-### Boundary conditions
+### Boundaries
 
-`blockMeshDict` allows you to define the boundary conditions of the domain. The dictionary entry `boundary` defines:
+The dictionary entry `boundary` defines the following boundary patches of the domain:
 
-- `inlet`: where we define the fluid velocity of the incoming flow
-- `outlet`: where we define the properties of the outgoing flow to be at constant pressure
-- `slip`: far away faces can be considered as *frictionless walls*
-- `symmetryPlane`: the face containing the root of the wing is considered a symmetry plane
+- `inlet`
+- `outlet`
+- `slip`: far away faces (considered as frictionless walls)
+- `symmetryPlane`: the root of the wing
 
-## Generating the background mesh
+While we specify some patches here as `slip` or `symmetryPlane`, we will define the concrete boundary conditions in the next task.
 
-After you have sourced your OpenFOAM, you can run `blockMesh` from the root folder of the case to generate the external domain.
+### Generating the background mesh
 
-If you only want to look at the topology of the domain, without yet meshing it, you can run `blockMesh -write-vtk`. You can then visualize the `blockTopology.vtu` file in ParaView.
+In the `Fluid` folder, run:
+
+```shell
+blockMesh
+```
+
+If you only want to look at the topology of the domain, without yet meshing it, you can run `blockMesh -write-vtk`. You can then visualize the `blockTopology.vtu` file in ParaView. You can enable the `Axis Grid` in the Properties tab.
 
 ![Topology of the domain in ParaView](images/blockmesh-write-vtk.png)
 
 ## Configuring snappyHexMesh
 
-Once we have generated the background mesh, we need to refine it and subtract the wing. The geometry of the wing must be a surface data file in *STL format*, either binary or ASCII, located in the `constant/triSurface` sub-directory of the case directory.
+Once we have generated the background mesh, we need to refine it and subtract the wing. The geometry of the wing must be a surface data file in STL format, either binary or ASCII, located in the `constant/triSurface` subdirectory of the case directory. Copy the `naca2312.stl` there.
 
-Your first task is to copy `naca2312.stl` in the `constant/trisurface` directory.
+The mesh generation process in `snappyHexMesh` comprises three stages:
 
-Then you'll need to work on the following dictionary files:
+- `castellatedMesh`: permorms cell splitting and removal
+- `snap`: performs cell vertex points motion onto surface geometry
+- `addlayers`: introduces additional layers of hexahedral cells aligned to the boundary surface
 
-- `snappyHexMeshDict`: define the actual mesh based on the provided geometry
-- `decomposeParDict`: define how the domain will be decomposed for parallel simulations
+Each stage can be activated in the beginning of the `system/snappyHexMeshDict` file. Activate all of them.
 
-### snappyHexMeshDict
+There are a lot of parameters in the `snappyHexMeshDict` dictionary; we invite you to look at the comments in the file, at the references below, and at the documentation for further details. Let's focus on the most relevant for this exercise.
 
-The mesh generation process in `snappyHexMesh` is composed of 3 stages:
-
-- `castellatedMesh` which performs cell splitting and removal
-- `snap` which performs cell vertex points motion onto surface geometry
-- `addlayers`: which introduces additional layers of hexahedral cells aligned to the boundary surface
-
-Each stage can be activated in the beginning of the `snappyHexMeshDict` file. Activate all of them.
-
-There are a lot of parameters in the `snappyHexMeshDict` dictionary; we invite you to look at the comments in the file, at the references below, and at the documentation for further details.
-Here we focus on a few of them:
-
-#### Geometry
+### Geometry
 
 This is defined in the `geometry` subdictionary.
 
@@ -93,61 +90,43 @@ The geometry of the main elements of the mesh can be specified through an STL su
 
 - substitute `yourSTLfile.stl` with `naca2312.stl`
 - notice that two refinement regions are defined:
-    - `refineBox` around the wing
-    - `wake` behind the wing
+  - `refineBox` around the wing
+  - `wake` behind the wing
 
-#### Castellation
+### Castellation
 
+The castellation stage removes the cells inside (or outside) the specified geometry, resulting into a castellated (staircase-shaped) mesh.
 This is defined in the `castellatedMeshControls` subdictionary.
 
-In the `refinementSurfaces` entry:
+In the `refinementSurfaces` entry, substitute `DEFINETYPE` with `wall` under `naca2312/patchInfo`: We are telling snappy that our STL file is a boundary.
 
-- substitute `DEFINETYPE` with `wall` under `naca2312/patchInfo`: we are telling snappy that our STL file is a boundary.
+Notice the `locationInMesh` entry: This is an arbitrary point outside the wing and inside the initial mesh (any location in this region will do).
 
-Notice the `locationInMesh` entry:
+### Adding layers
 
-- Point vector inside the region to be meshed. This must be outside the wing and inside the initial mesh (any location in this region will do).
+Close to the boundaries, it is good practice to have additional layers of refinement. We define this in the `addLayersControls` subdictionary:
 
-#### snapControls
+- under `layers`, substitute `yourSurface` with `naca2312` (i.e., the name assigned to your STL file in the `geometry` subdictionary)
+- under `layers`, substitute the value `NL`  with `3` at the `nSurfaceLayers` entry
+- under `expansionRatio`, substitute `ER` with `1.0`: we want the layers to be of the same height.
 
-This is defined in the `snapControls` subdictionary.
+Now your `snappyHexMeshDict` is complete. As we want to perform this expensive operation in parallel, we also need to define how to decompose the domain.
 
-For the training we don't touch the parameters in this section.
+## Domain decomposition
 
-#### Adding layers
+Open the `decomposeParDict` file in the `system` directory and substitute `ND` with `8` in `numberOfSubdomains`: this is the number of subdomains in which your case will be decomposed, and it should typically not exceed the number of cores of the system. This number needs to agree with the number of subdomains per direction, defined in `hierarchicalCoeffs` (in this case, 4x1x2).
 
-This is defined in the `addLayersControls` subdictionary.
+Decompose the domain by running (in `Fluid/`):
 
-This section allows to define the boundary layer properties around our wing.
+```shell
+decomposePar
+```
 
-In the `layers` entry:
+Eight directories with names `processor[0-7]` will be generated, including configuration files similar to the ones defined for a single-process case.
 
-- substitute `yourSurface` with `naca2312` (i.e. the name assigned to your STL file in the `geometry` subdictionary)
-- substitute the value `NL`  with `3` at the `nSurfaceLayers` entry
+## Generating the mesh
 
-That is: we want to add 3 layers to the `naca2312` surface.
-
-At the `expansionRatio` entry, substitute `ER` with `1.0`: we want the 3 layers to be of the same height.
-
-Now your `snappyHexMeshDict` is complete. As we want to perform this operation in parallel, we also need to decompose the domain, for which we need to look into the `decomposeParDict`.
-
-### decomposeParDict
-
-Open the `decomposeParDict` file in the `system` directory:
-
-- substitute `ND` with `8` in `numberOfSubdomains`: this is the number of subdomains in which your case will be decomposed, and it should typically not exceed the number of cores of the system.
-
-## Meshing
-
-Now everything is ready to mesh our domain.
-
-### decomposePar
-
-First run `decomposePar`: your case will be divided into eight subdomains (notice the directories `processorX` in the root folder of your case).
-
-### snappyHexMesh
-
-Now you can create the mesh for the eight subdomains in parallel: 
+Now we can create the mesh for the eight subdomains in parallel:
 
 ```shell
 mpirun -np 8 snappyHexMesh -parallel
@@ -155,11 +134,9 @@ mpirun -np 8 snappyHexMesh -parallel
 
 This will take a few minutes to complete.
 
-In case you get an error that there are not enough slots in your system to run eight processes, reduce the `numberOfSubdomains` in `decomposeParDict` and the number of processes in `mpirun` accordingly.
+In case you get an error that there are not enough slots in your system to run eight processes, reduce the `numberOfSubdomains` in `decomposeParDict` (adjusting the subdomains per direction) and the number of processes in `mpirun` accordingly. If you still want to execute eight processes, you can pass the `--oversubscribe` option to `mpirun`. This is then expected to take significantly longer.
 
-If you still want to execute eight processes, you can pass the `--oversubscribe` option to `mpirun`. This is then expected to take significantly longer.
-
-### reconstructParMesh
+### Reconstructing the mesh
 
 Once `snappyHexMesh` has finished, you can reconstruct your domain from the decomposed ones by running `reconstructParMesh`.
 
@@ -178,14 +155,17 @@ When finished, you will see three time folders (0.001, 0.002, 0.003) in the root
 ![BL](./images/03_BL.png)
 
 Notes:
-- the timestep depends on the `deltaT` parameter in the `controlDict` file, but it is not relevant
-- you can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`. In the next step (fluid simulation), we will use the `0.003` directory.
 
-## checkMesh
+- The time step size depends on the `deltaT` parameter in the `controlDict` file, but it is not relevant.
+- You can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`. In the next step (fluid simulation), we will use and rename the `0.003` directory.
 
-Finally, you can have an idea of the quality of the mesh, in particular if there are distorted cells, by typing:
+## Checking the mesh
 
- `checkMesh -latestTime |  tee log.checkMesh`
+`checkMesh` can give us some mesh quality metrics (in particular, whether there are any distorted cells):
+
+```shell
+checkMesh -latestTime
+```
 
 If everything goes well, you should see a `Mesh OK.` at the end.
 

@@ -1,23 +1,15 @@
-/*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  dev                                   |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
-|    \\/     M anipulation  |                                                 |
-\*---------------------------------------------------------------------------*/
 FoamFile
 {
     version 2.0;
     format ascii;
     class dictionary;
-    location "meshFactory/component1/constant/polyMesh";
+    location "constant/polyMesh";
     object blockMeshDict;
 }
 
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
 scale 1;
 
+// Bounding box ranges
 x1 -0.24; 
 x2 1.36;
 y1 -0.24;
@@ -25,6 +17,8 @@ y2 0.24;
 z1 0;
 z2 0.48;
 
+// Eight vertices defining a bounding box,
+// using the above values
 vertices
 (
      ( $x1  $y1  $z1)
@@ -37,8 +31,10 @@ vertices
      ( $x1  $y2  $z2)
 );
 
+// Creating the bounding box
 blocks
 (
+    // An hexahedral block with 20 x 8 x 8 uniform size
      hex (0 1 2 3 4 5 6 7) (20 8 8) simpleGrading (1 1 1)
 );
 
@@ -46,6 +42,7 @@ edges
 (
 );
 
+// Naming boundaries
 boundary
 (
 
@@ -72,7 +69,7 @@ boundary
         (
              (1 5 4 0)
              (4 5 6 7)
-             (3 7 6 2)        
+             (3 7 6 2)
         );
     }
     symmetry
@@ -84,5 +81,3 @@ boundary
         );
     }
 );
-
-// ************************************************************************* //

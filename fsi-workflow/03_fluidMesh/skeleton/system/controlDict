@@ -9,7 +9,6 @@ FoamFile
 
 application         snappyHexMesh;
 
-//libs ( "libOpenFOAM.so" "libgroovyBC.so" ) ;
 libs ( "libOpenFOAM.so" ) ;
 
 startFrom           latestTime;
@@ -39,6 +38,4 @@ timeFormat          general;
 timePrecision       12;
 
 runTimeModifiable   true;
-//adjustTimeStep    yes;
-//maxCo             5.0;
 
