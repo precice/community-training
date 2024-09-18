@@ -7,6 +7,8 @@ A training module showcasing how to setup an FSI simulation from scratch.
 Claudio Caccia, Politecnico di Milano\newline `<claudiogiovanni.caccia@polimi.it>`
 Gerasimos Chourdakis, University of Stuttgart `<gerasimos.chourdakis@ipvs.uni-stuttgart.de>`
 
+This is a community-contributed part of the course. Contribute on GitHub: https://github.com/precice/community-training
+
 ## Dependencies
 
 We will use the following software:
