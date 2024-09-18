@@ -118,7 +118,7 @@ As expected, FSI simulations take a long time. If you are short in time, just re
 Open a terminal and enter the `Solid` folder. Here you simply run the `run_soilid.sh` script:
 
 ```shell
-./run_solid.sh
+./run.sh
 ```
 
 The Solid participant should now start and wait for the Fluid participant to appear as well.
