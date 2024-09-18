@@ -1,6 +1,5 @@
-#!/bin/bash
-
-cd Fluid
+#!/usr/bin/env bash
+set -e -u
 
 echo "cleaning case..."
 
@@ -17,5 +16,3 @@ rm -rfv postProcessing
 echo "remove log files"
 
 rm -rfv log.*
-
-cd ..

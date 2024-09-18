@@ -68,7 +68,7 @@ By default, the script runs the case with 8 processes, using over-subscription. 
 
 The simulation will probably take around 5 min to complete all 250 iterations. We still get a pretty much converged state, even if the residuals in this case don't reach the limits which would automatically stop the simulation.
 
-Use the script `clear_case.sh` in case you need to start from scratch.
+Use the script `clean.sh` if you need to start from scratch.
 
 ### Monitoring
 
@@ -121,7 +121,7 @@ Now we consider a laminar incompressible simulation in air, with the same Reynol
 
 For this:
 
-- Use `clean_case.sh` in the root folder. It removes the following:
+- Use `clean.sh`. It removes the following:
   - `0` folder
   - `processor*` folder
   - `postProcessing` folder
