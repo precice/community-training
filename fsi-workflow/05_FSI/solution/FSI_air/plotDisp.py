@@ -24,13 +24,15 @@ time_le = data_le[:, 0]
 displacement_le = data_le[:, 5]
 
 # Create the plot
-plt.figure()
+plt.figure(figsize=(8,5))
 plt.grid(True)
 
 # Set title and labels
 plt.title('Displacement of the Wing Tip')
-plt.xlabel('Time [s]')
-plt.ylabel('Y-Displacement [m]')
+plt.xlabel('time (s)')
+plt.ylabel('Y-Displacement (m)')
+
+plt.xlim([0,0.2])
 
 # Plot the data
 plt.plot(time_tip, displacement_tip, label="tip", linestyle='-', color='b')

@@ -38,7 +38,6 @@ runTimeModifiable true;
 
 adjustTimeStep  no;
 
-
 // ************************************************************************* //
 
 functions
@@ -92,7 +91,7 @@ functions
 
 	//// Density
 	rho rhoInf;
-	rhoInf 1000.;
+	rhoInf 1000.0;
 
 	//// Centre of rotation
 	CofR (0 0 0);
@@ -127,7 +126,7 @@ functions
 	liftDir (0 1 0);
 	dragDir (1 0 0);
 	pitchAxis (0 0 1);
-	magUInf 1.0;
+	magUInf 0.5;
 	lRef 0.1;         // reference lenght for moments!!!
 	Aref 0.03;
 

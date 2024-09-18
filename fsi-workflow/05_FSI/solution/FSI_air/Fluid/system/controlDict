@@ -6,7 +6,6 @@ FoamFile
     object      controlDict;
 }
 
-
 application     pimpleFoam;
 
 startFrom       latestTime;
@@ -20,7 +19,6 @@ endTime         0.2; // Will be overwritten by the adapter
 deltaT          1e-3;
 
 writeControl    adjustableRunTime;
-//writeControl    runTime;
 
 writeInterval   1e-3;
 
@@ -101,8 +99,6 @@ functions
 
 ///////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////
-
     forceCoeffs_object
     {
 	// rhoInf - reference density
@@ -140,7 +136,6 @@ functions
     }
 
 ///////////////////////////////////////////////////////////////////////////
-
 
     preCICE_Adapter
     {

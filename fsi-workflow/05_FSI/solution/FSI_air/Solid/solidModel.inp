@@ -35,7 +35,7 @@ Nroot_Nodes, 1, 3
 
 
 ***********************************************************
-** Load: gravity
+** Load: fluid
 *CLOAD, AMPLITUDE=STARTRAMP, TIME DELAY=0. 
 NwetSurface_Nodes, 1, 0.0
 NwetSurface_Nodes, 2, 0.0

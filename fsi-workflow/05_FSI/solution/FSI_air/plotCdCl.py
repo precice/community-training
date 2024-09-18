@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 data = np.genfromtxt('./Fluid/postProcessing/forceCoeffs_object/0/coefficient.dat', comments='#')
 
 fs = 16
-fig, (ax0, ax1) = plt.subplots(2, 1, figsize=(10, 8))
+fig, (ax0, ax1) = plt.subplots(2, 1, figsize=(8, 5))
 ax0.plot(data[:, 0], data[:, 1], label='Cd', lw=4)
 # ax0.set_title('Amplitude', fontsize=fs)
 ax0.set_xlabel(r'time (s)', fontsize=fs)
