@@ -107,7 +107,7 @@ Your case is decomposed into 8 subdomains. You can still view the results in Par
 In our case, we only need the latest time step (`250`), which will be the initial state of our coupled simulation. We can reconstruct the decomposed case for this time step:
 
 ```shell
-reconstructPar -latesttime
+reconstructPar -latestTime
 ```
 
 There should now be a `250/` directory containing the files `U`, `p`, and `phi`. Move these files into `results/water/`, overwriting the currently empty files. We will use these results as initial state for the FSI simulation.
