@@ -140,24 +140,13 @@ In case you get an error that there are not enough slots in your system to run e
 
 Once `snappyHexMesh` has finished, you can reconstruct your domain from the decomposed ones by running `reconstructParMesh`.
 
-When finished, you will see three time folders (0.001, 0.002, 0.003) in the root directory of the case. Each one corresponds to a stage of `snappyHexMesh`:
+When finished, you will see three time folders (0.001, 0.002, 0.003) in the root directory of the case. Each one corresponds to a stage of `snappyHexMesh`. The time step size depends on the `deltaT` parameter in the `controlDict` file, but it is not relevant. You can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`. In the next step (fluid simulation), we will use and rename the `0.003` directory.
 
-- 0.001: castellatedMesh
+![snappyHexMesh output: Castellation stage (`0.001` directory)](./images/01_cast.png)
 
-![castellation](./images/01_cast.png)
+![snappyHexMesh output: Snap stage (`0.002` directory)](./images/02_snap.png)
 
-- 0.002: snap
-
-![snap](./images/02_snap.png)
-
-- 0.003: addLayers
-
-![BL](./images/03_BL.png)
-
-Notes:
-
-- The time step size depends on the `deltaT` parameter in the `controlDict` file, but it is not relevant.
-- You can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`. In the next step (fluid simulation), we will use and rename the `0.003` directory.
+![snappyHexMesh output: Boundary layer stage (`0.003` directory)](./images/03_BL.png)
 
 ## Checking the mesh
 

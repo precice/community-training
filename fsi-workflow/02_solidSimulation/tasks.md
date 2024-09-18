@@ -106,5 +106,4 @@ Note that we are a bit lazy here, as the $x, y$ axes are not *principal axes*. N
 
 ## References
 
-- CalculiX user manual: https://www.dhondt.de/ccx_2.20.pdf
-- Web version (possibly outdated): https://web.mit.edu/calculix_v2.7/CalculiX/ccx_2.7/doc/ccx/ccx.html
+- CalculiX 2.20 user manual: [https://www.dhondt.de/ccx_2.20.pdf](https://www.dhondt.de/ccx_2.20.pdf)

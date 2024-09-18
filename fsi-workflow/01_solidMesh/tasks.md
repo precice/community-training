@@ -14,6 +14,8 @@ Select the `FEM Workbench`:
 
 ![FreeCAD: FEM Workbench](./images/FEM_WB.png)
 
+\newpage
+
 Go to:
 
 - Click `Edit` -> `Preferences...`.
@@ -22,7 +24,7 @@ Go to:
 
 Configure as follows:
 
-- Which elements to export `All`.
+- Which elements to export: `All`.
 - Export group data: (check).
 
 Then, click `Apply` and `OK`.
@@ -34,7 +36,7 @@ The first task consists in importing the wing:
 - Create a new project: Click `File` -> `New`.
 - Give the model a name: In the `Combo View/Model` tab on the left, select the unnamed model and change the `Label`: click on the `Unnamed` and rename it to `Wing`.
 
-![FreeCAD: Rename model label](./images/PD_rename.png)
+![FreeCAD: Rename model label to `Wing`](./images/PD_rename.png)
 
 - Select the `Part design` workbench from the drop-down menu and click `create body`:
 
@@ -61,12 +63,12 @@ Now we can generate a mesh for the `Wing`.
 - Switch again to the FEM Workbench from the drop-down menu.
 - From the menu bar, click `Model` -> `Analysis container` (or select the `A` symbol from the toolbar):
 
-![FreeCAD: Analysis container](./images/FEM_Analysis.png)
+![FreeCAD: Add an Analysis container](./images/FEM_Analysis.png)
 
 - We want to mesh the `BaseFeature`: Select it from the sidebar.
 - From the menu bar, click `Mesh` -> `FEM Mesh from shape by GMSH`. The FEM Workbench can generate meshes using different backends; we use [GMSH](https://gmsh.info/) here.
 
-![FreeCAD: Add Analysis container](./images/FEM_Mesh01.png)
+![FreeCAD: Add a mesh](./images/FEM_Mesh01.png)
 
 - In the `Tasks` tab, use the following parameters:
   - Element dimension: `3D`
@@ -115,7 +117,7 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 - In the `Model` tab, select the `MeshGroup` and rename its `Label` to `Nroot`. This will help us define the boundary condition in the Solid domain.
 
-**NOTE**: Node group names need to start with `N`.
+  **NOTE**: Node group names need to start with `N`.
 
 ![FreeCAD: Rename mesh group](./images/Groups05.png)
 
