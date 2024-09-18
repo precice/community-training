@@ -19,7 +19,7 @@ The solution also includes a scenario with air.
 
 ### Boundary and initial conditions
 
-Th new folder `0.orig/` contains the boundary and the initial conditions for each of the simulation variables: files `U` and `p`.
+The new folder `0.orig/` contains the boundary and the initial conditions for each of the simulation variables: files `U` and `p`.
 
 Open the file `U` and:
 
@@ -41,15 +41,15 @@ In the `constant/` directory:
 In the `system/` directory, we define numerical properties and other options regarding the simulation execution. The files one typically needs to configure are `controlDict`, `fvSchemes`, and `fvSolution`.
 
 - Have a look into the `controlDict` file and:
-    1. substitute `END` with `250` at `entTime` entry: we will perform 250 steady-state iterations at most.
-    2. substitute `RHO` with `1000.0` in the `forces_object` and in the `forceCoeffs_object`. These function objects compute some forces we will later analyze. We have already pre-filled further parameters (`magUInf`, `lRef`, `Aref`).
+    1. Substitute `END` with `250` at `entTime` entry: we will perform 250 steady-state iterations at most.
+    2. Substitute `RHO` with `1000.0` in the `forces_object` and in the `forceCoeffs_object`. These function objects compute some forces we will later analyze. We have already pre-filled further parameters (`magUInf`, `lRef`, `Aref`).
     3. Notice that we define `simpleFoam` as `application`. This is a steady-state solver implementing the [SIMPLE algorithm](https://en.wikipedia.org/wiki/SIMPLE_algorithm).
 
 - Open `fvSchemes` and substitute `SIMULATIONTYPE` with `steadyState`.
 
 - Open `fvSolution` and in the `residualControl` entry set the thresholds for earlier exiting the steady-state simulation:
-    1. substitute `P_RES` with `1e-4`
-    2. substitute `U_RES` with `1e-4`
+    1. Substitute `P_RES` with `1e-4`
+    2. Substitute `U_RES` with `1e-4`
 
 ## Running the case
 
