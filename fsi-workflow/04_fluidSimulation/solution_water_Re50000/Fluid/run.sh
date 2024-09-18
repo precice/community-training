@@ -1,6 +1,5 @@
-#!/bin/bash
-
-cd Fluid
+#!/usr/bin/env bash
+set -e -u
 
 cp -r 0.orig 0
 

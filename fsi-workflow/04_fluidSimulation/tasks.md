@@ -51,10 +51,10 @@ In the `system/` directory, we define numerical properties and other options reg
 
 ## Running the case
 
-In order to run simulation, open a terminal from the `skeleton` folder and type:
+In order to run simulation, open a terminal from the `Fluid` folder and type:
 
 ```shell
-./run_case.sh`
+./run.sh`
 ```
 
 This script:
@@ -64,7 +64,7 @@ This script:
 - Runs `simpleFoam` in parallel and logs the output in `log.solver`
 - Reconstructs the latest time step
 
-By default, the script runs the case with 8 processes, using over-subscription. You can change the partitioning by changing the `system/decomposeParDict` and you then change the number of processes in `run_case.sh`.
+By default, the script runs the case with 8 processes, using over-subscription. You can change the partitioning by changing the `system/decomposeParDict` and you then change the number of processes in `run.sh`.
 
 The simulation will probably take around 5 min to complete all 250 iterations. We still get a pretty much converged state, even if the residuals in this case don't reach the limits which would automatically stop the simulation.
 
