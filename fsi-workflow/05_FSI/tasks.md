@@ -143,7 +143,9 @@ In order to open the results of both participants in the same ParaView window, w
 python3 convert2vtu.py
 ```
 
-This will create a `convert` folder where you will find 500 `.vtu` files.
+This will create a `convert` folder where you will find one `.vtu` file for each exported time step.
+
+In case you need to synchronize the results of the two participants, you can apply a `TemporalShiftScale` filter in one of the two data sets in ParaView. See also the [visualization documentation page](https://precice.org/tutorials-visualization.html).
 
 ### Fluid results
 
