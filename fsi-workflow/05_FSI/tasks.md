@@ -68,14 +68,9 @@ When we performed the fluid simulation, in the `U` file for the initial conditio
 
 Open the `controlDict` file and:
 
-<<<<<<< HEAD
-- replace the term `TFINAL` for the entry `endTime` with `0.2` (**NOTE:** the end time does not matter, the adapter sets it automatically)
-- replace the entry `DT` for the entry `deltaT` with `1e-3`
-=======
 - notice that, compared to the previous, steady-state flow simulation, we are now using the transient `pimpleFoam` solver.
-- replace the term `TFINAL` for the entry `endTime` with `0.5` (**NOTE:** This value does not actually matter, as preCICE controls the end of the simulation, but we still set it for consistency.)
+- replace the term `TFINAL` for the entry `endTime` with `0.2` (**NOTE:** This value does not actually matter, as preCICE controls the end of the simulation, but we still set it for consistency.)
 - replace the entry `DT` for the entry `deltaT` with `1e-3` (fixed, as `adjustTimeStep` is disabled)
->>>>>>> bc7afadf94f851700f7027a437826380810bb21e
 - replace the entry `PRECICE_FO`, a placeholder for the **preCICE Funtion Object** with the following:
 
 ```c++
@@ -98,13 +93,8 @@ Once we have prepared the **participants** we can configure **preCICE**.
 Open the `precice-config.xml` file in the `skeleton` folder and:
 
 - replace `DT` in the `<time-window>` tag with `0.001`
-<<<<<<< HEAD
 - replace `TFINAL` in the `<max-time>` tag with `0.2`
-- replace the **two** occurrencies of `REL_CONV` in the `<relative-convergence-measure>` tag with `1e-3`
-=======
-- replace `TFINAL` in the `<max-time>` tag with `0.5`
 - replace the **two** occurrences of `REL_CONV` in the `<relative-convergence-measure>` tag with `1e-3`
->>>>>>> bc7afadf94f851700f7027a437826380810bb21e
 
 **NOTES**:
 
@@ -127,7 +117,7 @@ As expected, FSI simulations take a long time. If you are short in time, just re
 
 Open a terminal and enter the `Solid` folder. Here you simply run the `run_soilid.sh` script:
 
-```
+```shell
 ./run_solid.sh
 ```
 
@@ -173,7 +163,7 @@ Once you have finished your simulation you can have a look at the results.
 
 In order to open both **Fluid** and **Solid** domains at the same time in *Paraview*, we first need to convert from the *CalculiX* results file `solidModel.frd` to a set of `vtu` solution files and a `pvd` collecion file. 
 
-```
+```shell
 python3 convert2vtu.py
 ```
 
@@ -208,7 +198,7 @@ To see the displacement more easily, you can apply a `WarpByVector` filter, usin
 
 In the folder:
 
-```
+```shell
 ./05_FSI/solution/FSI_air
 ```
 
