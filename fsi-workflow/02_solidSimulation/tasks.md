@@ -8,13 +8,13 @@ General overview of this task:
 
 ![Solid simulation: General overview](images/flowchart/flowchart-solid-simulation.png)
 
-## Complete the dynamicModel.inp file
+## Configuration
 
 In the `skeleton` folder:
 
 - Copy your generated solid mesh in the current folder
 
-Open the `dynamicModel.inp` file and:
+Open the `solidModel.inp` file and:
 
 - Replace `YOURMESH.inp` (line 4) with the name of the mesh (we previously named this `wing2312_m.inp`)
   - Note that CalculiX expects distance units in meters, while FreeCAD generates meshes with distances in millimeters. We need to adapt the values (see the end of the solid meshing task).
@@ -52,7 +52,7 @@ Notice the structure of the file:
 In order to run the simulation, open a terminal in the current folder and type:
 
 ```shell
-ccx_preCICE -i dynamicModel
+ccx_preCICE -i solidModel
 ```
 
 Notes:
@@ -65,8 +65,8 @@ Notes:
 
 The main result files are:
 
-- `dynamicModel.frd`: CalculiX result format, which contains all the `U`, `S` and `E` information.
-- `dynamicModel.dat`: log file containing the reaction forces.
+- `solidModel.frd`: CalculiX result format, which contains all the `U`, `S` and `E` information.
+- `solidModel.dat`: log file containing the reaction forces.
 
 We can convert `frd` files to other formats supported by ParaView using various converters. Look for the `convert2vtu.py` file in the current folder and type:
 
@@ -80,13 +80,13 @@ Alternatively, we could directly open `.frd` in FreeCAD, in the CalculiX tool CG
 
 ### Deformation of the wing
 
-Open the `dynamicModel.pvd` file in ParaView. You can then look at the deformed shape of the wing by applying a `WarpByVector` filter based on the `U` vector (and a small scale factor):
+Open the `solidModel.pvd` file in ParaView. You can then look at the deformed shape of the wing by applying a `WarpByVector` filter based on the `U` vector (and a small scale factor):
 
 ![wing_deformed](./images/results_paraview_warp.png)
 
 ### Reaction forces
 
-Open `dynamicModel.dat` with a text editor. This file contains a vector for each time step of the simulation. If you go towards the end, you'll notice that the `y` component of the reaction force converges (in magnitude, opposite in sign) to the weight of the wing.
+Open `solidModel.dat` with a text editor. This file contains a vector for each time step of the simulation. If you go towards the end, you'll notice that the `y` component of the reaction force converges (in magnitude, opposite in sign) to the weight of the wing.
 
 ### Theoretical data of the wing
 

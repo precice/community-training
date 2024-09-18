@@ -34,13 +34,13 @@
         <mxCell id="m4BdSE6QHmhiQMImwujt-10" value="Solid mesh file&amp;nbsp;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="110" y="450" width="90" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="m4BdSE6QHmhiQMImwujt-11" value="dynamicModel.inp" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="m4BdSE6QHmhiQMImwujt-11" value="solidModel.inp" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="240" y="450" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="m4BdSE6QHmhiQMImwujt-12" value="ccx_preCICE" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="410" y="450" width="90" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="m4BdSE6QHmhiQMImwujt-13" value="dynamicModel.frd&lt;div&gt;dynamicModel.dat&lt;br&gt;convert2vtu.py&lt;br&gt;ParaView&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="m4BdSE6QHmhiQMImwujt-13" value="solidModel.frd&lt;div&gt;solidModel.dat&lt;br&gt;convert2vtu.py&lt;br&gt;ParaView&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="580" y="450" width="110" height="70" as="geometry" />
         </mxCell>
         <mxCell id="m4BdSE6QHmhiQMImwujt-14" value="Fluid meshing&amp;nbsp;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
