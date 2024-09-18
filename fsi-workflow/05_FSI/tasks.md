@@ -55,7 +55,7 @@ When we performed the fluid simulation, we defined the surface of the wing as `n
 - Open the file `system/changeDictionaryDict`.
 - In the `boundaryField` dictionary entry, replace `PATCH` with `naca2312` and `TYPE` with `movingWallVelocity`.
 
-We will update the `0.orig/U` file automatically before running the coupled simulation (see how in `Allrun.pre`).
+We will update the `0.orig/U` file automatically before running the coupled simulation (see how in `prepare.sh`).
 
 ### Simulation control
 
@@ -111,11 +111,13 @@ This starts CalculiX as the `Solid` preCICE participant. The Solid participant s
 
 Open another terminal and enter the `Fluid` folder. Here you have to:
 
-- run `./Allrun.pre` which takes care of:
-  - copying `0.orig` into `0`
-  - executing `changeDictionary` to switch the boundary condition from `noSlip` to `movingWallVelocity`
-  - decomposing the case into **8** subdomains
+- run `./prepare.sh`, which:
+  - copies `0.orig` into `0`
+  - uses `changeDictionary` to switch the boundary condition from `noSlip` to `movingWallVelocity`
+  - decomposes the case into **8** subdomains
 - run `./run.sh` to start the parallel simulation
+
+In case the 8 subdomains are too many for your system, see the related notes in Task 4.
 
 ### Monitoring
 
