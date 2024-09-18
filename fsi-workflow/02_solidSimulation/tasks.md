@@ -18,7 +18,7 @@ Open the `solidModel.inp` file and:
 
 - Replace `YOURMESH.inp` (line 4) with the name of the mesh (we previously named this `wing2312_m.inp`)
   - Note that CalculiX expects distance units in meters, while FreeCAD generates meshes with distances in millimeters. We need to adapt the values (see the end of the solid meshing task).
-- Replace the material properties with the following, roughly corresponding to a Polyurethane elastomer (TPU):
+- Replace the material properties with the following, roughly corresponding to Polystyrene or ABS:
   - `E: 1.0E9` (Young modulus: $E=1 GPa$)
   - `NU: 0.35` (Poisson ratio: $\nu = 0.3$)
   - `RHO: 1060` (density: $\rho = 3000 \frac{kg}{m^3}$)

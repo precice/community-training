@@ -6,15 +6,13 @@ Finally, we are now able to put everything together and start our fluid-structur
 
 Copy the `wing2312_m.inp` mesh from `01_solidMesh` into the current directory Remember to use the one converted to *meters*. Then, we can adjust the model and configure the CalculiX-preCICE adapter.
 
-### `solidModel.inp`
+### CalculiX configuration
 
-Check the following information in the file:
+Check the following changes in `solidModel.inp`:
 
-- section `*INCLUDE`: we are including the mesh named `wing2312_m.inp`, replace this with the actual name of your mesh, if different
-- section `*MATERIAL`: the material properties correspond to a polymeric material close to Polystyrene or ABS
-- section `*DYNAMIC`: we perform a simulation $0.5$ seconds long with a time-step of $1ms$
-- section `*BOUNDARY`: the group of the **root** (`Nroot_Nodes`) is fixed
-- section `*AMPLITUDE`: we ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.1s$
+- Section `*DYNAMIC`: we perform a simulation $0.2$ seconds long with a time-step of $1ms$
+- Section `*AMPLITUDE`: we ramp the loading of the wing, starting with the $5\%$ of the total load, arriving at $100\%$ after $0.1s$
+- There is no section `*DLOAD` anymore, but there is now a `*CLOAD` section.
 
 Complete the file with the following information:
 
