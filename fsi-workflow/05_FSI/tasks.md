@@ -76,7 +76,11 @@ The OpenFOAM adapter configuration file is `system/preciceDict`. In this file:
 
 ## preCICE setup
 
-Once we have prepared the two participants, we can now also configure preCICE, i.e., the coupling itself. In the `precice-config.xml` file:
+Once we have prepared the two participants, we can now also configure preCICE, i.e., the coupling itself. Here is a visual overview of the preCICE configuration:
+
+![FSI: Visualization of the `precice-config.xml`](images/precice-config.png)
+
+In the `precice-config.xml` file:
 
 - Replace `DT` in the `<time-window>` tag with `0.001`
 - Replace `TFINAL` in the `<max-time>` tag with `0.2`
