@@ -8,7 +8,7 @@ General overview:
 
 ## Solid configuration
 
-Copy the `wing2312_m.inp` mesh from `01_solidMesh` into the current directory Remember to use the one converted to *meters*. Then, we can adjust the model and configure the CalculiX-preCICE adapter.
+Copy the `wing2312_m.inp` mesh from `01_solidMesh` into the `Solid` directory Remember to use the one converted to *meters*. Then, we can adjust the model and configure the CalculiX-preCICE adapter.
 
 ### CalculiX configuration
 
@@ -117,27 +117,27 @@ Open another terminal and enter the `Fluid` folder. Here you have to:
   - copies `0.orig` into `0`
   - uses `changeDictionary` to switch the boundary condition from `noSlip` to `movingWallVelocity`
   - decomposes the case into **8** subdomains
-- Run `./run.sh` to start the parallel simulation
+- Run `./run.sh` to start the parallel simulation (this will take several minutes)
 - After the simulation completes, run `./post-run.sh` to remove some empty result directories, which are created for technical reasons but are making further analysis trickier.
 
 In case the 8 subdomains are too many for your system, see the related notes in Task 4.
 
 ### Monitoring
 
-You can monitor the ongoing simulation by running the following scripts from the directory they are located:
+You can monitor the ongoing simulation by running the following scripts:
 
 - `./plotDisplacement.sh`: Plots the displacements over time (exported as watch-points).
-- `python3 plotConvergence.py`: Plots the number of iterations and the relative error for each time step.
+- `python3 ./plotConvergence.py`: Plots the number of iterations and the relative error for each time step.
 
-Two windows with the following graphs should appear:
+Two windows with the following graphs should appear. The simulation ends after 200 time steps (at t=0.2s).
 
-![Montoring: Tip displacement (`plotDisplacement.sh`)](./images/Tip_disp_damp.png)
+<!-- ![Montoring: Tip displacement (`plotDisplacement.sh`)](./images/Tip_disp_damp.png) -->
 
-![Montoring: Convergence (`plotConvergence.py`)](./images/convergence.png)
+<!-- ![Montoring: Convergence (`plotConvergence.py`)](./images/convergence.png) -->
 
 ### Cleaning
 
-In case you need to clean and restart your simulation, use the `clean.sh` script of each participant case.
+In case you need to remove the results and log files before starting your simulation again, use the `clean.sh` script of each participant case.
 
 ## Results
 
