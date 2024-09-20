@@ -24,7 +24,7 @@ Go to:
 
 Configure as follows:
 
-- Which elements to export: `All`.
+- Which elements to export: `FEM`.
 - Export group data: (check).
 
 Then, click `Apply` and `OK`.
@@ -147,7 +147,7 @@ We are now ready to export the mesh into a `.inp` file (Abaqus input file format
 
 - Keep the mesh (`FEMMeshGmsh`) selected.
 - Click `File` and `Export...`.
-- Name the file `wing2312.inp`.
+- Name the file `wing2312.inp` and place it in the `01_solidMesh` directory.
 - Select `FEM mesh formats (*.dat, *.inp, ...)`.
 - Click `Save`.
 
