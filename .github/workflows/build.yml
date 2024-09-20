@@ -18,12 +18,12 @@ jobs:
     - name: Upload tasks
       uses: actions/upload-artifact@v4
       with:
-        name: build
+        name: fsi-workflow-tasks
         path: fsi-workflow/fsi-workflow-tasks.pdf
         if-no-files-found: error
     - name: Upload fsi-workflow
       uses: actions/upload-artifact@v4
       with:
-        name: build
+        name: fsi-workflow
         path: fsi-workflow
         if-no-files-found: error
