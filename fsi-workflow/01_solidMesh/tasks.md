@@ -42,7 +42,7 @@ The first task consists in importing the wing:
 
 ![FreeCAD: Create a new body from the Part design workbench](./images/PD_new.png)
 
-- You can now see a new body as part of the `Wing` model:
+- In the `Model` tab, you can now see a new body as part of the `Wing` model:
 
 ![FreeCAD: Create a body](./images/PD_body.png)
 

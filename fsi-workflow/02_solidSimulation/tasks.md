@@ -12,7 +12,7 @@ General overview of this task:
 
 In the `skeleton` folder:
 
-- Copy your generated solid mesh in the current folder
+- Copy your generated solid mesh into the current folder
 
 Open the `solidModel.inp` file and:
 
@@ -29,7 +29,7 @@ Open the `solidModel.inp` file and:
 - replace `NODESET` with the name of the set of root nodes (`Nroot_Nodes`)
 - replace `RAMPSEQUENCE` with the sequence `0.0, 0.05, 0.5, 1.0, 4.0, 1.0`. This is a sequence of value pairs `{time, amplitude}` as in the following picture:  
 
-![amplitude](./images/ampl.png)
+![Solid simulation: Amplitude over time for the applied load](./images/ampl.png)
 
 Notice the structure of the file:
 
@@ -46,7 +46,7 @@ Notice the structure of the file:
   - `U`: displacements
   - `S`: stresses
   - `E`: strains
-  - `RF`: resultants (i.e., combination) of the reaction forces on the root nodes. These are additionally computed values that will be printed to a log file.
+  - `RF`: resultants (i.e., combinations) of the reaction forces on the root nodes. These are additionally computed values that will be printed to a log file.
 
 ## Run the simulation
 
@@ -83,7 +83,7 @@ Alternatively, we could directly open `.frd` in FreeCAD, in the CalculiX tool CG
 
 Open the `solidModel.pvd` file in ParaView. You can then look at the deformed shape of the wing by applying a `WarpByVector` filter based on the `U` vector (and a small scale factor):
 
-![wing_deformed](./images/results_paraview_warp.png)
+![Solid simulation: Wing deformation, scaled (`WarpByVector` filter)](./images/wing_deformed.png)
 
 ### Reaction forces
 
@@ -100,7 +100,7 @@ The good thing with using standard geometry designs (in this case, NACA airfoils
 - Distributed load along the span (beam approximation, see picture below) $w=\rho \cdot g \cdot A$
 - Expected tip displacement: $y_B = -\frac{w l^4}{8EJ_x} = -1.227 \cdot 10^{-3}m$
 
-![tip displacement](./images/cantilever.png)
+![Solid simulation: Wing tip displacement analysis](./images/cantilever.png)
 
 Note that we are a bit lazy here, as the $x, y$ axes are not *principal axes*. Nevertheless, we are very close and the approximation holds.
 
