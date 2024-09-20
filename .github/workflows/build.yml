@@ -15,9 +15,15 @@ jobs:
     - name: Build
       run: |
         cd fsi-workflow && make
-    - name: Upload artifacts
+    - name: Upload tasks
       uses: actions/upload-artifact@v4
       with:
         name: build
         path: fsi-workflow/fsi-workflow-tasks.pdf
+        if-no-files-found: error
+    - name: Upload fsi-workflow
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: fsi-workflow
         if-no-files-found: error
