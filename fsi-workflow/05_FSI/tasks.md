@@ -131,9 +131,9 @@ You can monitor the ongoing simulation by running the following scripts:
 
 Two windows with the following graphs should appear. The simulation ends after 200 time steps (at t=0.2s).
 
-<!-- ![Montoring: Tip displacement (`plotDisplacement.sh`)](./images/Tip_disp_damp.png) -->
+![Montoring: Tip displacement (`plotDisplacement.sh`)](./images/Tip_disp_damp.png)
 
-<!-- ![Montoring: Convergence (`plotConvergence.py`)](./images/convergence.png) -->
+![Montoring: Convergence (`plotConvergence.py`)](./images/convergence.png)
 
 ### Cleaning
 
