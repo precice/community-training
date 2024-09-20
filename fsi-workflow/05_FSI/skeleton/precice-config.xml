@@ -37,9 +37,9 @@
     <provide-mesh name="Solid-Mesh" />
     <write-data name="Displacement" mesh="Solid-Mesh" />
     <read-data name="Force" mesh="Solid-Mesh" />
-    <watch-point mesh="Solid-Mesh" name="tip" coordinate="TIP_COORD" />
-    <watch-point mesh="Solid-Mesh" name="tip-leading" coordinate="TIP_LE_COORD" />
-    <watch-point mesh="Solid-Mesh" name="tip-trailing" coordinate="TIP_TE_COORD" />
+    <watch-point mesh="Solid-Mesh" name="tip" coordinate="0.0;0.0;0.3" />
+    <watch-point mesh="Solid-Mesh" name="tip-leading" coordinate="-0.05;0.0;0.3" />
+    <watch-point mesh="Solid-Mesh" name="tip-trailing" coordinate="0.05;0.0;0.3" />
   </participant>
 
   <m2n:sockets acceptor="Fluid" connector="Solid" exchange-directory=".." />
