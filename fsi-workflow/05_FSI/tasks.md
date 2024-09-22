@@ -2,9 +2,9 @@
 
 Finally, we are now able to put everything together and start our fluid-structure interaction simulation. We'll use all the work done until now to configure the Fluid and Solid participants. The starting point of our case is in the `skeleton` folder, which is the root of our FSI case. This includes each participant to a separate directory, and the `precice-config.xml` file in their common parent directory.
 
-General overview:
+See a general overview in Figure @fig:t5-overview.
 
-![FSI: General overview](images/flowchart/flowchart-fsi.png)
+![FSI: General overview](images/flowchart/flowchart-fsi.png){#fig:t5-overview width=80%}
 
 ## Solid configuration
 
@@ -42,7 +42,7 @@ Copy the previously generated mesh: copy the `polyMesh` folder from your `0.003`
 
 We are using the ALE approach to FSI. This means that OpenFOAM applies a displacement vector (mesh motion) on the otherwise static mesh (the number of cells and connection between points remains the same).
 
-In the `constant/dynamicMeshDict`, replace `WETSURF` with the name given to the wing patch (`naca2312`, specified in `constant/polyMesh/boundary`). 
+In the `constant/dynamicMeshDict`, replace `WETSURF` with the name given to the wing patch (`naca2312`, specified in `constant/polyMesh/boundary`).
 
 In the `0.orig/` folder, you can also find a new dictionary file `pointDisplacement`, required by the mesh motion solver.
 
@@ -76,9 +76,9 @@ The OpenFOAM adapter configuration file is `system/preciceDict`. In this file:
 
 ## preCICE setup
 
-Once we have prepared the two participants, we can now also configure preCICE, i.e., the coupling itself. Here is a visual overview of the preCICE configuration:
+Once we have prepared the two participants, we can now also configure preCICE, i.e., the coupling itself. See a visual overview of the preCICE configuration in Figure @fig:t5-precice-config.
 
-![FSI: Visualization of the `precice-config.xml`](images/precice-config.png)
+![FSI: Visualization of the `precice-config.xml`](images/precice-config.png){#fig:t5-precice-config width=10cm}
 
 In the `precice-config.xml` file:
 
@@ -133,11 +133,11 @@ You can monitor the ongoing simulation by running the following scripts:
 - `./plotDisplacement.sh`: Plots the displacements over time (exported as watch-points).
 - `python3 ./plotConvergence.py`: Plots the number of iterations and the relative error for each time step.
 
-Two windows with the following graphs should appear. The simulation ends after 200 time steps (at t=0.2s).
+Two windows with the following graphs should appear (Figure @fig:t5-tip-displacement and @fig:t5-convergence). The simulation ends after 200 time steps (at t=0.2s).
 
-![Montoring: Tip displacement (`plotDisplacement.sh`)](./images/Tip_disp_damp.png)
+![Montoring: Tip displacement (`plotDisplacement.sh`)](./images/Tip_disp_damp.png){#fig:t5-tip-displacement width=10cm}
 
-![Montoring: Convergence (`plotConvergence.py`)](./images/convergence.png)
+![Montoring: Convergence (`plotConvergence.py`)](./images/convergence.png){#fig:t5-convergence width=10cm}
 
 ### Cleaning
 
@@ -157,25 +157,15 @@ In case you need to synchronize the results of the two participants, you can app
 
 ### Fluid results
 
-Open a terminal in the `Fluid` folder and type `paraFoam`
+Open a terminal in the `Fluid` folder and type `paraFoam`. This will create an (empty) `Fluid.foam` file and open a ParaView window (Figure @fig:t5-parafoam). In `Case type` select `Decomposed Case` and press `Apply`. (Figure @fig:t5-parafoam)
 
-1. This will create an (empty) `Fluid.foam` in the folder, which helps ParaView identify this folder as OpenFOAM results.
-2. In `Case type` select `Decomposed Case`
-3. Then press `Apply`
-
-![ParaView: Open `Fluid.foam`](./images/open_fluid.png)
-
-You will then have access to the `OpenFOAM` fluid simulation results.
-
-![ParaView: Surface plot of flow velocity](./images/parafoam.png)
+![ParaView: Surface plot of flow velocity](./images/parafoam.png){#fig:t5-parafoam}
 
 ### Solid results
 
-In the same ParaView window, select `File->Open...` and point to the `Solid/convert/solidModel.pvd` file.
+In the same ParaView window, select `File->Open...` and point to the `Solid/convert/solidModel.pvd` file (Figure @fig:t5-fsi). To see the displacement more easily, you can apply a `WarpByVector` filter, using the displacement (`U`) as vector, and a scale factor of your choice.
 
-![ParaView: Combined FSI results](./images/result_FSI.png)
-
-To see the displacement more easily, you can apply a `WarpByVector` filter, using the displacement (`U`) as vector, and a scale factor of your choice.
+![ParaView: Combined FSI results](./images/result_FSI.png){#fig:t5-fsi}
 
 ## Alternative setup: air (optional)
 

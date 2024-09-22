@@ -2,9 +2,9 @@
 
 In this section we'll use the previously generated Fluid Mesh to perform a single physics flow simulation. Besides checking the validity of the model, this allows us to obtain an initialized fluid domain for the FSI simulation.
 
-We start here from a steady-state simulation. Later, in the FSI part, we will switch to a transient simulation. General overview:
+We start here from a steady-state simulation. Later, in the FSI part, we will switch to a transient simulation. See a general overview of this task in Figure @fig:t4-overview.
 
-![Fluid simulation: General overview](images/flowchart/flowchart-fluid-simulation.png)
+![Fluid simulation: General overview](images/flowchart/flowchart-fluid-simulation.png){#fig:t4-overview}
 
 ## Configuration
 
@@ -80,9 +80,9 @@ To check the simulation progress and plot the residuals over time, you can use [
 pyFoamPlotWatcher log.solver
 ```
 
-A pop-up window with residual graphs should appear:
+A pop-up window with residual graphs should appear, as in Figure @fig:t4-pyFoam.
 
-![residuals](./images/pyFoam.png)
+![Fluid simulation: Monitoring residuals with PyFoam](./images/pyFoam.png){#fig:t4-pyFoam width=8cm}
 
 ## Analyzing the results
 
@@ -92,17 +92,17 @@ In order to understand if your simulation has converged and if you have obtained
 python3 plotCoefficients.py
 ```
 
-A pop-up window should appear:
+A pop-up window should appear, as in Figure @fig:t4-cdcl.
 
-![CdCl](./images/cdcl.png)
+![Fluid simulation: Monitoring the Cd/Cl coefficients](./images/cdcl.png){#fig:t4-cdcl width=8cm}
 
 You could compare these values with theoretical data (not available), or you could perform some mesh-convergence study to check the convergence of your setup.
 
 ### Reconstructing the case
 
-Your case is decomposed into 8 subdomains. You can still view the results in ParaView by selecting `Decomposed Case` once you opened `Fluid.foam` (see picture below).
+Your case is decomposed into 8 subdomains. You can still view the results in ParaView by selecting `Decomposed Case` once you opened `Fluid.foam` (Figure @fig:t4-decomposed).
 
-![decomposed case](./images/decomposed.png)
+![Fluid simulation: Select `decomposed case` in ParaView](./images/decomposed.png){#fig:t4-decomposed width=8cm}
 
 In our case, we only need the latest time step (`250`), which will be the initial state of our coupled simulation. We can reconstruct the decomposed case for this time step:
 

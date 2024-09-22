@@ -1,8 +1,8 @@
 # Task 1: Mesh of Solid domain
 
-In this section we'll generate a CalculiX mesh for the solid, using the [FEM Workbench of FreeCAD](https://wiki.freecad.org/FEM_Workbench). We will only use it to generate the mesh, and we will start the simulation from the terminal later on. General overview:
+In this section we'll generate a CalculiX mesh for the solid, using the [FEM Workbench of FreeCAD](https://wiki.freecad.org/FEM_Workbench). We will only use it to generate the mesh, and we will start the simulation from the terminal later on. See the general overview of this task in Figure @fig:t1-overview.
 
-![FreeCAD: General overview](./images/flowchart/flowchart-freecad.png)
+![FreeCAD: General overview](./images/flowchart/flowchart-freecad.png){#fig:t1-overview}
 
 ## Adjust the FreeCAD settings
 
@@ -10,9 +10,9 @@ In this section we'll generate a CalculiX mesh for the solid, using the [FEM Wor
 
 Before you start, change the settings of the INP exporter to export groups together with the mesh.
 
-Select the `FEM Workbench`:
+Select the `FEM Workbench` (Figure @fig:t1-workbench).
 
-![FreeCAD: FEM Workbench](./images/FEM_WB.png)
+![FreeCAD: FEM Workbench](./images/FEM_WB.png){#fig:t1-workbench}
 
 \newpage
 
@@ -31,113 +31,113 @@ Then, click `Apply` and `OK`.
 
 ## Import the wing
 
-The first task consists in importing the wing:
+The first task consists in importing the wing (Figure @fig:t1-rename):
 
 - Create a new project: Click `File` -> `New`.
 - Give the model a name: In the `Combo View/Model` tab on the left, select the unnamed model and change the `Label`: click on the `Unnamed` and rename it to `Wing`.
 
-![FreeCAD: Rename model label to `Wing`](./images/PD_rename.png)
+![FreeCAD: Rename model label to `Wing`](./images/PD_rename.png){#fig:t1-rename}
 
-- Select the `Part design` workbench from the drop-down menu and click `create body`:
+- Select the `Part design` workbench from the drop-down menu and click `create body` (Figure @fig:t1-new-body).
 
-![FreeCAD: Create a new body from the Part design workbench](./images/PD_new.png)
+![FreeCAD: Create a new body from the Part design workbench](./images/PD_new.png){#fig:t1-new-body}
 
-- In the `Model` tab, you can now see a new body as part of the `Wing` model:
+- In the `Model` tab, you can now see a new body as part of the `Wing` model (Figure @fig:t1-new-body-2).
 
-![FreeCAD: Create a body](./images/PD_body.png)
+![FreeCAD: Create a body](./images/PD_body.png){#fig:t1-new-body-2}
 
 - Click `File` -> `Import...`.
 - Select the STEP file `naca2312.step`.
-- In newer FreeCAD versions, a pop-up dialog will be shown. Click `OK` with the default options.
+- In newer FreeCAD versions, a pop-up dialog will be shown. Click `OK` with the defaults (Figure @fig:t1-import).
 
-![FreeCAD: Import geometry](./images/PD_import.png)
+![FreeCAD: Import geometry](./images/PD_import.png){#fig:t1-import}
 
-An object named `Open CASCADE STEP Translator 7.5 1` should appear on the left, a wing-shaped object should appear rendered. Drag and drop this object into `Body`. This should appear as a `BaseFeature` entry under the `Body`.
+An object named `Open CASCADE STEP Translator 7.5 1` should appear on the left, a wing-shaped object should appear rendered. Drag and drop this object into `Body`. This should appear as a `BaseFeature` entry under the `Body` (Figure @fig:t1-base-feature).
 
-![FreeCAD: BaseFeature](./images/PD_BF.png)
+![FreeCAD: BaseFeature](./images/PD_BF.png){#fig:t1-base-feature}
 
 ## Generate the mesh
 
 Now we can generate a mesh for the `Wing`.
 
 - Switch again to the FEM Workbench from the drop-down menu.
-- From the menu bar, click `Model` -> `Analysis container` (or select the `A` symbol from the toolbar):
+- From the menu bar, click `Model` -> `Analysis container` (or select the `A` symbol from the toolbar, Figure @fig:t1-fem-container).
 
-![FreeCAD: Add an Analysis container](./images/FEM_Analysis.png)
+![FreeCAD: Add an Analysis container](./images/FEM_Analysis.png){#fig:t1-fem-container}
 
 - We want to mesh the `BaseFeature`: Select it from the sidebar.
-- From the menu bar, click `Mesh` -> `FEM Mesh from shape by GMSH`. The FEM Workbench can generate meshes using different backends; we use [GMSH](https://gmsh.info/) here.
+- From the menu bar, click `Mesh` -> `FEM Mesh from shape by GMSH` (Figure @fig:t1-mesh01). The FEM Workbench can generate meshes using different backends; we use [GMSH](https://gmsh.info/) here.
 
-![FreeCAD: Add a mesh](./images/FEM_Mesh01.png)
+![FreeCAD: Add a mesh](./images/FEM_Mesh01.png){#fig:t1-mesh01}
 
-- In the `Tasks` tab, use the following parameters:
+- In the `Tasks` tab, use the following parameters (Figure @fig:t1-mesh02):
   - Element dimension: `3D`
   - Element order: `2nd`
   - Max element size: `20mm`
   - Min element size: `10mm`
 
-![FreeCAD: GMSH parameters](./images/FEM_Mesh02.png)
+![FreeCAD: GMSH parameters](./images/FEM_Mesh02.png){#fig:t1-mesh02}
 
 - Click `Apply` and `OK` to generate the mesh.
 
-If everything went as expected, a mesh should appear. Otherwise:
+If everything went as expected, a mesh should appear (Figure @fig:t1-mesh03). Otherwise:
 
 - In case you get any error related to creating temporary files, see the troubleshooting section below.
 - In case you get a `File to load not existing or not readable` error, try again after a couple of seconds.
 
-![FreeCAD: Mesh generated](./images/FEM_Mesh03.png)
+![FreeCAD: Mesh generated](./images/FEM_Mesh03.png){#fig:t1-mesh03}
 
 ## Create mesh groups
 
 Now that we have a mesh, we also need to create the boundaries. We will need to identify the `root surface`, which will be clamped, and the `wet surface`, which will be in contact with the fluid. These surfaces are defined as [mesh groups](https://wiki.freecad.org/FEM_MeshGroup).
 
-- From the `Model` tab, expand the `Analysis` branch and select `FEMMeshGmsh`:
+- From the `Model` tab, expand the `Analysis` branch and select `FEMMeshGmsh` (Figure @fig:t1-groups01).
 
-![FreeCAD: Select FEMMeshGmsh](./images/Groups01.png)
+![FreeCAD: Select FEMMeshGmsh](./images/Groups01.png){#fig:t1-groups01}
 
-- Change the property `Groups of Nodes` to `true`:
+- Change the property `Groups of Nodes` to `true` (Figure @fig:t1-groups01-detail).
 
-![FreeCAD: Enable Groups of Nodes](./images/Groups01-detail.png)
+![FreeCAD: Enable Groups of Nodes](./images/Groups01-detail.png){#fig:t1-groups01-detail width=7cm}
 
-- Click `Mesh` -> `FEM Mesh group`:
+- Click `Mesh` -> `FEM Mesh group` (Figure @fig:t1-groups02).
 
-![FreeCAD: Mesh group](./images/Groups02.png)
+![FreeCAD: Mesh group](./images/Groups02.png){#fig:t1-groups02}
 
-- In the `Model` tab, there should now also be a `MeshGroup` under the `FEMMeshGmsh`.
+- In the `Model` tab, there should now also be a `MeshGroup` under the `FEMMeshGmsh` (Figure @fig:t1-groups03).
 
-![FreeCAD: Added MeshGroup](./images/Groups03.png)
+![FreeCAD: Added MeshGroup](./images/Groups03.png){#fig:t1-groups03}
 
-- In the `Tasks` tab, select `Label` as `Identifier used for mesh export` and `Face, Edge, Vertex` as `Selection mode`:
+- In the `Tasks` tab, select `Label` as `Identifier used for mesh export` and `Face, Edge, Vertex` as `Selection mode` (Figure @fig:t1-groups04).
 
-![FreeCAD: Add surface to mesh group](./images/Groups04.png)
+![FreeCAD: Add surface to mesh group](./images/Groups04.png){#fig:t1-groups04}
 
-- Click `Add`, then click on the rendering to select the profile of the wing (pay attention to reference frame to identify it), and `OK` to add the surface to the mesh group. You can rotate the view using the cube in the upper right corner, or [using your mouse](https://wiki.freecad.org/Mouse_navigation) (e.g., by `Shift` + `right click`).
+- Click `Add`, then click on the rendering to select the profile of the wing (pay attention to reference frame to identify it), and `OK` to add the surface to the mesh group (Figure @fig:t1-root_group). You can rotate the view using the cube in the upper right corner, or [using your mouse](https://wiki.freecad.org/Mouse_navigation) (e.g., by `Shift` + `right click`).
 
-![FreeCAD: surface group for root](./images/root_Group.png)
+![FreeCAD: surface group for root](./images/root_Group.png){#fig:t1-root_group}
 
-- In the `Model` tab, select the `MeshGroup` and rename its `Label` to `Nroot`. This will help us define the boundary condition in the Solid domain.
+- In the `Model` tab, select the `MeshGroup` and rename its `Label` to `Nroot` (Figure @fig:t1-groups-05). This will help us define the boundary condition in the Solid domain.
 
   **NOTE**: Node group names need to start with `N`.
 
-![FreeCAD: Rename mesh group](./images/Groups05.png)
+![FreeCAD: Rename mesh group](./images/Groups05.png){#fig:t1-groups-05}
 
-- Select again the mesh (`FEMMeshGmsh`) and define a new group comprising all components of the `wetSurface` (they are 4: as shown below. Pay attention to the trailing edge surface, you need to zoom-in to see it).
+- Select again the mesh (`FEMMeshGmsh`) and define a new group comprising all components of the `wetSurface` (they are 4: as shown below. Pay attention to the trailing edge surface, you need to zoom-in to see it). See Figures @fig:t1-ws-steps and @fig:t1-ws-group.
   1. Click `Add`
   2. `select` a patch
   3. `repeat` steps `1.` and `2.` for each of the four elements
   4. Click `OK`
 
-![FreeCAD: wet surface steps](./images/group_WS_steps.png)  
+![FreeCAD: wet surface steps](./images/group_WS_steps.png){#fig:t1-ws-steps}
 
-![FreeCAD: wet surface group](./images/group_WS.png)
+![FreeCAD: wet surface group](./images/group_WS.png){#fig:t1-ws-group}
   
-- As for the `root` Group. Change the `Label` in the `Properties` to `NwetSurface`
+- As for the `root` Group. Change the `Label` in the `Properties` to `NwetSurface` (Figure @fig:t1-ws-rename).
 
-![FreeCAD: Rename wet surface group](./images/group_WS_rename.png)
+![FreeCAD: Rename wet surface group](./images/group_WS_rename.png){#fig:t1-ws-rename}
 
-You should now see a list of two groups under the current mesh.
+You should now see a list of two groups under the current mesh (Figure @fig:t1-groups-final).
 
-![FreeCAD: final list of groups](./images/groups_final_LS.png)
+![FreeCAD: final list of groups](./images/groups_final_LS.png){#fig:t1-groups-final}
 
 **IMPORTANT**: You now need to re-mesh to generate the groups. Select the mesh (`FEMMeshGmsh`) -> double click -> click `Apply` to re-mesh and create groups -> click `OK`.
 
@@ -148,8 +148,7 @@ We are now ready to export the mesh into a `.inp` file (Abaqus input file format
 - Keep the mesh (`FEMMeshGmsh`) selected.
 - Click `File` and `Export...`.
 - Name the file `wing2312.inp` and place it in the `01_solidMesh` directory.
-- Select `FEM mesh formats (*.dat, *.inp, ...)`.
-- Click `Save`.
+- Select `FEM mesh formats (*.dat, *.inp, ...)` and click `Save`.
 
 Save also the FreeCAD project with `File` and `Save`.
 

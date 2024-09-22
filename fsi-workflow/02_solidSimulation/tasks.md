@@ -4,9 +4,9 @@ In this section we'll simulate the Solid domain alone, to gain confidence with t
 
 This model represents a cantilevered wing subject to its own weight. The load is applied progressively, with a ramp law. Several simplifications are made here in the sake of time restrictions.
 
-General overview of this task:
+See a general overview of this task in Figure @fig:t2-overview.
 
-![Solid simulation: General overview](images/flowchart/flowchart-solid-simulation.png)
+![Solid simulation: General overview](images/flowchart/flowchart-solid-simulation.png){#fig:t2-overview}
 
 ## Configuration
 
@@ -27,9 +27,9 @@ Open the `solidModel.inp` file and:
   - `DT: 5.0E-2` ($\Delta  t = 5 \cdot 10^{-2}s$)
   - `TFINAL: 4.0` ($t_{final} = 4 s$)
 - replace `NODESET` with the name of the set of root nodes (`Nroot_Nodes`)
-- replace `RAMPSEQUENCE` with the sequence `0.0, 0.05, 0.5, 1.0, 4.0, 1.0`. This is a sequence of value pairs `{time, amplitude}` as in the following picture:  
+- replace `RAMPSEQUENCE` with the sequence `0.0, 0.05, 0.5, 1.0, 4.0, 1.0`. This is a sequence of value pairs `{time, amplitude}` as in Figure @fig:t2-ramp.
 
-![Solid simulation: Amplitude over time for the applied load](./images/ampl.png)
+![Solid simulation: Amplitude over time for the applied load](./images/ampl.png){#fig:t2-ramp width=5cm}
 
 Notice the structure of the file:
 
@@ -81,9 +81,9 @@ Alternatively, we could directly open `.frd` in FreeCAD, in the CalculiX tool CG
 
 ### Deformation of the wing
 
-Open the `solidModel.pvd` file in ParaView. You can then look at the deformed shape of the wing by applying a `WarpByVector` filter based on the `U` vector (and a small scale factor):
+Open the `solidModel.pvd` file in ParaView. You can then look at the deformed shape of the wing by applying a `WarpByVector` filter based on the `U` vector (and a small scale factor). See Figure @fig:t2-warp-by-vector.
 
-![Solid simulation: Wing deformation, scaled (`WarpByVector` filter)](./images/wing_deformed.png)
+![Solid simulation: Wing deformation, scaled (`WarpByVector` filter)](./images/wing_deformed.png){#fig:t2-warp-by-vector}
 
 ### Reaction forces
 
@@ -98,9 +98,9 @@ The good thing with using standard geometry designs (in this case, NACA airfoils
 - Length of the wing: $l=0.3m$
 - Total weight of the wing is $\rho \cdot g \cdot A \cdot l = 2.526 kg$
 - Distributed load along the span (beam approximation, see picture below) $w=\rho \cdot g \cdot A$
-- Expected tip displacement: $y_B = -\frac{w l^4}{8EJ_x} = -1.227 \cdot 10^{-3}m$
+- Expected tip displacement (Figure @fig:t2-cantilever): $y_B = -\frac{w l^4}{8EJ_x} = -1.227 \cdot 10^{-3}m$
 
-![Solid simulation: Wing tip displacement analysis](./images/cantilever.png)
+![Solid simulation: Wing tip displacement analysis](./images/cantilever.png){#fig:t2-cantilever width=6cm}
 
 Note that we are a bit lazy here, as the $x, y$ axes are not *principal axes*. Nevertheless, we are very close and the approximation holds.
 

@@ -4,9 +4,9 @@ In this section we'll generate the Fluid Mesh for OpenFOAM.
 As we are doing external aerodynamics, we will first generate a background mesh and then embed the geometry in that mesh, removing the respective region.
 We will generate the mesh directly with the OpenFOAM tools blockMesh and snappyHexMesh.
 
-General overview:
+See a general overview of this task in Figure @fig:t3-overview.
 
-![Fluid mesh: General overview](images/flowchart/flowchart-fluid-mesh.png)
+![Fluid mesh: General overview](images/flowchart/flowchart-fluid-mesh.png){#fig:t3-overview}
 
 In `skeleton/`, you can find:
 
@@ -64,9 +64,9 @@ In the `Fluid` folder, run:
 blockMesh
 ```
 
-If you only want to look at the topology of the domain, without yet meshing it, you can run `blockMesh -write-vtk`. You can then visualize the `blockTopology.vtu` file in ParaView. You can enable the `Axis Grid` in the Properties tab.
+If you only want to look at the topology of the domain, without yet meshing it, you can run `blockMesh -write-vtk`. You can then visualize the `blockTopology.vtu` file in ParaView (Figure @fig:t3-topology). You can enable the `Axis Grid` in the Properties tab.
 
-![Topology of the domain in ParaView](images/blockmesh-write-vtk.png)
+![Topology of the domain in ParaView](images/blockmesh-write-vtk.png){#fig:t3-topology}
 
 ## Configuring snappyHexMesh
 
@@ -74,7 +74,7 @@ Once we have generated the background mesh, we need to refine it and subtract th
 
 The mesh generation process in `snappyHexMesh` comprises three stages:
 
-- `castellatedMesh`: permorms cell splitting and removal
+- `castellatedMesh`: performs cell splitting and removal
 - `snap`: performs cell vertex points motion onto surface geometry
 - `addlayers`: introduces additional layers of hexahedral cells aligned to the boundary surface
 
@@ -140,13 +140,13 @@ In case you get an error that there are not enough slots in your system to run e
 
 Once `snappyHexMesh` has finished, you can reconstruct your domain from the decomposed ones by running `reconstructParMesh`.
 
-When finished, you will see three time folders (0.001, 0.002, 0.003) in the root directory of the case. Each one corresponds to a stage of `snappyHexMesh`. The time step size depends on the `deltaT` parameter in the `controlDict` file, but it is not relevant. You can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`. In the next step (fluid simulation), we will use and rename the `0.003` directory.
+When finished, you will see three time folders (0.001, 0.002, 0.003) in the root directory of the case. Each one corresponds to a stage of `snappyHexMesh` (Figures @fig:t3-stage-1, @fig:t3-stage-2, @fig:t3-stage-3). The time step size depends on the `deltaT` parameter in the `controlDict` file, but it is not relevant. You can obtain the final mesh in the `constant` directory, without the intermediate steps, by adding the `-overwrite` option to `snappyHexMesh`. In the next step (fluid simulation), we will use and rename the `0.003` directory.
 
-![snappyHexMesh output: Castellation stage (`0.001` directory)](./images/01_cast.png)
+![snappyHexMesh output: Castellation stage (`0.001` directory)](./images/01_cast.png){#fig:t3-stage-1}
 
-![snappyHexMesh output: Snap stage (`0.002` directory)](./images/02_snap.png)
+![snappyHexMesh output: Snap stage (`0.002` directory)](./images/02_snap.png){#fig:t3-stage-2}
 
-![snappyHexMesh output: Boundary layer stage (`0.003` directory)](./images/03_BL.png)
+![snappyHexMesh output: Boundary layer stage (`0.003` directory)](./images/03_BL.png){#fig:t3-stage-3}
 
 ## Checking the mesh
 
