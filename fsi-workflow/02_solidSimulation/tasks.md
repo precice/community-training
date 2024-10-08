@@ -19,15 +19,15 @@ Open the `solidModel.inp` file and:
 - Replace `YOURMESH.inp` (line 4) with the name of the mesh (we previously named this `wing2312_m.inp`)
   - Note that CalculiX expects distance units in meters, while FreeCAD generates meshes with distances in millimeters. We need to adapt the values (see the end of the solid meshing task).
 - Replace the material properties with the following, roughly corresponding to Polystyrene or ABS:
-  - `E: 1.0E9` (Young modulus: $E=1 GPa$)
-  - `NU: 0.35` (Poisson ratio: $\nu = 0.3$)
-  - `RHO: 1060` (density: $\rho = 3000 \frac{kg}{m^3}$)
-- replace the numerical properties `DAMP`, `DT`, `TFINAL` with:
-  - `DAMP: 0.0025` (structural damping, see notes below)
-  - `DT: 5.0E-2` ($\Delta  t = 5 \cdot 10^{-2}s$)
-  - `TFINAL: 4.0` ($t_{final} = 4 s$)
-- replace `NODESET` with the name of the set of root nodes (`Nroot_Nodes`)
-- replace `RAMPSEQUENCE` with the sequence `0.0, 0.05, 0.5, 1.0, 4.0, 1.0`. This is a sequence of value pairs `{time, amplitude}` as in Figure @fig:t2-ramp.
+  - Replace `E` with `1.0E9` (Young modulus: $E=1 GPa$)
+  - Replace `NU` with `0.35` (Poisson ratio: $\nu = 0.3$)
+  - Replace `RHO` with `1060` (density: $\rho = 3000 \frac{kg}{m^3}$)
+- Replace the numerical properties `DAMP`, `DT`, `TFINAL` with:
+  - Replace `DAMP` with `0.0025` (structural damping, see notes below)
+  - Replace `DT` with `5.0E-2` ($\Delta  t = 5 \cdot 10^{-2}s$)
+  - Replace `TFINAL` with `4.0` ($t_{final} = 4 s$)
+- Replace `NODESET` with the name of the set of root nodes (`Nroot_Nodes`)
+- Replace `RAMPSEQUENCE` with the sequence `0.0, 0.05, 0.5, 1.0, 4.0, 1.0`. This is a sequence of value pairs `{time, amplitude}` as in Figure @fig:t2-ramp.
 
 ![Solid simulation: Amplitude over time for the applied load](./images/ampl.png){#fig:t2-ramp width=5cm}
 
