@@ -78,7 +78,7 @@ The mesh generation process in `snappyHexMesh` comprises three stages:
 - `snap`: performs cell vertex points motion onto surface geometry
 - `addlayers`: introduces additional layers of hexahedral cells aligned to the boundary surface
 
-Each stage can be activated in the beginning of the `system/snappyHexMeshDict` file. Activate all of them.
+Each stage can be activated in the beginning of the `system/snappyHexMeshDict` file. We have enabled all of them.
 
 There are a lot of parameters in the `snappyHexMeshDict` dictionary; we invite you to look at the comments in the file, at the references below, and at the documentation for further details. Let's focus on the most relevant for this exercise.
 
