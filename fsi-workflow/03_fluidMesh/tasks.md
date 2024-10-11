@@ -116,7 +116,7 @@ Now your `snappyHexMeshDict` is complete. As we want to perform this expensive o
 
 Open the `decomposeParDict` file in the `system` directory and substitute `ND` with `8` in `numberOfSubdomains`: this is the number of subdomains in which your case will be decomposed, and it should typically not exceed the number of cores of the system. This number needs to agree with the number of subdomains per direction, defined in `hierarchicalCoeffs` (in this case, 4x1x2).
 
-Decompose the domain by running (in `Fluid/`):
+Decompose the domain by running (in the case directory):
 
 ```shell
 decomposePar
