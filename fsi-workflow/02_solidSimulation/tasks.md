@@ -21,7 +21,7 @@ Open the `solidModel.inp` file and:
 - Replace the material properties with the following, roughly corresponding to Polystyrene or ABS:
   - Replace `E` with `1.0E9` (Young modulus: $E=1 GPa$)
   - Replace `NU` with `0.35` (Poisson ratio: $\nu = 0.3$)
-  - Replace `RHO` with `1060` (density: $\rho = 3000 \frac{kg}{m^3}$)
+  - Replace `RHO` with `1060` (density: $\rho = 1060 \frac{kg}{m^3}$)
 - Replace the numerical properties `DAMP`, `DT`, `TFINAL` with:
   - Replace `DAMP` with `0.0025` (structural damping, see notes below)
   - Replace `DT` with `5.0E-2` ($\Delta  t = 5 \cdot 10^{-2}s$)
