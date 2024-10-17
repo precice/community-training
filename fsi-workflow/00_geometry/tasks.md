@@ -21,6 +21,8 @@ We will use the following software:
 
 ## Task 0: Prepare the geometry
 
+![Cross-section of the geometry](images/wing_sect.png){#fig:t0-geometry width=7cm}
+
 We will simulate fluid-structure interaction of a very simple airfoil, in 3D. [NACA airfoils](https://en.wikipedia.org/wiki/NACA_airfoil) are standardized designs that are popular in designing aircraft wings.
 Our case is slightly derived from the following paper:
 
@@ -38,8 +40,6 @@ We have generated the geometry using the software [Salome](https://www.salome-pl
 You'll notice that two different file formats are provided: a `.stl` file and a `.step` file. Both are widely used for data exchange and nearly all CAD systems allow importing and exporting such formats. In this training, we will need both files: See why in the notes below.
 
 When meshing a flow domain, we need to consider whether we are simulating external or internal flow. In this case, we are considering an external flow: we will use the solid geometry to generate the **solid mesh**, and we will subtract it from a sufficiently large box to generate the **fluid mesh**.
-
-\newpage
 
 ### Notes on file formats
 
