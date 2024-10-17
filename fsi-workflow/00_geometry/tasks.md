@@ -1,4 +1,4 @@
-# Community course on preCICE: FSI Workflow
+# A workflow for fluid-structure simulations with preCICE
 
 Introductory course at the preCICE Workshop 2024, Stuttgart, September 24-27, 2024
 
@@ -8,7 +8,7 @@ Claudio Caccia, Politecnico di Milano\newline `<claudiogiovanni.caccia@polimi.it
 
 Gerasimos Chourdakis, University of Stuttgart\newline `<gerasimos.chourdakis@ipvs.uni-stuttgart.de>`
 
-This is a community-contributed part of the course: [Contribute on GitHub](https://github.com/precice/community-training).
+This is a community-contributed part of the course: [Contribute on GitHub](https://github.com/precice/community-training) (MIT License).
 
 ## Dependencies
 
