@@ -19,12 +19,12 @@ jobs:
     - name: Upload tasks
       uses: actions/upload-artifact@v4
       with:
-        name: fsi-workflow-tasks
-        path: fsi-workflow/fsi-workflow-tasks.pdf
+        name: precice-course-fsi-workflow-tasks
+        path: fsi-workflow/precice-course-fsi-workflow-tasks.pdf
         if-no-files-found: error
     - name: Upload fsi-workflow
       uses: actions/upload-artifact@v4
       with:
-        name: fsi-workflow
+        name: precice-course-fsi-workflow-src
         path: fsi-workflow
         if-no-files-found: error
