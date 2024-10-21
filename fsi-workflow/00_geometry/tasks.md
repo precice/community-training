@@ -1,4 +1,4 @@
-# A workflow for fluid-structure simulations with preCICE
+# A workflow for fluid-structure interaction simulations with preCICE
 
 Introductory course at the preCICE Workshop 2024, Stuttgart, September 24-27, 2024
 
@@ -21,7 +21,7 @@ We will use the following software:
 
 ## Task 0: Prepare the geometry
 
-![Cross-section of the geometry](images/wing_sect.png){#fig:t0-geometry width=7cm}
+![Cross-section of the 3D wing geometry](images/wing_sect.png){#fig:t0-geometry width=7cm}
 
 We will simulate fluid-structure interaction of a very simple airfoil, in 3D. [NACA airfoils](https://en.wikipedia.org/wiki/NACA_airfoil) are standardized designs that are popular in designing aircraft wings.
 Our case is slightly derived from the following paper:
