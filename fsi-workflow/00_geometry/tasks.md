@@ -8,7 +8,8 @@ Claudio Caccia, Politecnico di Milano\newline `<claudiogiovanni.caccia@polimi.it
 
 Gerasimos Chourdakis, University of Stuttgart\newline `<gerasimos.chourdakis@ipvs.uni-stuttgart.de>`
 
-This is a community-contributed part of the course: [Contribute on GitHub](https://github.com/precice/community-training) (MIT License).
+This is a community-contributed part of the course: [Contribute on GitHub](https://github.com/precice/community-training) (MIT License).\newline
+Check for newer version on Zenodo: [10.5281/zenodo.13961370](https://doi.org/10.5281/zenodo.13961370).
 
 ## Dependencies
 
