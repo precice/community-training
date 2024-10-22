@@ -8,8 +8,9 @@ Claudio Caccia, Politecnico di Milano\newline `<claudiogiovanni.caccia@polimi.it
 
 Gerasimos Chourdakis, University of Stuttgart\newline `<gerasimos.chourdakis@ipvs.uni-stuttgart.de>`
 
-This is a community-contributed part of the course: [Contribute on GitHub](https://github.com/precice/community-training) (MIT License).\newline
-Check for newer version on Zenodo: [10.5281/zenodo.13961370](https://doi.org/10.5281/zenodo.13961370).
+This is a community-contributed part of the course: [Contribute on GitHub](https://github.com/precice/community-training). The text and images of this lesson are available under the [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by/4.0/legalcode), while the data and source are available under the [MIT license](https://opensource.org/licenses/MIT).
+
+Find citation information and check for newer versions on Zenodo: [10.5281/zenodo.13961370](https://doi.org/10.5281/zenodo.13961370).
 
 ## Dependencies
 
