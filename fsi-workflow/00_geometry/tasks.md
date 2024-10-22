@@ -18,8 +18,8 @@ We will use the following software:
 
 - [FreeCAD](https://www.freecad.org/) (at least version 0.21)
 - [preCICE](https://precice.org/installation-overview.html) (at least version 3.1)
-- [CalculiX](http://calculix.de/) (tested with v2.20) and the [CalculiX adapter](https://precice.org/adapter-calculix-overview.html)
-- [OpenFOAM](https://www.openfoam.com/) (tested with v2406) and the [OpenFOAM adapter](https://precice.org/adapter-openfoam-overview.html)
+- [CalculiX](http://calculix.de/) (tested with v2.20) and the [CalculiX adapter](https://precice.org/adapter-calculix-overview.html) (tested with v2.20.1)
+- [OpenFOAM](https://www.openfoam.com/) (tested with v2406) and the [OpenFOAM adapter](https://precice.org/adapter-openfoam-overview.html) (tested with v1.3.1)
 
 ## Task 0: Prepare the geometry
 
