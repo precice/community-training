@@ -29,6 +29,6 @@ jobs:
     - name: Upload src archive
       uses: actions/upload-artifact@v4
       with:
-        name: precice-course-fsi-workflow-src.tar.gz
-        path: fsi-workflow
+        name: precice-course-fsi-workflow-src
+        path: precice-course-fsi-workflow-src.tar.gz
         if-no-files-found: error
