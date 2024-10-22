@@ -22,9 +22,13 @@ jobs:
         name: precice-course-fsi-workflow-tasks
         path: fsi-workflow/precice-course-fsi-workflow-tasks.pdf
         if-no-files-found: error
-    - name: Upload fsi-workflow
+    - name: Prepare src archive
+      run: |
+        cd fsi-workflow && make clean && cd ..
+        tar -czf precice-course-fsi-workflow-src.tar.gz fsi-workflow
+    - name: Upload src archive
       uses: actions/upload-artifact@v4
       with:
-        name: precice-course-fsi-workflow-src
+        name: precice-course-fsi-workflow-src.tar.gz
         path: fsi-workflow
         if-no-files-found: error
