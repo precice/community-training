@@ -1,4 +1,4 @@
-# A workflow for fluid-structure interaction simulation with preCICE
+# A workflow for fluid-structure interaction simulations with preCICE
 
 Introductory course at the preCICE Workshop 2024, Stuttgart, September 24-27, 2024
 
