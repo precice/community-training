@@ -4,7 +4,7 @@ on:
   pull_request:
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     container: tumi5/latex
     steps:
     - name: Check out repository
