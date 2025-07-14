@@ -37,6 +37,7 @@
     <provide-mesh name="Solid-Mesh" />
     <write-data name="Displacement" mesh="Solid-Mesh" />
     <read-data name="Force" mesh="Solid-Mesh" />
+    <watch-point mesh="Solid-Mesh" name="root" coordinate="0.0;0.0;0.0" />
     <watch-point mesh="Solid-Mesh" name="tip" coordinate="0.0;0.0;0.3" />
     <watch-point mesh="Solid-Mesh" name="tip-leading" coordinate="-0.05;0.0;0.3" />
     <watch-point mesh="Solid-Mesh" name="tip-trailing" coordinate="0.05;0.0;0.3" />
