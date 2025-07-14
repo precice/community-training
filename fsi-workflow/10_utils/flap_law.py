@@ -19,7 +19,7 @@ cos_cycles = 2  # number of cosine cycles
 
 Tcos = cos_cycles / freq # time for cosine ramp
 
-with open('flap.dat', 'w') as f:
+with open('flap.txt', 'w') as f:
     for curr_t in np.arange(dt, T, dt):
         if curr_t < Tcos:
             scale_factor = 0.5 * (1 - np.cos(np.pi * curr_t / Tcos))
@@ -27,14 +27,14 @@ with open('flap.dat', 'w') as f:
             scale_factor = 1.0
         
         y = A * scale_factor * np.sin(omega * curr_t)
-        f.write(f"{curr_t:.3f} {y:.11f}\n")
+        f.write(f"{curr_t:.3f}, {y:.11f}\n")
 
-print("Data written to flap.dat")
+print("Data written to flap.txt")
 
 
 if plot_data:
     plt.figure(figsize=(10, 5))
-    data = np.loadtxt('flap.dat')
+    data = np.genfromtxt('flap.txt', delimiter=',')
     time = data[:, 0]
     flap = data[:, 1]   
     plt.plot(time, flap, label='Flap Displacement')
