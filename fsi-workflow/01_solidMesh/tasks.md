@@ -131,7 +131,7 @@ Now that we have a mesh, we also need to create the boundaries. We will need to 
 
 ![FreeCAD: wet surface group](./images/group_WS.png){#fig:t1-ws-group}
   
-- As for the `root` Group. Change the `Label` in the `Properties` to `NwetSurface` (Figure @fig:t1-ws-rename).
+- Like for the `root` group, change the `Label` in the `Properties` to `NwetSurface` (Figure @fig:t1-ws-rename).
 
 ![FreeCAD: Rename wet surface group](./images/group_WS_rename.png){#fig:t1-ws-rename}
 
