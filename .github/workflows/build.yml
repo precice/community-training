@@ -11,8 +11,13 @@ jobs:
       uses: actions/checkout@v4
     - name: Prepare system
       run: |
-        apt-get update && apt-get install -y poppler-utils
+        apt-get update && apt-get install -y python3-venv poppler-utils
+        python3 -m venv .venv && . .venv/bin/activate
+        echo PATH=$PATH >> $GITHUB_ENV
         pip install pandoc-fignos
+        # Workaround for https://github.com/tomduck/pandoc-xnos/pull/29
+        apt-get install -y git
+        pip install --force-reinstall git+https://github.com/nandokawka/pandoc-xnos@284474574f51888be75603e7d1df667a0890504d#egg=pandoc-xnos
     - name: Build
       run: |
         cd fsi-workflow && make
