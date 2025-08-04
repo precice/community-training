@@ -14,7 +14,9 @@ jobs:
         apt-get update && apt-get install -y python3-venv
         python3 -m venv .venv && . .venv/bin/activate
         echo PATH=$PATH >> $GITHUB_ENV
-        pip install poppler-utils pandoc-fignos
+        pip install poppler-utils
+        # Workaround for https://github.com/tomduck/pandoc-xnos/pull/29
+        pip install --force-reinstall git+https://github.com/nandokawka/pandoc-xnos@284474574f51888be75603e7d1df667a0890504d#egg=pandoc-xnos
     - name: Build
       run: |
         cd fsi-workflow && make
