@@ -13,6 +13,7 @@ jobs:
       run: |
         apt-get update && apt-get install -y python3-venv
         python3 -m venv .venv && . .venv/bin/activate
+        echo PATH=$PATH >> $GITHUB_ENV
         pip install poppler-utils pandoc-fignos
     - name: Build
       run: |
