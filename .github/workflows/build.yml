@@ -11,8 +11,8 @@ jobs:
       uses: actions/checkout@v4
     - name: Prepare system
       run: |
-        apt-get update && apt-get install -y poppler-utils
-        pip install pandoc-fignos
+        python3 -m venv .venv && source .venv/bin/activate
+        pip install poppler-utils pandoc-fignos
     - name: Build
       run: |
         cd fsi-workflow && make
