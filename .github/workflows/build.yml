@@ -9,13 +9,10 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
-    - name: Setup python
-      uses: actions/setup-python@v5
-      with:
-         python-version: '3.x'
     - name: Prepare system
       run: |
-        python3 -m venv .venv && source .venv/bin/activate
+        apt-get update && apt-get install -y python3-venv
+        python3 -m venv .venv && . .venv/bin/activate
         pip install poppler-utils pandoc-fignos
     - name: Build
       run: |
