@@ -16,6 +16,7 @@ jobs:
         echo PATH=$PATH >> $GITHUB_ENV
         pip install poppler-utils
         # Workaround for https://github.com/tomduck/pandoc-xnos/pull/29
+        apt-get install -y git
         pip install --force-reinstall git+https://github.com/nandokawka/pandoc-xnos@284474574f51888be75603e7d1df667a0890504d#egg=pandoc-xnos
     - name: Build
       run: |
