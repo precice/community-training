@@ -1,6 +1,6 @@
 # A workflow for fluid-structure interaction simulations with preCICE
 
-Introductory course at the preCICE Workshop 2024, Stuttgart, September 24-27, 2024
+Introductory course at the preCICE Workshop 2025, Hamburg, September 8-12, 2025
 
 \vspace{2em}
 
