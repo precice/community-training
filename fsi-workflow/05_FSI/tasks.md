@@ -28,7 +28,7 @@ The file `config.yml` is specific to the [CalculiX adapter](https://precice.org/
 
 The entries of this file specify the path to the preCICE configuration file, the coupling mesh (`Solid-Mesh`, a nodes-based mesh defined in the preCICE configuration file), the read data (forces), and the write data (absolute displacements). In this file:
 
-- Replace `WETSURF` with the name of the group given to the *wet surface* (see the mesh `.inp` file), **WITHOUT the `N` at the beginning** (i.e., `wetSurface_Nodes`).
+- Replace `WETSURF` with the name of the group given to the *wet surface* (see the mesh `.inp` file), **WITHOUT the `N` at the beginning** (i.e., `wetSurface_Nodes`). This is added automatically by the adapter for a `nodes-mesh` mesh type.
 
 The Solid participant is now ready, and we can move to the Fluid participant.
 
